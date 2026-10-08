@@ -1184,7 +1184,7 @@ const EQUIPOS = [
     specs:[['⚙️','Capacidad de arrastre 4 TN'],['🔋','Motor a combustión con catalizador'],['🛤️','Llantas todo terreno']],
     desc:'Remolcador tipo moto carguero para galerías estrechas. Chasis de acero estructural, suspensión reforzada, frenos de servicio y parqueo, iluminación frontal.',
     ficha:[['Capacidad de arrastre','4 TN'],['Motor','Combustión con catalizador químico'],['Tracción','Posterior, llantas todo terreno'],['Frenos','Servicio + parqueo'],['Iluminación','Faro frontal y Posterior Multivoltaje'],['Garantía','Según cotización']] },
-  { id:'cv3500', name:'Remolcador CV-3500 - 7TN', tipo:'Remolcador', price:null, featured:true, img:'public/images/remolcador-cv-3500-7tn.jpg', pos:'center',
+  { id:'cv3500', name:'Remolcador CV-3500 - 7TN', tipo:'Remolcador', price:null, featured:true, img:'public/images/remolcador-cv-3500-7tn-ruda.jpg', pos:'center', alt:'Remolcador CV-3500 - 7TN - 7 toneladas minero rudo',
     specs:[['⚙️','Capacidad de arrastre 5 TN'],['💪','Tracción reforzada'],['🔋','Combustión']],
     desc:'Mayor potencia para arrastrar coches cargados en pendientes exigentes. Disponible a combustión con catalizador o eléctrico con 9 baterías.',
     ficha:[['Capacidad de arrastre','7 TN'],['Motor','Combustión con catalizador'],['Tracción','Reforzada'],['Frenos','Servicio + parqueo + emergencia'],['Asiento','Ergonómico con respaldo'],['Garantía','Según cotización']] },
@@ -1408,7 +1408,7 @@ function imgTag(src, alt, cls, pos){
 }
 // Foto de repuesto: fondo blanco y producto completo (sin recortar)
 function prodImg(p, cls){
-  if (p.kind === 'equipo') return imgTag(p.img, p.name, cls, p.pos);
+  if (p.kind === 'equipo') return imgTag(p.img, p.alt || p.name, cls, p.pos);
   return `<div class="bg-white ${cls}"><img loading="lazy" decoding="async" src="${p.img}" alt="${esc(p.code + ' ' + p.name)}" class="w-full h-full object-contain p-2" onerror="this.style.visibility='hidden'"></div>`;
 }
 const priceHTML = (p, big) => p.price != null
@@ -1509,7 +1509,7 @@ function renderEquipos(){
   $('#equiposGrid').innerHTML = EQUIPOS.filter(p => p.featured).map((p,i) => `
     <article class="equip-card lift reveal ${['','reveal-d1','reveal-d2'][i%3]}">
       <div class="equip-media">
-        ${imgTag(p.img, p.name, 'w-full h-full zoom', p.pos)}
+        ${imgTag(p.img, p.alt || p.name, 'w-full h-full zoom', p.pos)}
         <span class="absolute top-4 left-4 bg-cvred text-white text-[11px] font-title px-3 py-1 rounded-sm">${esc(p.tipo.toUpperCase())}</span>
         <span class="absolute top-4 right-4 bg-black/75 text-white text-[11px] font-title px-3 py-1 rounded-sm">STOCK AREQUIPA</span>
       </div>
