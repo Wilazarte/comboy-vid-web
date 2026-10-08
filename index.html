@@ -143,25 +143,17 @@ if (window.tailwind) tailwind.config = {
  /* --------- Cards --------- */
 .lift{transition:transform .3s ease, box-shadow .3s ease}
 .lift:hover{transform:translateY(-10px);box-shadow:0 26px 50px rgba(0,0,0,.22)}
-.equip-card{overflow:hidden; border-radius:18px}
-.equip-card img{
-  width:100%;
-  height:360px;
-  object-fit:cover;
-  object-position:center;
-  display:block;
-  transition:transform .6s ease;
-}
-.equip-card{overflow:hidden; border-radius:18px; background:#111}
-.equip-card img{
-  width:100%;
-  height:300px;
-  object-fit:cover !important;
-  object-position:center !important;
-  background:#111;
-  padding:0 !important;
-  display:block;
-}
+.equip-card{overflow:hidden;border-radius:6px;background:#fff;border:1px solid #E5E5E5;box-shadow:0 2px 10px rgba(0,0,0,.06);display:flex;flex-direction:column;transition:transform .3s ease, box-shadow .3s ease}
+.equip-card:hover{box-shadow:0 18px 40px rgba(0,0,0,.14)}
+.equip-card .equip-media{position:relative;height:340px;overflow:hidden;background:#111}
+.equip-card .equip-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s ease}
+.equip-card:hover .equip-media img{transform:scale(1.05)}
+@media (min-width:1536px){.equip-card .equip-media{height:400px}}
+@media (max-width:767px){.equip-card .equip-media{height:260px}}
+/* Sección Equipos a pantalla completa (estilo cat.com) */
+.equip-full{width:100%;padding-left:24px;padding-right:24px;margin-top:auto;margin-bottom:auto}
+/* En desktop deja libre la columna de puntitos de navegación (derecha) */
+@media (min-width:768px){.equip-full{padding-right:56px}}
   /* ---------- Organigrama ---------- */
   .org-node{transition:transform .25s, box-shadow .25s, background .25s}
   .org-node:hover{transform:scale(1.06);background:var(--red);color:#fff;box-shadow:0 14px 30px rgba(160,0,0,.35)}
@@ -478,16 +470,17 @@ if (window.tailwind) tailwind.config = {
 </section>
 
 <!-- ===================== 4. EQUIPOS PRINCIPALES ===================== -->
-<section id="equipos" class="slide bg-cvred relative" data-title="Equipos">
-  <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full bg-white/5"></div>
-  <div class="absolute -left-20 bottom-0 w-72 h-72 rounded-full bg-black/10"></div>
-  <div class="max-w-7xl mx-auto px-5 lg:px-6 relative">
-    <div class="text-center max-w-3xl mx-auto reveal">
-      <span class="section-tag light">Línea principal</span>
-      <h2 class="text-white text-3xl lg:text-5xl mt-4">Equipos mineros para socavón</h2>
-      <p class="text-red-50 mt-4">Remolcadores y coches mineros fabricados en con calidad y garantia.</p>
+<section id="equipos" class="slide bg-cvgray relative" data-title="Equipos">
+  <div class="equip-full">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 border-b border-gray-300 pb-6 reveal">
+      <div>
+        <span class="font-title text-xs tracking-[.2em] text-cvred uppercase">Línea principal</span>
+        <h2 class="text-cvblack text-3xl lg:text-5xl mt-2">Equipos mineros para socavón</h2>
+        <span class="block w-16 h-1 bg-cvred mt-4"></span>
+      </div>
+      <p class="text-gray-600 lg:max-w-md lg:text-right">Remolcadores y coches mineros fabricados en Perú, con calidad y garantía. Stock inmediato en Arequipa.</p>
     </div>
-    <div id="equiposGrid" class="grid md:grid-cols-2 gap-6 lg:gap-8 mt-12"></div>
+    <div id="equiposGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8"></div>
   </div>
 </section>
 
@@ -1410,18 +1403,18 @@ function closeMobileMenu(){ mobileMenu.classList.add('hidden'); menuBtn.setAttri
 /* ---------- Equipos principales ---------- */
 function renderEquipos(){
   $('#equiposGrid').innerHTML = EQUIPOS.filter(p => p.featured).map((p,i) => `
-    <article class="equip-card bg-white rounded-2xl overflow-hidden shadow-xl lift reveal ${i%2 ? 'reveal-d1':''}">
-      <div class="relative h-60 overflow-hidden">
+    <article class="equip-card lift reveal ${['','reveal-d1','reveal-d2'][i%3]}">
+      <div class="equip-media">
         ${imgTag(p.img, p.name, 'w-full h-full zoom', p.pos)}
-        <span class="absolute top-4 left-4 bg-cvred text-white text-[11px] font-title px-3 py-1 rounded">${esc(p.tipo.toUpperCase())}</span>
-        <span class="absolute top-4 right-4 glass text-white text-[11px] font-title px-3 py-1 rounded">STOCK AREQUIPA</span>
+        <span class="absolute top-4 left-4 bg-cvred text-white text-[11px] font-title px-3 py-1 rounded-sm">${esc(p.tipo.toUpperCase())}</span>
+        <span class="absolute top-4 right-4 bg-black/75 text-white text-[11px] font-title px-3 py-1 rounded-sm">STOCK AREQUIPA</span>
       </div>
-      <div class="p-6">
+      <div class="p-6 lg:p-7 flex flex-col flex-1">
         <h3 class="text-xl lg:text-2xl text-cvblack">${esc(p.name.toUpperCase())}</h3>
-        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-4">
-          ${p.specs.map(s => `<li class="bg-cvgray rounded-lg px-3 py-2 text-xs text-gray-700 flex gap-2 items-center"><span>${s[0]}</span>${esc(s[1])}</li>`).join('')}
+        <ul class="mt-4 border-t border-gray-200">
+          ${p.specs.map(s => `<li class="border-b border-gray-200 py-3 text-sm text-gray-700 flex gap-3 items-center"><span class="w-6 text-center">${s[0]}</span>${esc(s[1])}</li>`).join('')}
         </ul>
-        <div class="flex items-end justify-between mt-5">
+        <div class="flex items-end justify-between mt-auto pt-5">
           ${p.price != null
             ? `<div><span class="text-xs text-gray-500">Precio desde</span><div class="font-title text-2xl text-cvred">${money(p.price)}</div><span class="text-[10px] text-gray-400">+ IGV · referencial</span></div>`
             : `<div><span class="text-xs text-gray-500">Precio</span><div class="font-title text-xl text-cvblue">A cotizar</div></div>`}
