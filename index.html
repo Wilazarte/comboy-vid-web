@@ -334,7 +334,6 @@ html{scroll-behavior:smooth}
 /* =========================================================
    PORTADA (INICIO) · fondo #E8EEF5, equipo con efecto fantasma
    ========================================================= */
-#inicio{background:#E8EEF5 !important}
 .cv-logo-w{color:#fff}
 .hero-title{font-family:'Libre Baskerville',Georgia,serif !important;font-weight:700;color:#1E3A8A;font-size:34px;line-height:1.15;letter-spacing:-.01em}
 @media (min-width:768px){.hero-title{font-size:52px}}
@@ -358,18 +357,32 @@ html{scroll-behavior:smooth}
 #inicio h1{font-weight:800 !important;letter-spacing:-0.02em}
 #inicio h1 .cv-azul{color:#3B82F6}
 #inicio h1 .cv-rojo{color:#E30613}
-#inicio p,#inicio a{font-weight:500 !important}
 /* BOTONES AZUL WHATSAPP · todos los botones en el azul del botón flotante (#2563EB) */
 .btn, .btn-primary, .btn-red, .btn-dark, .btn-blue, button[type="submit"], button.bg-cvred, .bg-\[\#E30613\], #floatCatalog, #goShop,
 #mainbar .btn[data-wa], #mobileMenu .btn[data-wa], .btn[data-add]{
   background-color:#2563EB !important;background-image:none !important;border-color:#2563EB !important;color:#fff !important}
 .btn:hover, .btn-primary:hover, button[type="submit"]:hover, button.bg-cvred:hover, #floatCatalog:hover{background-color:#2563EB !important;filter:brightness(1.1)}
 /* Portada: botones HTML azules encima de los botones dibujados en la imagen */
-#inicio{container-type:inline-size}
-#inicio .hero-btn-azul{display:flex;align-items:center;justify-content:center;gap:.5em;margin:-2px;padding:2px;box-sizing:content-box;
-  background:#2563EB;color:#fff !important;font-size:1.15cqw;font-weight:700 !important;letter-spacing:.01em;white-space:nowrap;
-  box-shadow:0 6px 18px rgba(37,99,235,.4);transition:filter .2s}
-#inicio .hero-btn-azul:hover{filter:brightness(1.1)}
+/* Portada que escala con el zoom del navegador */
+#inicio .hero-fondo-css{background:
+  radial-gradient(ellipse 30% 22% at 72% 8%, rgba(220,230,240,.35), transparent 70%),
+  radial-gradient(ellipse 60% 40% at 50% 100%, rgba(170,185,200,.35), transparent 75%),
+  radial-gradient(ellipse 80% 70% at 60% 40%, #1b2530 0%, #0d1218 55%, #05070a 100%)}
+#inicio .hero-card{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5em;padding:1.1em .5em;border-radius:.5rem;
+  background:rgba(11,18,32,.75) !important;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15) !important;
+  color:#fff !important;font-weight:700 !important;font-size:clamp(11px,.8vw,13px);letter-spacing:.04em;box-shadow:none !important;transition:background .2s}
+#inicio .hero-card:hover{background:rgba(11,18,32,.9) !important}
+#inicio .hero-card svg{width:clamp(24px,1.8vw,32px);height:auto}
+@media (max-width:1023px){
+  #inicio .hero-contenido{min-height:0;padding-top:40px;padding-bottom:24px}
+  #inicio .hero-texto{max-width:none}
+  #inicio .hero-equipo-zoom img{position:relative;right:auto;top:auto;transform:none;width:85%;min-width:0;margin:24px auto 0;display:block}
+  #inicio .hero-equipo-zoom{display:block;order:2}
+  #inicio.hero-zoom{display:flex;flex-direction:column}
+  #inicio .hero-contenido{display:contents}
+  #inicio .hero-texto{order:1;padding:40px 1.5rem 0;position:relative;z-index:20}
+  #inicio .hero-cards{order:3;padding:24px 1.5rem 32px;margin-top:0;position:relative;z-index:20}
+}
 </style>
 </head>
 
@@ -446,21 +459,39 @@ html{scroll-behavior:smooth}
 <main id="deck">
 
 <!-- ===================== 2. HERO ===================== -->
-<section id="inicio" class="relative w-full overflow-hidden bg-black" style="aspect-ratio:1994/1170">
-  <!-- Portada: imagen de ejemplo de Williams como fondo único (public/images/hero-final.jpg) -->
-  <picture>
-    <source srcset="public/images/hero-final.webp" type="image/webp">
-    <img src="public/images/hero-final.jpg" width="1994" height="1170" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" alt="Comboy Vid: soluciones mineras. Remolcador minero con volante, faro LED y guardafango amarillo en una mina subterránea">
+<section id="inicio" class="hero-zoom relative w-full min-h-[90vh] overflow-hidden bg-[#E8EEF4]">
+  <!-- FONDO: mina oscura hecha con CSS mientras no exista la foto.
+       Al subir public/images/hero-mina-fondo.jpg aparece encima sola (si no existe, el <img> se quita). -->
+  <div class="hero-fondo-css absolute inset-0" aria-hidden="true"></div>
+  <img src="public/images/hero-mina-fondo.jpg" class="absolute inset-0 w-full h-full object-cover object-center" style="object-fit:cover;" alt="" aria-hidden="true" onerror="this.remove()">
+  <div class="absolute inset-0 bg-black/20"></div>
+
+  <!-- EQUIPO: public/images/hero-equipo.png (sin fondo) -->
+  <picture class="hero-equipo-zoom">
+    <source srcset="public/images/hero-equipo.webp" type="image/webp">
+    <img src="public/images/hero-equipo.png" width="1114" height="1162" fetchpriority="high" class="absolute right-[-2%] top-1/2 -translate-y-1/2 w-[60vw] max-w-[900px] min-w-[400px] h-auto drop-shadow-2xl z-10" alt="Remolcador minero Comboy Vid con volante, faro LED y guardafango amarillo">
   </picture>
-  <h1 class="sr-only"><span class="cv-azul">Comboy Vid:</span> <span class="cv-rojo">soluciones mineras</span></h1>
-  <p class="sr-only">Equipos industriales • repuestos y servicios especializados para minería subterránea y superficie</p>
-  <!-- Zonas clicables sobre los botones y las 4 cards de la imagen -->
-  <a href="#catalogo" class="hero-btn-azul absolute rounded-md" style="left:3.36%;top:52.62%;width:14.12%;height:5.86%">VER CATÁLOGO <span aria-hidden="true">→</span></a>
-  <a href="#contacto" class="hero-btn-azul absolute rounded-md" style="left:18.77%;top:52.62%;width:14.79%;height:5.86%">COTIZAR AHORA <span aria-hidden="true">→</span></a>
-  <a href="#equipos" aria-label="Equipos" class="absolute rounded-lg" style="left:3.21%;top:82.55%;width:20.7%;height:14.62%"></a>
-  <a href="#catalogo" aria-label="Repuestos" class="absolute rounded-lg" style="left:27.19%;top:82.55%;width:20.59%;height:14.62%"></a>
-  <a href="#galeria" aria-label="Fabricación" class="absolute rounded-lg" style="left:51.53%;top:82.55%;width:20.75%;height:14.62%"></a>
-  <a href="#contacto" aria-label="Soporte" class="absolute rounded-lg" style="left:75.62%;top:82.55%;width:21%;height:14.62%"></a>
+
+  <!-- CONTENIDO: texto HTML real con unidades relativas -->
+  <div class="hero-contenido relative z-20 container mx-auto px-6 lg:px-12 py-16 lg:py-24 flex flex-col justify-center min-h-[90vh]">
+    <div class="max-w-[min(42vw,560px)] hero-texto">
+      <h1 class="text-[clamp(32px,5vw,64px)] leading-[0.9] font-extrabold">
+        <span class="text-[#3B82F6]">Comboy Vid:</span><br>
+        <span class="text-[#E30613]">soluciones mineras</span>
+      </h1>
+      <p class="text-white text-[clamp(14px,1.1vw,17px)] mt-[1.2em] max-w-[26em] font-medium leading-snug">Equipos industriales • repuestos y servicios especializados para minería subterránea y superficie</p>
+      <div class="flex flex-wrap gap-3 mt-[1.6em]">
+        <a href="#catalogo" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-[1.4em] py-[0.8em] rounded-md text-[clamp(12px,0.9vw,14px)] font-bold">VER CATÁLOGO →</a>
+        <a href="#contacto" class="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-[1.4em] py-[0.8em] rounded-md text-[clamp(12px,0.9vw,14px)] font-bold">COTIZAR AHORA →</a>
+      </div>
+    </div>
+    <div class="hero-cards grid grid-cols-2 lg:grid-cols-4 gap-3 mt-[clamp(32px,6vh,72px)]">
+      <a href="#equipos" class="hero-card"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>EQUIPOS</span></a>
+      <a href="#catalogo" class="hero-card"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg><span>REPUESTOS</span></a>
+      <a href="#galeria" class="hero-card"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20h20M4 20V9l5 3V9l5 3V9l5 3v8"/><path d="M17 5h2v4h-2z"/><path d="M8 16h1M12 16h1M16 16h1"/></svg><span>FABRICACIÓN</span></a>
+      <a href="#contacto" class="hero-card"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/><path d="M19 17v1a3 3 0 0 1-3 3h-3"/></svg><span>SOPORTE</span></a>
+    </div>
+  </div>
 </section>
 
 <!-- ===================== 3. NOSOTROS ===================== -->
