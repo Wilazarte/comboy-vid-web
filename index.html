@@ -316,6 +316,20 @@ body{background:#E2E8F0}
 /* Botones COTIZAR y VER CATÁLOGO en rojo #B91C1C */
 #mainbar .btn[data-wa],#mobileMenu .btn[data-wa],.btn[data-add],#floatCatalog,#goShop{background:var(--cv-red) !important;color:#fff !important;box-shadow:none}
 #mainbar .btn[data-wa]:hover,#mobileMenu .btn[data-wa]:hover,.btn[data-add]:hover,#floatCatalog:hover,#goShop:hover{background:var(--cv-red-dark) !important}
+
+/* =========================================================
+   PÁGINA CONTINUA · sin slides: scroll vertical normal
+   ========================================================= */
+html,body{height:auto !important;overflow:visible !important}
+body{overflow-x:clip !important}
+html{scroll-behavior:smooth}
+#deck{height:auto !important;width:100% !important;overflow:visible !important;scroll-snap-type:none !important;display:flex;flex-direction:column;gap:16px;padding:16px 0}
+.slide{height:auto !important;min-height:0 !important;overflow:visible !important;scroll-snap-align:none !important;
+       padding-top:56px !important;padding-bottom:56px !important;padding-right:0 !important;
+       background:#fff !important;box-shadow:0 4px 12px rgba(0,0,0,.08);scroll-margin-top:calc(var(--hh,68px) + 8px)}
+.slide > footer{margin-bottom:-56px}
+#header{position:sticky;top:0}
+.nav-link.active::after{width:100%;background:#B91C1C !important}
 </style>
 </head>
 
@@ -335,17 +349,13 @@ body{background:#E2E8F0}
 <a href="#inicio" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] bg-white text-black p-2 rounded">Saltar al contenido</a>
 
 <!-- ===================== 1. HEADER STICKY ===================== -->
-<header id="header" class="fixed top-0 inset-x-0 z-50">
+<header id="header" class="sticky top-0 inset-x-0 z-50">
   <div class="bg-black/85 backdrop-blur-md" id="mainbar">
     <div class="w-full px-6 h-[68px] flex items-center justify-between gap-4">
       <a href="#inicio" class="flex items-center gap-2 shrink-0" aria-label="Comboy Vid inicio">
         <!-- Logo en texto: COMBOY azul #0B2A5B + VID rojo #B91C1C (Libre Baskerville Bold) -->
         <span class="cv-logo cv-logo-plate text-xl lg:text-2xl"><span class="cv-logo-a">COMBOY</span> <span class="cv-logo-b">VID</span></span>
       </a>
-      <span class="flex items-center gap-2 shrink-0" aria-live="polite">
-        <span id="slideCounter" class="font-title text-xs text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">1 / 7</span>
-        <span id="slideName" class="hidden 2xl:inline text-xs text-gray-300 font-semibold uppercase tracking-wider">Inicio</span>
-      </span>
 
       <nav class="hidden xl:flex items-center gap-6" aria-label="Menú principal">
         <a href="#inicio" class="nav-link">INICIO</a>
@@ -391,8 +401,6 @@ body{background:#E2E8F0}
         <a href="#" target="_blank" rel="noopener" data-wa="Hola COMBOY VID, quiero una cotización." class="btn btn-red py-3 mt-2">Cotizar por WhatsApp</a>
       </div>
     </nav>
-    <!-- Barra de progreso de la presentación -->
-    <div class="h-[3px] bg-white/10"><div id="progressBar" class="h-full" style="width:14.3%;background:#2563EB;transition:width .5s"></div></div>
   </div>
 </header>
 
@@ -1073,14 +1081,7 @@ body{background:#E2E8F0}
 
 <!-- ===================== NAVEGACIÓN DE DIAPOSITIVAS ===================== -->
 <!-- Puntitos laterales (se generan por JS) -->
-<nav id="dots" class="fixed right-2 md:right-5 top-1/2 -translate-y-1/2 z-[45] flex flex-col gap-3" aria-label="Diapositivas"></nav>
 
-<!-- Botones Anterior / Siguiente -->
-<div id="pager" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[55] flex items-center gap-1 rounded-full p-1.5 shadow-2xl">
-  <button id="prevBtn" class="pager-btn" aria-label="Diapositiva anterior">←<span class="hidden sm:inline"> Anterior</span></button>
-  <span id="pagerCount" class="hidden sm:inline font-title text-white text-xs px-3">1 / 8</span>
-  <button id="nextBtn" class="pager-btn pager-next" aria-label="Diapositiva siguiente"><span class="hidden sm:inline">Siguiente </span>→</button>
-</div>
 
 <!-- Botón "Llamar ahora" (solo móvil) ✏️ tu número -->
 <a href="tel:+51983148798" class="md:hidden fixed left-4 bottom-4 z-[60] w-14 h-14 rounded-full btn btn-dark text-xl shadow-xl" aria-label="Llamar ahora">📞</a>
@@ -1371,27 +1372,20 @@ $$('[data-wa]').forEach(a => {
 $('#libroBtn').href = CONFIG.libroReclamaciones;
 
 /* =========================================================
-   SPA · PRESENTACIÓN DE 8 DIAPOSITIVAS
-   - Scroll-snap nativo (swipe en móvil y rueda del mouse)
-   - Botones Anterior / Siguiente, flechas del teclado, puntitos laterales
-   - URL #inicio, #equipos… (id de cada sección) con history.pushState (sin recargar)
+   PÁGINA CONTINUA (scroll vertical)
+   - Menú con scroll suave a cada sección (#inicio … #contacto)
+   - Scroll spy: subraya en rojo el ítem del menú de la sección visible
+   - La URL se actualiza con el id de la sección (sin recargar)
    ========================================================= */
-const deck = $('#deck');
 const slides = $$('#deck > .slide');
-const TOTAL = slides.length;
 const header = $('#header');
-let current = -1, fromHistory = false, scrollTimer = null;
+let current = -1;
 
-// Altura real del header → padding superior de cada slide
+// Altura real del header → margen de scroll para que no tape los títulos
 function setHeaderHeight(){ document.documentElement.style.setProperty('--hh', header.offsetHeight + 'px'); }
 setHeaderHeight();
-window.addEventListener('resize', ()=>{ setHeaderHeight(); if (current >= 0) deck.scrollTop = current * deck.clientHeight; });
+window.addEventListener('resize', setHeaderHeight);
 
-// Puntitos laterales
-$('#dots').innerHTML = slides.map((s,i) =>
-  `<button class="dot" data-go="${i}" aria-label="Ir a diapositiva ${i+1}: ${esc(s.dataset.title)}"><span class="dot-label">${i+1}. ${esc(s.dataset.title)}</span></button>`).join('');
-
-// Índice de la sección según su id (#inicio, #equipos…); -1 si no existe
 // Enlaces antiguos (#tienda, #cotizar, #valores, #slide1…#slide8) → sección actual
 const HASH_ALIAS = {'#tienda':'#catalogo','#cotizar':'#contacto','#valores':'#nosotros'};
 const OLD_SLIDES = ['inicio','nosotros','nosotros','equipos','catalogo','contacto','galeria','sucursales'];
@@ -1400,85 +1394,49 @@ function slideFromHash(){
   let n = slideIndex(location.hash);
   const m = /^#slide(\d+)$/.exec(location.hash);
   if (n < 0 && m && OLD_SLIDES[m[1]-1]) n = slideIndex('#' + OLD_SLIDES[m[1]-1]);
-  return Math.min(Math.max(n,0), TOTAL-1);
+  return Math.max(n, 0);
 }
 
+// Desplaza suavemente a la sección i
 function goTo(i, smooth = true){
-  i = Math.min(Math.max(i,0), TOTAL-1);
-  deck.scrollTo({ top: i * deck.clientHeight, behavior: smooth ? 'smooth' : 'auto' });
-  if (!smooth) setActive(i);
+  i = Math.min(Math.max(i,0), slides.length-1);
+  slides[i].scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+  setActive(i);
 }
 
 function setActive(i){
   if (i === current) return;
-  const prev = current;
   current = i;
-  slides.forEach((s,k) => {
-    s.classList.toggle('active', k === i);
-    s.setAttribute('aria-hidden', k === i ? 'false' : 'true');
-  });
-  // Reinicia el scroll interno de la slide que se deja, para que la animación se repita
-  if (prev >= 0 && slides[prev]) setTimeout(()=> { if (current !== prev) slides[prev].scrollTop = 0; }, 400);
-
-  const n = i + 1;
-  $('#slideCounter').textContent = `${n} / ${TOTAL}`;
-  $('#pagerCount').textContent = `${n} / ${TOTAL}`;
-  $('#slideName').textContent = slides[i].dataset.title;
-  $('#progressBar').style.width = (n / TOTAL * 100) + '%';
-  $$('.dot').forEach((d,k) => { d.classList.toggle('active', k === i); d.setAttribute('aria-current', k === i ? 'step' : 'false'); });
-  $('#prevBtn').disabled = i === 0;
-  $('#nextBtn').disabled = i === TOTAL - 1;
-  $('#floatCatalog').style.opacity = (slides[i].id === 'catalogo') ? '0' : '1';
-  $('#floatCatalog').style.pointerEvents = (slides[i].id === 'catalogo') ? 'none' : 'auto';
-  // Menú activo
-  const menuTarget = slides[i].id;
-  $$('.nav-link').forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + menuTarget));
+  const id = slides[i].id;
+  $$('.nav-link').forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + id));
+  $('#floatCatalog').style.opacity = (id === 'catalogo') ? '0' : '1';
+  $('#floatCatalog').style.pointerEvents = (id === 'catalogo') ? 'none' : 'auto';
   document.title = `${slides[i].dataset.title} | Comboy Vid Soluciones Mineras`;
-
-  // Actualiza la URL sin recargar
-  const hash = '#' + slides[i].id;
-  if (fromHistory) { fromHistory = false; }
-  else if (location.hash !== hash) { history.pushState({slide:n}, '', hash); }
+  if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
 }
 
-// Detecta la slide actual cuando termina el desplazamiento
-deck.addEventListener('scroll', ()=>{
-  clearTimeout(scrollTimer);
-  scrollTimer = setTimeout(()=> setActive(Math.round(deck.scrollTop / deck.clientHeight)), 90);
-}, {passive:true});
+// Scroll spy: la sección activa es la última cuyo inicio pasó debajo del header
+function spy(){
+  const line = header.offsetHeight + 80;
+  let i = 0;
+  slides.forEach((s,k) => { if (s.getBoundingClientRect().top <= line) i = k; });
+  if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) i = slides.length - 1;
+  setActive(i);
+}
+let spyTick = false;
+window.addEventListener('scroll', ()=>{ if (!spyTick){ spyTick = true; requestAnimationFrame(()=>{ spy(); spyTick = false; }); } }, {passive:true});
+
+// Animaciones de entrada: cada sección se anima al aparecer en pantalla
+const revealObs = new IntersectionObserver(entries => entries.forEach(e => {
+  if (e.isIntersecting){ e.target.classList.add('active'); revealObs.unobserve(e.target); }
+}), {threshold: 0.08});
+slides.forEach(s => revealObs.observe(s));
 
 // Botón atrás/adelante del navegador
-window.addEventListener('popstate', ()=>{ fromHistory = true; goTo(slideFromHash()); });
+window.addEventListener('hashchange', ()=> goTo(slideFromHash()));
 
-$('#prevBtn').addEventListener('click', ()=> goTo(current - 1));
-$('#nextBtn').addEventListener('click', ()=> goTo(current + 1));
-
-// Teclado: ← → siempre cambian de slide. ↑ ↓ primero recorren el contenido de la slide si es más alto que la pantalla.
-document.addEventListener('keydown', e => {
-  const t = e.target;
-  if (t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
-  if ($('.modal.open') || !$('#cartDrawer').classList.contains('closed')) return;
-  const s = slides[current];
-  const atBottom = s.scrollTop + s.clientHeight >= s.scrollHeight - 4;
-  const atTop = s.scrollTop <= 4;
-  switch (e.key) {
-    case 'ArrowRight': case 'PageDown':
-      e.preventDefault(); goTo(current + 1); break;
-    case 'ArrowLeft': case 'PageUp':
-      e.preventDefault(); goTo(current - 1); break;
-    case 'ArrowDown':
-      e.preventDefault(); atBottom ? goTo(current + 1) : s.scrollBy({top:160, behavior:'smooth'}); break;
-    case 'ArrowUp':
-      e.preventDefault(); atTop ? goTo(current - 1) : s.scrollBy({top:-160, behavior:'smooth'}); break;
-    case 'Home': e.preventDefault(); goTo(0); break;
-    case 'End':  e.preventDefault(); goTo(TOTAL - 1); break;
-  }
-});
-
-// Carga inicial: abre la sección indicada en la URL (#valores, etc.)
-history.replaceState({slide: slideFromHash()+1}, '', '#' + slides[slideFromHash()].id);
-fromHistory = true;
-requestAnimationFrame(()=> goTo(slideFromHash(), false));
+// Carga inicial: abre la sección indicada en la URL
+window.addEventListener('load', ()=> { if (location.hash) goTo(slideFromHash(), false); else spy(); });
 
 /* ---------- Menú móvil ---------- */
 const menuBtn = $('#menuBtn'), mobileMenu = $('#mobileMenu');
@@ -1707,8 +1665,6 @@ document.addEventListener('click', e => {
     if ($('.modal.open')) closeModals();
     goTo(target); return;
   }
-  const dot = e.target.closest('[data-go]');
-  if (dot){ goTo(+dot.dataset.go); return; }
   const add = e.target.closest('[data-add]');
   if (add){ addToCart(add.dataset.add); return; }
   const qty = e.target.closest('[data-qty]');
@@ -1840,19 +1796,6 @@ var cc = document.getElementById('cartCount');
 if(cc) cc.classList.remove('bump');
 </script>
 
-<script>
-// Activa slide - versión corregida sin duplicar
-(function(){
-  var deckEl = document.getElementById('deck');
-  var slidesEl = document.querySelectorAll('.slide');
-  function setActive(){
-    if(!deckEl) return;
-    var i = Math.round(deckEl.scrollTop / window.innerHeight);
-    slidesEl.forEach(function(s, idx){ s.classList.toggle('active', idx===i); });
-  }
-  if(deckEl){ deckEl.addEventListener('scroll', setActive); setActive(); }
-})();
-</script>
 
 <script>
 // WhatsApp: todos los enlaces a[data-wa] abren en pestaña nueva
