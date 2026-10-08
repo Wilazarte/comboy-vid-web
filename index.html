@@ -25,7 +25,7 @@
 <!-- Fuentes -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
 
 <!-- Tailwind CDN -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -232,8 +232,8 @@ if (window.tailwind) tailwind.config = {
    ========================================================= */
 :root{ --erp-bg:#E2E8F0; --erp-navy:#1E293B; --erp-navy-dark:#0F172A; --erp-blue:#2563EB; --erp-blue-dark:#1D4ED8;
        --erp-shadow:0 4px 12px rgba(0,0,0,.08); }
-body{background:var(--erp-bg);font-family:'Inter',sans-serif}
-h1,h2,h3,h4,h5,h6,.font-title,.btn,.nav-link,.chip,.pager-btn,.section-tag,.dot .dot-label{font-family:'Inter',sans-serif !important}
+body{background:var(--erp-bg)}
+h1,h2,h3,h4,h5,h6,.font-title,.btn,.nav-link,.chip,.pager-btn,.section-tag,.dot .dot-label{font-family:'Libre Baskerville',Georgia,serif !important;font-weight:700 !important}
 h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
 
 /* Secciones: 100vw, fondo plomo, padding 40px */
@@ -293,6 +293,34 @@ h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
 
 /* Footer navy */
 .slide > footer{background:var(--erp-navy) !important}
+
+/* =========================================================
+   TIPOGRAFÍA Y COLORES DE MARCA · Libre Baskerville Bold 700
+   Logo: COMBOY #0B2A5B + VID #B91C1C · fondo plomo #E2E8F0
+   ========================================================= */
+:root{ --cv-blue:#0B2A5B; --cv-red:#B91C1C; --cv-red-dark:#991B1B; }
+body, body *:not(svg):not(path):not(circle){font-family:'Libre Baskerville',Georgia,serif !important;font-weight:700}
+body{background:#E2E8F0}
+.cv-logo{letter-spacing:.01em;white-space:nowrap;line-height:1}
+.cv-logo-a{color:var(--cv-blue)} .cv-logo-b{color:var(--cv-red)}
+
+/* Header claro para que el logo y el menú azul se lean */
+#mainbar,#header.scrolled #mainbar,#mobileMenu{background:#fff !important;border-bottom:1px solid #CBD5E1}
+#header > div:first-child{background:var(--cv-blue) !important}
+.nav-link{color:var(--cv-blue);letter-spacing:.04em}
+.nav-link::after{background:var(--cv-red)}
+#slideCounter{color:var(--cv-blue) !important;background:#E2E8F0 !important;border-color:#CBD5E1 !important}
+#slideName{color:#475569 !important}
+#headerSearch,#mobileSearch{background:#F1F5F9 !important;border-color:#CBD5E1 !important}
+#headerSearch input,#mobileSearch input,#headerSearch button,#mobileSearch button{color:var(--cv-blue) !important}
+#headerSearch input::placeholder,#mobileSearch input::placeholder{color:#64748B !important}
+#cartBtn,#menuBtn{color:var(--cv-blue) !important}
+#cartCount{background:var(--cv-red) !important}
+#progressBar{background:var(--cv-red) !important}
+
+/* Botones COTIZAR y VER CATÁLOGO en rojo #B91C1C */
+#mainbar .btn[data-wa],#mobileMenu .btn[data-wa],.btn[data-add],#floatCatalog,#goShop{background:var(--cv-red) !important;color:#fff !important;box-shadow:none}
+#mainbar .btn[data-wa]:hover,#mobileMenu .btn[data-wa]:hover,.btn[data-add]:hover,#floatCatalog:hover,#goShop:hover{background:var(--cv-red-dark) !important}
 </style>
 </head>
 
@@ -330,8 +358,8 @@ h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
   <div class="bg-black/85 backdrop-blur-md" id="mainbar">
     <div class="w-full px-6 h-[68px] flex items-center justify-between gap-4">
       <a href="#inicio" class="flex items-center gap-2 shrink-0" aria-label="Comboy Vid inicio">
-        <!-- Logo oficial (img/logo-comboyvid.webp) -->
-        <img src="img/logo-comboyvid.webp" alt="Comboy Vid – Soluciones Mineras" width="626" height="222" class="h-10 lg:h-12 w-auto">
+        <!-- Logo en texto: COMBOY azul #0B2A5B + VID rojo #B91C1C (Libre Baskerville Bold) -->
+        <span class="cv-logo text-2xl lg:text-3xl"><span class="cv-logo-a">COMBOY</span> <span class="cv-logo-b">VID</span></span>
       </a>
       <span class="flex items-center gap-2 shrink-0" aria-live="polite">
         <span id="slideCounter" class="font-title text-xs text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">1 / 7</span>
@@ -402,7 +430,7 @@ h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
     <div class="lg:col-span-5">
       <span class="section-tag light reveal">Innovación que impulsa la minería</span>
       <h1 class="text-white text-4xl sm:text-5xl xl:text-6xl leading-[1.02] mt-5 reveal reveal-d1">
-        Comboy Vid:<br><span style="color:#E53935">soluciones</span> mineras
+        Comboy Vid:<br><span style="color:#B91C1C">soluciones</span> mineras
       </h1>
       <p class="text-gray-200 text-lg lg:text-xl mt-6 max-w-2xl reveal reveal-d2">
         Potencia minera que no se detiene. Fabricamos <strong class="text-white">remolcadores de gran capcidad de tracción</strong> con entrega imediata.
@@ -807,7 +835,7 @@ h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
   <div class="stripe"></div>
   <div class="full-wrap py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
     <div>
-      <div class="font-title text-2xl"><span style="color:#E53935">COMBOY</span> <span class="text-white">VID</span></div>
+      <div class="text-2xl"><span class="inline-block bg-white rounded-lg px-3 py-1"><span class="cv-logo"><span class="cv-logo-a">COMBOY</span> <span class="cv-logo-b">VID</span></span></span></div>
       <p class="text-xs tracking-[.25em] text-gray-400 mt-1">SOLUCIONES MINERAS</p>
       <p class="text-sm mt-4 text-gray-400">Fabricación y venta de remolcadores, coches mineros y tolvas para minería subterránea en el Perú.</p>
       <!-- ✏️ Razón social y RUC reales (obligatorio mostrarlos) -->
