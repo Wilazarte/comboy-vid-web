@@ -242,7 +242,6 @@ h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
 @media (max-width:767px){.equip-full,.full-wrap{padding-left:20px !important;padding-right:20px !important}}
 
 /* Header navy */
-#header > div:first-child{background:var(--erp-navy-dark) !important}
 #mainbar,#header.scrolled #mainbar{background:var(--erp-navy) !important;backdrop-filter:none}
 #header.scrolled{background:var(--erp-navy);box-shadow:0 4px 12px rgba(0,0,0,.18)}
 #mobileMenu{background:var(--erp-navy) !important}
@@ -289,6 +288,7 @@ h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
 .hero .text-gray-400{color:#64748B}
 .hero .section-tag.light{color:var(--erp-blue);opacity:1}
 .hero figure{border:0}
+.hero figcaption{color:#fff !important}
 .hero .glass{background:var(--erp-navy) !important;border:0;border-radius:12px}
 
 /* Footer navy */
@@ -304,17 +304,12 @@ body{background:#E2E8F0}
 .cv-logo{letter-spacing:.01em;white-space:nowrap;line-height:1}
 .cv-logo-a{color:var(--cv-blue)} .cv-logo-b{color:var(--cv-red)}
 
-/* Header claro para que el logo y el menú azul se lean */
-#mainbar,#header.scrolled #mainbar,#mobileMenu{background:#fff !important;border-bottom:1px solid #CBD5E1}
-#header > div:first-child{background:var(--cv-blue) !important}
-.nav-link{color:var(--cv-blue);letter-spacing:.04em}
+/* Header navy #1E293B a todo el ancho; logo en placa plomo con COMBOY azul + VID rojo */
+#header{width:100vw}
+#mainbar,#header.scrolled #mainbar,#mobileMenu{background:#1E293B !important;border-bottom:0}
+.cv-logo-plate{background:#E2E8F0;border-radius:8px;padding:.35rem .8rem}
+.nav-link{color:#fff;letter-spacing:.04em}
 .nav-link::after{background:var(--cv-red)}
-#slideCounter{color:var(--cv-blue) !important;background:#E2E8F0 !important;border-color:#CBD5E1 !important}
-#slideName{color:#475569 !important}
-#headerSearch,#mobileSearch{background:#F1F5F9 !important;border-color:#CBD5E1 !important}
-#headerSearch input,#mobileSearch input,#headerSearch button,#mobileSearch button{color:var(--cv-blue) !important}
-#headerSearch input::placeholder,#mobileSearch input::placeholder{color:#64748B !important}
-#cartBtn,#menuBtn{color:var(--cv-blue) !important}
 #cartCount{background:var(--cv-red) !important}
 #progressBar{background:var(--cv-red) !important}
 
@@ -341,25 +336,11 @@ body{background:#E2E8F0}
 
 <!-- ===================== 1. HEADER STICKY ===================== -->
 <header id="header" class="fixed top-0 inset-x-0 z-50">
-  <!-- Barra superior -->
-  <div class="hidden lg:block bg-cvred text-white text-xs">
-    <div class="w-full px-6 py-1.5 flex justify-between items-center">
-      <span>📍 Arequipa (Paucarpata) · Distribución nacional</span>
-      <div class="flex items-center gap-4">
-        <span>🕒 Lun–Sáb 8:00–18:00</span>
-        <!-- ✏️ CAMBIA tus redes sociales -->
-        <a href="https://facebook.com/comboyvid" aria-label="Facebook" class="hover:opacity-80">Facebook</a>
-        <a href="https://tiktok.com/@comboyvidsecocha" aria-label="TikTok" class="hover:opacity-80">TikTok</a>
-        <a href="https://youtube.com/@comboyvid" aria-label="YouTube" class="hover:opacity-80">YouTube</a>
-      </div>
-    </div>
-  </div>
-
   <div class="bg-black/85 backdrop-blur-md" id="mainbar">
     <div class="w-full px-6 h-[68px] flex items-center justify-between gap-4">
       <a href="#inicio" class="flex items-center gap-2 shrink-0" aria-label="Comboy Vid inicio">
         <!-- Logo en texto: COMBOY azul #0B2A5B + VID rojo #B91C1C (Libre Baskerville Bold) -->
-        <span class="cv-logo text-2xl lg:text-3xl"><span class="cv-logo-a">COMBOY</span> <span class="cv-logo-b">VID</span></span>
+        <span class="cv-logo cv-logo-plate text-xl lg:text-2xl"><span class="cv-logo-a">COMBOY</span> <span class="cv-logo-b">VID</span></span>
       </a>
       <span class="flex items-center gap-2 shrink-0" aria-live="polite">
         <span id="slideCounter" class="font-title text-xs text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">1 / 7</span>
