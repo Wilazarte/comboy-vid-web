@@ -636,27 +636,28 @@ html{scroll-behavior:smooth}
     </div>
 
     <!-- TikTok @comboyvidsecocha: el video carga solo al hacer clic (no hace lenta la web).
-         TODO: reemplazar TODO_ID_1..3 por los IDs reales (el número al final de tiktok.com/@comboyvidsecocha/video/XXXXXXXX).
-         Mientras no haya ID, el clic abre el perfil de TikTok. -->
+         Links reales del dueño en data-tiktok-url (vt.tiktok.com): mientras no haya ID numérico, el clic abre ese video en TikTok.
+         TODO: reemplazar TODO_ID_1..3 por el número final de la URL larga tiktok.com/@comboyvidsecocha/video/XXXXXXXX
+         (abrir cada link vt en PC y copiar la URL) para que el video se reproduzca dentro de la web. -->
     <div id="tiktok-feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom" data-tiktok-id="TODO_ID_1" role="button" tabindex="0" aria-label="Reproducir video 1 de TikTok @comboyvidsecocha">
+      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom" data-tiktok-id="TODO_ID_1" data-tiktok-url="https://vt.tiktok.com/ZSbsj8AVx/" role="button" tabindex="0" aria-label="Reproducir video 1 de TikTok @comboyvidsecocha">
         <img loading="lazy" src="img/moto-tunel.webp" alt="Remolcador Comboy Vid en socavón" class="absolute inset-0 w-full h-full object-cover opacity-70" onerror="this.style.display='none'">
         <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
         <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">♪ @comboyvidsecocha</span>
       </div>
-      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom reveal-d1" data-tiktok-id="TODO_ID_2" role="button" tabindex="0" aria-label="Reproducir video 2 de TikTok @comboyvidsecocha">
+      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom reveal-d1" data-tiktok-id="TODO_ID_2" data-tiktok-url="https://vt.tiktok.com/ZSbs2n6j8/" role="button" tabindex="0" aria-label="Reproducir video 2 de TikTok @comboyvidsecocha">
         <img loading="lazy" src="img/moto-tunel-2.webp" alt="Remolcador Comboy Vid en galería minera" class="absolute inset-0 w-full h-full object-cover opacity-70" onerror="this.style.display='none'">
         <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
         <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">♪ @comboyvidsecocha</span>
       </div>
-      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom reveal-d2" data-tiktok-id="TODO_ID_3" role="button" tabindex="0" aria-label="Reproducir video 3 de TikTok @comboyvidsecocha">
+      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom reveal-d2" data-tiktok-id="TODO_ID_3" data-tiktok-url="https://vt.tiktok.com/ZSbs2EsAy/" role="button" tabindex="0" aria-label="Reproducir video 3 de TikTok @comboyvidsecocha">
         <img loading="lazy" src="img/comboyvid-poster.webp" alt="Coche minero Comboy Vid" class="absolute inset-0 w-full h-full object-cover opacity-70" onerror="this.style.display='none'">
         <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
         <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">♪ @comboyvidsecocha</span>
       </div>
     </div>
-    <div class="text-center mt-6">
-      <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener" class="text-sm font-bold underline">Ver más en TikTok @comboyvidsecocha →</a>
+    <div class="text-center mt-8">
+      <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-zinc-800 transition">Ver más en TikTok @comboyvidsecocha →</a>
     </div>
 
     <!-- ✏️ Reemplaza por fotos de tus clientes (con su autorización) -->
@@ -1750,7 +1751,7 @@ $$('.yt-facade').forEach(el => {
 /* ---------- TikTok @comboyvidsecocha: carga el reproductor solo al hacer clic ---------- */
 function playTikTok(el){
   const id = el.dataset.tiktokId;
-  if (!id || !/^\d{10,}$/.test(id)){ window.open('https://www.tiktok.com/@comboyvidsecocha', '_blank', 'noopener'); return; }
+  if (!id || !/^\d{10,}$/.test(id)){ window.open(el.dataset.tiktokUrl || 'https://www.tiktok.com/@comboyvidsecocha', '_blank', 'noopener'); return; }
   el.innerHTML = `<iframe class="absolute inset-0 w-full h-full" src="https://www.tiktok.com/player/v1/${id}?autoplay=1&rel=0" title="Video TikTok Comboy Vid" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
 }
 $$('.tt-facade').forEach(el => {
