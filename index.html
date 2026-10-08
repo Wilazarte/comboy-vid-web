@@ -353,6 +353,12 @@ html{scroll-behavior:smooth}
 .hero-ico{flex-shrink:0;width:52px;height:52px;border-radius:50%;background:#DBEAFE;display:flex;align-items:center;justify-content:center}
 #headerSearch{background:transparent !important;border-color:rgba(255,255,255,.5) !important}
 
+/* PORTADA · tipografía sans-serif solo en #inicio (pedido de Williams) */
+#inicio, #inicio *{font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif !important}
+#inicio h1{font-weight:800 !important;letter-spacing:-0.02em}
+#inicio h1 .cv-azul{color:#3B82F6}
+#inicio h1 .cv-rojo{color:#E30613}
+#inicio p,#inicio a{font-weight:500 !important}
 </style>
 </head>
 
@@ -435,7 +441,7 @@ html{scroll-behavior:smooth}
     <source srcset="public/images/hero-final.webp" type="image/webp">
     <img src="public/images/hero-final.jpg" width="1994" height="1170" fetchpriority="high" class="absolute inset-0 w-full h-full object-cover" alt="Comboy Vid: soluciones mineras. Remolcador minero con volante, faro LED y guardafango amarillo en una mina subterránea">
   </picture>
-  <h1 class="sr-only">Comboy Vid: soluciones mineras</h1>
+  <h1 class="sr-only"><span class="cv-azul">Comboy Vid:</span> <span class="cv-rojo">soluciones mineras</span></h1>
   <p class="sr-only">Equipos industriales • repuestos y servicios especializados para minería subterránea y superficie</p>
   <!-- Zonas clicables sobre los botones y las 4 cards de la imagen -->
   <a href="#catalogo" aria-label="Ver catálogo" class="absolute rounded-md" style="left:3.36%;top:52.62%;width:14.12%;height:5.86%"></a>
