@@ -386,6 +386,11 @@ html{scroll-behavior:smooth}
 @media (min-width:1280px){#loader .loader-text{font-size:22px}}
 @keyframes loaderLogo{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes loaderText{to{opacity:1}}
+/* PORTADA EXPOMAPE en Presentación empresarial (mismo contenedor que el video) */
+.expo-portada{position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;cursor:zoom-in;padding:0;border:0;box-shadow:var(--erp-shadow)}
+.expo-portada img{transition:transform .4s}
+.expo-portada:hover img{transform:scale(1.02)}
+.expo-modal-box{max-width:min(92vw,640px)}
 </style>
 </head>
 
@@ -485,12 +490,13 @@ html{scroll-behavior:smooth}
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Video fábrica -->
       <div class="zoom">
-        <!-- ✏️ Pon el ID de tu video de fábrica en data-id (lo que va después de watch?v= en YouTube) -->
-        <div class="yt-facade shadow-2xl" data-id="TU_VIDEO_FABRICA_ID" role="button" tabindex="0" aria-label="Reproducir video de nuestra fábrica">
-          <img src="img/coche-minero-z20.jpg" alt="Coche minero Comboy Vid en socavón" class="w-full h-full object-cover" style="object-position:center 70%">
-          <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
-          <span class="absolute bottom-3 left-3 bg-cvred text-white text-xs font-title px-3 py-1 rounded">VIDEO · NUESTRA PLANTA</span>
-        </div>
+        <!-- Portada EXPOMAPE 2026 (clic: abre el flyer completo) -->
+        <button type="button" class="expo-portada shadow-2xl" data-modal="m-expomape" aria-label="Ver flyer completo: Comboy Vid en EXPOMAPE 2026">
+          <picture>
+            <source srcset="public/images/portada-expomape-hd.webp" type="image/webp">
+            <img src="public/images/portada-expomape-hd.jpg" width="1280" height="1920" alt="Comboy Vid presente en la 1ª Feria Minera EXPOMAPE 2026, del 16 al 18 de octubre en Santo Tomás, Chumbivilcas, Cusco" class="w-full h-full object-cover" style="object-position:center top">
+          </picture>
+        </button>
       </div>
 
       <div class="reveal reveal-d1">
@@ -999,6 +1005,18 @@ html{scroll-behavior:smooth}
     <button id="checkoutBtn" class="btn btn-red w-full mt-4 py-4 text-sm">Continuar</button>
   </div>
 </aside>
+
+<!-- ===================== MODAL FLYER EXPOMAPE 2026 ===================== -->
+<div id="m-expomape" class="modal" role="dialog" aria-modal="true" aria-label="Flyer EXPOMAPE 2026">
+  <div class="expo-modal-box relative">
+    <button class="absolute top-2 right-3 text-white text-4xl leading-none drop-shadow" data-close aria-label="Cerrar">×</button>
+    <picture>
+      <source srcset="public/images/portada-expomape-hd.webp" type="image/webp">
+      <img src="public/images/portada-expomape-hd.jpg" width="1280" height="1920" loading="lazy" alt="Flyer Comboy Vid en EXPOMAPE 2026" class="block w-auto h-auto max-w-full max-h-[90vh] rounded-xl">
+    </picture>
+    <a href="#contacto" data-close class="btn btn-blue block text-center mt-3 py-3 text-xs">COTIZAR / CONTACTO</a>
+  </div>
+</div>
 
 <!-- ===================== MODAL FICHA TÉCNICA ===================== -->
 <div id="m-ficha" class="modal" role="dialog" aria-modal="true" aria-labelledby="fichaTitle">
