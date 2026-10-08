@@ -357,20 +357,9 @@ html{scroll-behavior:smooth}
    PORTADA MINA · fondo oscuro con luces y niebla, equipo de volante
    ========================================================= */
 #inicio.hero-mina{background:#07090c !important;position:relative;overflow:hidden !important;isolation:isolate}
-.mina-bg{position:absolute;inset:0;z-index:0;
-  background:
-    radial-gradient(ellipse 70% 55% at 62% 42%, rgba(70,78,90,.35), transparent 70%),
-    radial-gradient(ellipse 120% 80% at 50% 110%, rgba(40,44,52,.9), transparent 60%),
-    linear-gradient(180deg,#0b0e13 0%,#11151b 45%,#0a0c10 100%),
-    url('public/images/hero-mina.jpg') center/cover no-repeat}
-.mina-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 85% 75% at 55% 45%, transparent 40%, rgba(0,0,0,.75) 100%)}
-.mina-luces{position:absolute;inset:0;z-index:0;pointer-events:none;
-  background:
-    radial-gradient(circle at 22% 0%, rgba(255,214,150,.38), transparent 18%),
-    radial-gradient(circle at 50% 0%, rgba(255,226,170,.30), transparent 16%),
-    radial-gradient(circle at 78% 0%, rgba(255,214,150,.36), transparent 18%),
-    radial-gradient(ellipse 30% 22% at 22% 4%, rgba(255,200,120,.12), transparent 70%),
-    radial-gradient(ellipse 30% 22% at 78% 4%, rgba(255,200,120,.12), transparent 70%)}
+.mina-bg{position:absolute;inset:0;z-index:0;background:#07090c url('public/images/hero-mina.jpg') center/cover no-repeat}
+/* overlay negro 40% + viñeta suave */
+.mina-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 90% 80% at 55% 45%, rgba(0,0,0,.4) 45%, rgba(0,0,0,.72) 100%)}
 .mina-niebla{position:absolute;left:-10%;right:-10%;bottom:-4%;height:42%;z-index:1;pointer-events:none;filter:blur(18px);
   background:
     radial-gradient(ellipse 40% 60% at 25% 85%, rgba(200,210,220,.22), transparent 70%),
@@ -378,24 +367,38 @@ html{scroll-behavior:smooth}
     linear-gradient(0deg, rgba(190,200,212,.28), transparent 85%);
   animation:niebla 14s ease-in-out infinite alternate}
 @keyframes niebla{from{transform:translateX(-2%)}to{transform:translateX(2%)}}
-.hero-mina .hero-content{z-index:2}
+.hero-mina .hero-content{z-index:20}
 .mina-btn-red{background:#DC2626 !important;color:#fff !important;border:2px solid #DC2626;border-radius:8px;box-shadow:0 8px 22px rgba(220,38,38,.35)}
 .mina-btn-red:hover{background:#B91C1C !important;border-color:#B91C1C}
 .mina-btn-outline{background:transparent !important;color:#fff !important;border:2px solid #fff;border-radius:8px}
 .mina-btn-outline:hover{background:rgba(255,255,255,.12) !important}
-.mina-equipo{position:relative;display:flex;justify-content:center;align-items:flex-end}
-.mina-equipo-main{position:relative;z-index:2;display:inline-block;max-width:100%}
-.mina-equipo-main img{display:block;height:min(640px,72vh);width:auto;max-width:100%;object-fit:contain;
-  filter:drop-shadow(0 30px 28px rgba(0,0,0,.65)) drop-shadow(0 0 1px rgba(255,255,255,.15)) contrast(1.04) saturate(1.05)}
-.mina-fantasma{position:absolute;z-index:1;right:-4rem;top:2.5rem;height:min(640px,72vh);width:auto;max-width:100%;transform:scale(.9);transform-origin:top right;opacity:.15;filter:blur(4px);pointer-events:none}
-/* brillo del faro LED (posición relativa a la imagen) */
-.mina-glow{position:absolute;z-index:3;pointer-events:none;width:42%;aspect-ratio:1;left:14%;top:32.5%;transform:translate(-50%,-50%);
-  background:radial-gradient(circle, rgba(255,250,235,.55) 0%, rgba(255,240,200,.18) 30%, transparent 62%);mix-blend-mode:screen}
+#inicio.hero-mina{min-height:max(820px, calc(100vh - var(--hh,68px))) !important;display:flex;flex-direction:column;justify-content:center}
+.mina-texto{position:relative;z-index:20;max-width:46%}
+.mina-cards{z-index:20}
+.mina-equipo-main{position:absolute;z-index:10;right:2%;top:55%;transform:translateY(-50%);width:min(52%, 900px, calc((max(820px, 100vh - var(--hh,68px))) * .82));max-width:900px}
+.mina-equipo-main img{display:block;width:100%;height:auto;
+  filter:drop-shadow(0 25px 25px rgba(0,0,0,.6)) drop-shadow(0 10px 10px rgba(0,0,0,.45)) contrast(1.04) saturate(1.05)}
+.slide.active .mina-equipo-main.zoom{transform:translateY(-50%) scale(1)}
+.slide .mina-equipo-main.zoom{transform:translateY(-50%) scale(1.06)}
+.mina-fantasma{position:absolute;z-index:0;right:14%;top:60%;width:min(52%, 900px, calc((max(820px, 100vh - var(--hh,68px))) * .82));max-width:900px;height:auto;transform:translateY(-50%) scale(.85);
+  opacity:.12;filter:blur(4px) sepia(1) hue-rotate(185deg) saturate(3);pointer-events:none}
+/* brillo del faro LED (posición relativa a la foto) */
+.mina-glow{position:absolute;z-index:3;pointer-events:none;width:34%;aspect-ratio:1;left:23%;top:24.5%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(255,250,235,.6) 0%, rgba(255,240,200,.2) 30%, transparent 62%);mix-blend-mode:screen}
+@media (max-width:1023px){
+  #inicio.hero-mina{min-height:0 !important;justify-content:flex-start}
+  .mina-texto{max-width:none}
+  .hero-mina .hero-content{display:contents}
+  .mina-texto{order:1;padding:0 20px;position:relative;z-index:20}
+  .mina-equipo-main{position:relative;right:auto;top:auto;width:85%;margin:24px auto 0;order:2}
+  .mina-cards{order:3;padding:0 20px}
+  .slide .mina-equipo-main.zoom,.slide.active .mina-equipo-main.zoom{transform:none}
+  .mina-fantasma{top:auto;bottom:22%;right:4%;width:70%;transform:scale(.85)}
+}
 .mina-card{display:flex;align-items:center;justify-content:center;gap:12px;padding:1rem;border-radius:.5rem;background:rgba(0,0,0,.3);
   -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:700;letter-spacing:.04em;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 20px rgba(0,0,0,.35);transition:background .2s,border-color .2s,transform .2s}
 .mina-card:hover{background:rgba(0,0,0,.45);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
-@media (max-width:767px){.mina-equipo-main img,.mina-fantasma{height:420px}.mina-fantasma{right:-1.5rem}}
 .mina-card svg{flex-shrink:0}
 @media (max-width:767px){.mina-card{flex-direction:column;gap:6px;font-size:.8rem;padding:.9rem .5rem}}
 </style>
@@ -475,13 +478,23 @@ html{scroll-behavior:smooth}
 
 <!-- ===================== 2. HERO ===================== -->
 <section id="inicio" class="slide hero hero-mina" data-title="Inicio">
-  <!-- Fondo de mina: si subes una foto real en public/images/hero-mina.jpg se usa debajo de la niebla y las luces -->
+  <!-- Fondo: foto de mina public/images/hero-mina.jpg + overlay negro 40% + niebla baja animada -->
   <div class="mina-bg" aria-hidden="true"></div>
-  <div class="mina-luces" aria-hidden="true"></div>
   <div class="mina-niebla" aria-hidden="true"></div>
 
+  <!-- Equipo: public/images/hero-equipo-volante.png (sin fondo) + 1 fantasma azulado detrás -->
+  <img src="public/images/hero-equipo-volante.webp" alt="" aria-hidden="true" class="mina-fantasma" onerror="this.src='public/images/hero-equipo-volante.png'">
+  <div class="mina-equipo-main zoom">
+    <picture>
+      <source srcset="public/images/hero-equipo-volante.webp" type="image/webp">
+      <img src="public/images/hero-equipo-volante.png" alt="Remolcador minero Comboy Vid con volante, guardafango amarillo y faro LED" width="1114" height="1162" fetchpriority="high">
+    </picture>
+    <span class="mina-glow" aria-hidden="true"></span>
+  </div>
+
+
   <div class="hero-content full-wrap w-full relative">
-    <div class="grid lg:grid-cols-2 gap-8 items-center">
+    <div class="mina-texto">
       <div>
         <h1 class="text-5xl lg:text-6xl font-bold text-[#3B82F6] leading-tight reveal">Comboy Vid:<br><span class="text-[#EF4444]">soluciones</span> <span class="text-[#EF4444]">mineras</span></h1>
         <p class="text-white text-base mt-4 max-w-xl reveal reveal-d1">Equipos industriales • repuestos y servicios especializados para minería subterránea y superficie</p>
@@ -491,21 +504,10 @@ html{scroll-behavior:smooth}
         </div>
       </div>
 
-      <!-- Equipo: public/images/hero-equipo-volante.png (sin fondo) + 1 fantasma detrás -->
-      <div class="mina-equipo zoom">
-        <img src="public/images/hero-equipo-volante.webp" alt="" aria-hidden="true" class="mina-fantasma" onerror="this.src='public/images/hero-equipo-volante.png'">
-        <div class="mina-equipo-main">
-          <picture>
-            <source srcset="public/images/hero-equipo-volante.webp" type="image/webp">
-            <img src="public/images/hero-equipo-volante.png" alt="Remolcador minero Comboy Vid con volante, guardafango amarillo y faro LED" width="1137" height="1663" fetchpriority="high">
-          </picture>
-          <span class="mina-glow" aria-hidden="true"></span>
-        </div>
-      </div>
     </div>
 
     <!-- 4 accesos -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mt-10 relative">
+    <div class="mina-cards grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mt-10 relative">
       <a href="#equipos" class="mina-card reveal "><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>EQUIPOS</span></a>
       <a href="#catalogo" class="mina-card reveal reveal-d1"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg><span>REPUESTOS</span></a>
       <a href="#galeria" class="mina-card reveal reveal-d2"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20h20M4 20V9l5 3V9l5 3V9l5 3v8"/><path d="M17 5h2v4h-2z"/><path d="M8 16h1M12 16h1M16 16h1"/></svg><span>FABRICACIÓN</span></a>
