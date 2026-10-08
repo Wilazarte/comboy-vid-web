@@ -1,0 +1,1771 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===================== SEO ===================== -->
+<title>Remolcador De Coches Mineros | Comboy Vid Soluciones Mineras</title>
+<meta name="description" content="Fabricamos remolcadores mineros, coches mineros U35 y tolvas volquete para socavón en Perú. Stock inmediato en Arequipa, entrega en 7 días y garantía de fábrica. Cotiza por WhatsApp.">
+<meta name="keywords" content="remolcador minero, remolcador minero Arequipa, coche minero U35, tolva minera, locomotora minera socavón, equipos mineros Perú, Comboy Vid">
+<meta name="author" content="Comboy Vid Soluciones Mineras">
+<meta name="robots" content="index, follow">
+<!-- ✏️ CAMBIA por tu dominio real -->
+<link rel="canonical" href="https://www.comboyvid.com/">
+<meta property="og:title" content="Comboy Vid: soluciones mineras">
+<meta property="og:description" content="Innovación que impulsa la mineria. Remolcadores y coches mineras con entrega en 7 días.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="es_PE">
+<meta property="og:image" content="img/hero-comboyvid.webp">
+<meta name="theme-color" content="#A00000">
+
+<!-- Favicon rojo (SVG embebido, sin archivo extra) -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23A00000'/%3E%3Ctext x='32' y='43' font-family='Arial Black,Arial' font-size='28' font-weight='900' text-anchor='middle' fill='white'%3ECV%3C/text%3E%3C/svg%3E">
+
+<!-- Fuentes -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+if (window.tailwind) tailwind.config = {
+  theme: { extend: {
+    colors: { cvred:'#A00000', cvreddark:'#6E0000', cvblue:'#0A3D8F', cvgray:'#F5F5F5', cvcoal:'#2B2B2B', cvblack:'#141414' },
+    fontFamily: { mont:['Montserrat','sans-serif'], inter:['Inter','sans-serif'] }
+  }}
+}
+</script>
+
+<!-- Datos estructurados (SEO local) -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"LocalBusiness",
+  "name":"Comboy Vid Soluciones Mineras",
+  "description":"Fabricación y venta de remolcadores y coches mineros para socavón.",
+  "telephone":"+51983148798",
+  "email":"areacomercial@comboyvid.com",
+  "address":{"@type":"PostalAddress","addressLocality":"Paucarpata","addressRegion":"Arequipa","addressCountry":"PE"},
+  "areaServed":"PE"
+}
+</script>
+
+<style>
+  :root{
+    --red:#A00000; --red-dark:#6E0000; --blue:#0A3D8F; --gray:#F5F5F5; --coal:#2B2B2B; --black:#141414; --white:#FFFFFF;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;overflow:hidden}
+  body{font-family:'Inter',sans-serif;color:var(--coal);background:var(--black);margin:0}
+
+  /* ================= ESTRUCTURA SPA: 8 DIAPOSITIVAS ================= */
+  /* Contenedor con scroll-snap nativo: cada slide ocupa 100vw x 100vh */
+  #deck{height:100vh;height:100dvh;width:100vw;overflow-y:scroll;overflow-x:hidden;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:none}
+  #deck::-webkit-scrollbar{display:none}
+  .slide{position:relative;width:100vw;height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;
+         overflow-y:auto;overflow-x:hidden;display:flex;flex-direction:column;
+         padding-top:calc(var(--hh,72px) + 16px);padding-bottom:92px;scrollbar-width:thin;scrollbar-color:rgba(160,0,0,.6) transparent}
+  /* Contenido centrado verticalmente; si no entra, se desplaza dentro de la slide */
+  .slide > .max-w-7xl,.slide > .max-w-6xl,.slide > .hero-content{margin-top:auto;margin-bottom:auto;width:100%}
+  .slide > footer{flex-shrink:0}
+
+  /* Animación de entrada: textos = fade + slide up · imágenes = zoom */
+  .slide .reveal{opacity:0;transform:translateY(40px);transition:opacity .8s ease, transform .8s ease}
+  .slide .zoom{opacity:0;transform:scale(1.12);transition:opacity 1s ease, transform 1.2s cubic-bezier(.2,.7,.2,1)}
+  .slide.active .reveal{opacity:1;transform:none}
+  .slide.active .zoom{opacity:1;transform:scale(1)}
+  .slide .reveal-d1{transition-delay:.12s}.slide .reveal-d2{transition-delay:.24s}.slide .reveal-d3{transition-delay:.36s}
+  .slide.active .lift:hover{transform:translateY(-10px);transition-delay:0s}
+
+  /* Puntitos laterales */
+  .dot{position:relative;width:12px;height:12px;border-radius:50%;background:rgba(120,120,120,.55);border:2px solid rgba(255,255,255,.85);transition:all .3s;cursor:pointer;padding:0}
+  .dot.active{background:var(--red);transform:scale(1.35);box-shadow:0 0 0 4px rgba(160,0,0,.25)}
+  .dot:hover{background:var(--red)}
+  .dot .dot-label{position:absolute;right:22px;top:50%;transform:translateY(-50%);white-space:nowrap;background:var(--black);color:#fff;font:700 11px Montserrat,sans-serif;letter-spacing:.05em;padding:4px 10px;border-radius:6px;opacity:0;pointer-events:none;transition:opacity .2s}
+  .dot:hover .dot-label,.dot:focus-visible .dot-label{opacity:1}
+  @media (max-width:767px){.dot{width:9px;height:9px}.slide{padding-right:14px}}
+  #shopSearch{padding-left:2.5rem}
+
+  /* Botones Anterior / Siguiente */
+  #pager{background:rgba(20,20,20,.85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.15)}
+  .pager-btn{font:800 11px Montserrat,sans-serif;letter-spacing:.06em;text-transform:uppercase;color:#fff;padding:.7rem 1rem;border-radius:999px;transition:background .2s,opacity .2s;white-space:nowrap}
+  .pager-btn:hover{background:rgba(255,255,255,.12)}
+  .pager-next{background:var(--red)}
+  .pager-next:hover{background:var(--red-dark)}
+  .pager-btn:disabled{opacity:.3;cursor:not-allowed;background:transparent}
+  h1,h2,h3,h4,.font-title{font-family:'Montserrat',sans-serif;font-weight:800;letter-spacing:-.01em}
+  a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #FFD400;outline-offset:2px}
+
+  /* ---------- Loader ---------- */
+  #loader{position:fixed;inset:0;background:var(--black);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
+  #loader.hide{opacity:0;visibility:hidden}
+  .loader-bar{width:180px;height:4px;background:#333;border-radius:4px;overflow:hidden;margin-top:18px}
+  .loader-bar span{display:block;height:100%;width:40%;background:var(--red);animation:load 1s infinite ease-in-out}
+  @keyframes load{0%{transform:translateX(-100%)}100%{transform:translateX(260%)}}
+
+  /* ---------- Glass ---------- */
+  .glass{background:rgba(255,255,255,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.18)}
+  .glass-light{background:rgba(255,255,255,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.6)}
+
+  /* ---------- Header ---------- */
+  #header{transition:background .3s, box-shadow .3s}
+  #header.scrolled{background:rgba(20,20,20,.94);box-shadow:0 6px 24px rgba(0,0,0,.35)}
+  .nav-link{position:relative;font-family:'Montserrat';font-weight:700;font-size:.78rem;letter-spacing:.06em;color:#fff;padding:.4rem 0}
+  .nav-link::after{content:'';position:absolute;left:0;bottom:-2px;height:3px;width:0;background:var(--red);transition:width .25s}
+  .nav-link:hover::after,.nav-link.active::after{width:100%}
+
+  /* ---------- Botones ---------- */
+  :where(.btn){display:inline-flex}
+  .btn{align-items:center;justify-content:center;gap:.5rem;font-family:'Montserrat';font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:10px;transition:transform .2s, box-shadow .2s, background .2s;cursor:pointer}
+  .btn:hover{transform:translateY(-3px)}
+  .btn-red{background:var(--red);color:#fff;box-shadow:0 8px 22px rgba(160,0,0,.35)}
+  .btn-red:hover{background:var(--red-dark);box-shadow:0 12px 30px rgba(160,0,0,.5)}
+  .btn-blue{background:var(--blue);color:#fff}
+  .btn-blue:hover{background:#082f6e}
+  .btn-outline{border:2px solid #fff;color:#fff}
+  .btn-outline:hover{background:#fff;color:var(--red)}
+  .btn-dark{background:var(--black);color:#fff}
+
+  /* ---------- Hero ---------- */
+  .hero{background:#0b0b0b}
+  .hero-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;filter:blur(8px) brightness(.55) saturate(1.1);transform:scale(1.08);animation:zoom 18s ease-in-out infinite alternate}
+  @keyframes zoom{to{transform:scale(1.15)}}
+  @keyframes float{0%,100%{translate:0 0}50%{translate:0 -12px}}
+  .hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(10,10,10,.95) 0%,rgba(10,10,10,.75) 45%,rgba(160,0,0,.45) 100%)}
+  .hero::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 75% 55%,rgba(255,200,80,.18),transparent 45%)}
+  .hero-content{position:relative;z-index:2}
+  .stripe{height:6px;background:repeating-linear-gradient(-45deg,#FFD400 0 14px,#141414 14px 28px)}
+
+  /* ---------- Reveal ---------- */
+
+ /* --------- Cards --------- */
+.lift{transition:transform .3s ease, box-shadow .3s ease}
+.lift:hover{transform:translateY(-10px);box-shadow:0 26px 50px rgba(0,0,0,.22)}
+.equip-card{overflow:hidden; border-radius:18px}
+.equip-card img{
+  width:100%;
+  height:360px;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  transition:transform .6s ease;
+}
+.equip-card{overflow:hidden; border-radius:18px; background:#111}
+.equip-card img{
+  width:100%;
+  height:300px;
+  object-fit:cover !important;
+  object-position:center !important;
+  background:#111;
+  padding:0 !important;
+  display:block;
+}
+  /* ---------- Organigrama ---------- */
+  .org-node{transition:transform .25s, box-shadow .25s, background .25s}
+  .org-node:hover{transform:scale(1.06);background:var(--red);color:#fff;box-shadow:0 14px 30px rgba(160,0,0,.35)}
+  .org-node:hover p{color:#ffe0e0}
+  .org-line{background:var(--red);}
+
+  /* ---------- Tienda ---------- */
+  .chip{font-family:'Montserrat';font-weight:700;font-size:.8rem;padding:.55rem 1.1rem;border-radius:999px;border:2px solid var(--coal);color:var(--coal);transition:all .2s;cursor:pointer;white-space:nowrap}
+  .chip.active,.chip:hover{background:var(--red);border-color:var(--red);color:#fff}
+
+  #cartDrawer{transition:transform .35s ease}
+  #cartDrawer.closed{transform:translateX(105%)}
+  #overlay{transition:opacity .3s}
+  #overlay.hidden-ov{opacity:0;pointer-events:none}
+
+  .badge-count{min-width:20px;height:20px;font-size:.7rem}
+  .bump{animation:bump .35s}
+  @keyframes bump{50%{transform:scale(1.4)}}
+
+  /* ---------- WhatsApp flotante ---------- */
+  .wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:62px;height:62px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(160,0,0,.5)}
+  .wa-float::before,.wa-float::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--red);z-index:-1;animation:pulse 2s infinite}
+  .wa-float::after{animation-delay:1s}
+  @keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
+
+  /* ---------- Modales legales ---------- */
+  .modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.7)}
+  .modal.open{display:flex}
+  .modal-box{background:#fff;max-width:860px;width:100%;max-height:88vh;overflow:auto;border-radius:16px;border-top:8px solid var(--red)}
+  .legal h3{font-size:1.05rem;color:var(--blue);margin:1.3rem 0 .4rem}
+  .legal p,.legal li{font-size:.9rem;line-height:1.65;color:#333}
+  .legal ul{list-style:disc;padding-left:1.3rem}
+  .legal .alert{background:#FFF1F1;border-left:5px solid var(--red);padding:1rem;border-radius:8px;margin:1rem 0}
+
+  /* ---------- Formularios ---------- */
+  .field{width:100%;padding:.8rem 1rem;border:2px solid #ddd;border-radius:10px;font-size:.95rem;background:#fff;color:var(--coal);transition:border .2s}
+  .field:focus{border-color:var(--red);outline:none}
+  .dark-field{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.3);color:#fff}
+  .dark-field::placeholder{color:#ddd}
+  .dark-field option{color:#222}
+
+  /* Video facade */
+  .yt-facade{position:relative;cursor:pointer;background:#000;aspect-ratio:16/9;border-radius:14px;overflow:hidden}
+  .yt-facade img{width:100%;height:100%;object-fit:cover;opacity:.7;transition:opacity .3s}
+  .yt-facade:hover img{opacity:.9}
+  .yt-play{position:absolute;inset:0;margin:auto;width:78px;height:78px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(160,0,0,.3)}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none!important;transition:none!important}
+    .slide .reveal,.slide .zoom{opacity:1;transform:none}
+    #deck{scroll-behavior:auto}
+  }
+  /* LOADER COMBOY VID - FIX DEFINITIVO */
+#loader{
+  position:fixed; inset:0; z-index:9999;
+  background:#0a0a0a; display:flex;
+  align-items:center; justify-content:center;
+  transition: opacity .6s ease, visibility .6s;
+}
+#loader.hide{ opacity:0; visibility:hidden; pointer-events:none; }
+.loader-content{ text-align:center; }
+.loader-logo{ width:224px; height:auto; display:block; margin:0 auto; }
+.loader-text{ color:#9ca3af; font-size:14px; letter-spacing:.3em; text-transform:uppercase; margin-top:8px; }
+.loader-bar{ width:120px; height:3px; background:#333; margin:16px auto 0; overflow:hidden; position:relative; }
+.loader-bar span{
+  position:absolute; left:0; top:0; height:100%; width:40%;
+  background:#dc2626; animation: loading 1s infinite ease-in-out;
+}
+@keyframes loading{ 0%{left:-40%} 100%{left:100%} }
+</style>
+</head>
+
+<body>
+
+<!-- ===================== LOADER ===================== -->
+<!-- LOADER COMBOY VID -->
+<div id="loader">
+  <div class="loader-content">
+    <img src="img/logo-comboyvid.webp" alt="COMBOY VID" class="loader-logo">
+    <div class="loader-text">Soluciones mineras</div>
+    <div class="loader-bar"><span></span></div>
+  </div>
+</div>
+
+<!-- Enlace de salto (accesibilidad) -->
+<a href="#slide1" class="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] bg-white text-black p-2 rounded">Saltar al contenido</a>
+
+<!-- ===================== 1. HEADER STICKY ===================== -->
+<header id="header" class="fixed top-0 inset-x-0 z-50">
+  <!-- Barra superior -->
+  <div class="hidden lg:block bg-cvred text-white text-xs">
+    <div class="max-w-7xl mx-auto px-6 py-1.5 flex justify-between items-center">
+      <span>📍 Arequipa (Paucarpata) · Distribución nacional</span>
+      <div class="flex items-center gap-4">
+        <span>🕒 Lun–Sáb 8:00–18:00</span>
+        <!-- ✏️ CAMBIA tus redes sociales -->
+        <a href="https://facebook.com/comboyvid" aria-label="Facebook" class="hover:opacity-80">Facebook</a>
+        <a href="https://tiktok.com/@comboyvidsecocha" aria-label="TikTok" class="hover:opacity-80">TikTok</a>
+        <a href="https://youtube.com/@comboyvid" aria-label="YouTube" class="hover:opacity-80">YouTube</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="bg-black/85 backdrop-blur-md" id="mainbar">
+    <div class="max-w-7xl mx-auto px-4 lg:px-6 h-[68px] flex items-center justify-between gap-4">
+      <a href="#slide1" class="flex items-center gap-2 shrink-0" aria-label="Comboy Vid inicio">
+        <!-- Logo oficial (img/logo-comboyvid.webp) -->
+        <img src="img/logo-comboyvid.webp" alt="Comboy Vid – Soluciones Mineras" width="626" height="222" class="h-10 lg:h-12 w-auto">
+      </a>
+      <span class="flex items-center gap-2 shrink-0" aria-live="polite">
+        <span id="slideCounter" class="font-title text-xs text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">1 / 8</span>
+        <span id="slideName" class="hidden 2xl:inline text-xs text-gray-300 font-semibold uppercase tracking-wider">Inicio</span>
+      </span>
+
+      <nav class="hidden xl:flex items-center gap-6" aria-label="Menú principal">
+        <a href="#slide1" class="nav-link">INICIO</a>
+        <a href="#slide2" class="nav-link">NOSOTROS</a>
+        <a href="#slide4" class="nav-link">EQUIPOS</a>
+        <a href="#slide5" class="nav-link">CATÁLOGO/TIENDA</a>
+        <a href="#slide7" class="nav-link">GALERÍA</a>
+        <a href="#slide8" class="nav-link">SUCURSALES</a>
+        <a href="#slide6" class="nav-link">CONTACTO</a>
+      </nav>
+
+      <div class="flex items-center gap-2 lg:gap-3">
+        <form id="headerSearch" class="hidden md:flex xl:hidden 2xl:flex items-center bg-white/10 border border-white/20 rounded-lg overflow-hidden" role="search">
+          <label for="hq" class="sr-only">Buscar productos</label>
+          <input id="hq" type="search" placeholder="Buscar nombre o código…" class="bg-transparent text-white placeholder-gray-300 text-sm px-3 py-2 w-40 lg:w-48 outline-none">
+          <button class="px-3 text-white" aria-label="Buscar">🔍</button>
+        </form>
+        <button id="cartBtn" class="relative p-2 text-white" aria-label="Abrir carrito de cotización">
+          <svg width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.5L22 7H6"/><circle cx="10" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+          <span id="cartCount" class="badge-count absolute -top-0.5 -right-0.5 bg-cvred text-white rounded-full flex items-center justify-center font-bold px-1">0</span>
+        </button>
+        <a href="#" data-wa="Hola COMBOY VID, quiero una cotización." class="btn btn-red hidden sm:inline-flex text-xs px-4 py-3">Cotizar por WhatsApp</a>
+        <button id="menuBtn" class="xl:hidden text-white p-2" aria-label="Abrir menú" aria-expanded="false">
+          <svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Menú móvil -->
+    <nav id="mobileMenu" class="xl:hidden hidden bg-cvblack border-t border-white/10" aria-label="Menú móvil">
+      <div class="px-5 py-4 flex flex-col gap-3">
+        <form id="mobileSearch" class="flex bg-white/10 rounded-lg overflow-hidden md:hidden" role="search">
+          <input type="search" placeholder="Buscar productos…" class="bg-transparent text-white placeholder-gray-300 px-3 py-2 flex-1 outline-none" aria-label="Buscar productos">
+          <button class="px-3 text-white" aria-label="Buscar">🔍</button>
+        </form>
+        <a href="#slide1" class="nav-link text-base">INICIO</a>
+        <a href="#slide2" class="nav-link text-base">NOSOTROS</a>
+        <a href="#slide4" class="nav-link text-base">EQUIPOS</a>
+        <a href="#slide5" class="nav-link text-base">CATÁLOGO/TIENDA</a>
+        <a href="#slide7" class="nav-link text-base">GALERÍA</a>
+        <a href="#slide8" class="nav-link text-base">SUCURSALES</a>
+        <a href="#slide6" class="nav-link text-base">CONTACTO</a>
+        <a href="#" data-wa="Hola COMBOY VID, quiero una cotización." class="btn btn-red py-3 mt-2">Cotizar por WhatsApp</a>
+      </div>
+    </nav>
+    <!-- Barra de progreso de la presentación -->
+    <div class="h-[3px] bg-white/10"><div id="progressBar" class="h-full" style="width:12.5%;background:#E53935;transition:width .5s"></div></div>
+  </div>
+</header>
+
+<main id="deck">
+
+<!-- ===================== 2. HERO ===================== -->
+<section id="slide1" class="slide hero" data-title="Inicio">
+  <!-- Portada: remolcador moto carguero + tolva Comboy Vid en bocamina (img/hero-comboyvid.webp) -->
+  <div class="hero-bg" role="img" aria-label="Remolcador de coches mineros" style="background-image:url('img/hero-comboyvid.webp');background-position:center"></div>
+  <!-- Opcional: video de fondo. Descomenta y pon tu archivo MP4 ligero (<5MB)
+  <video class="absolute inset-0 w-full h-full object-cover z-0" autoplay muted loop playsinline poster="img/hero.webp">
+    <source src="video/socavon.mp4" type="video/mp4">
+  </video> -->
+
+  <div class="hero-content max-w-7xl mx-auto px-5 lg:px-6 py-6 w-full grid lg:grid-cols-12 gap-10 items-center">
+    <div class="lg:col-span-5">
+      <span class="section-tag light reveal">Innovación que impulsa la minería</span>
+      <h1 class="text-white text-4xl sm:text-5xl xl:text-6xl leading-[1.02] mt-5 reveal reveal-d1">
+        Comboy Vid:<br><span style="color:#E53935">soluciones</span> mineras
+      </h1>
+      <p class="text-gray-200 text-lg lg:text-xl mt-6 max-w-2xl reveal reveal-d2">
+        Potencia minera que no se detiene. Fabricamos <strong class="text-white">remolcadores de gran capcidad de tracción</strong> con entrega imediata.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 mt-8 reveal reveal-d3">
+        <a href="#slide4" class="btn btn-red px-6 py-4 text-xs whitespace-nowrap">Ver equipos principales →</a>
+        <a href="#slide5" class="btn btn-outline px-6 py-4 text-xs whitespace-nowrap">Tienda virtual</a>
+      </div>
+      <div class="grid grid-cols-3 gap-4 mt-12 max-w-lg reveal">
+        <div><div class="font-title text-3xl text-white">5</div><div class="text-xs text-gray-400 uppercase tracking-wider">Años fabricando</div></div>
+        <div><div class="font-title text-3xl text-white">0 días</div><div class="text-xs text-gray-400 uppercase tracking-wider">Entrega</div></div>
+        <div><div class="font-title text-3xl text-white">24/7</div><div class="text-xs text-gray-400 uppercase tracking-wider">Soporte</div></div>
+      </div>
+      <!-- ✏️ Ajusta estas cifras a tu realidad -->
+    </div>
+
+    <!-- Foto principal del producto (remolcador + tolva) -->
+    <div class="lg:col-span-7 relative">
+      <figure class="zoom relative rounded-2xl overflow-hidden shadow-2xl border border-white/15 aspect-[16/9]">
+        <img src="img/portada.webp" alt="Remolcador moto carguero Comboy Vid con tolva minera en bocamina" class="w-full h-full object-cover" fetchpriority="high">
+        <figcaption class="absolute top-3 left-3 bg-cvred text-white text-[10px] sm:text-xs font-title px-3 py-1 rounded">REMOLCADOR ECO-MINE 3000</figcaption>
+      </figure>
+      <div class="glass rounded-xl px-4 py-3 text-white mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 reveal reveal-d2" style="background:rgba(20,20,20,.7)">
+        <div class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="font-title text-xs tracking-wider">STOCK INMEDIATO AREQUIPA</span>
+        </div>
+        <p class="font-title text-sm">· Garantía de fábrica</p>
+        <p class="text-xs text-gray-300 mt-0.5 hidden sm:block">Prueba de tracción en planta y soporte post-venta en mina.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. NOSOTROS ===================== -->
+<section id="slide2" class="slide bg-white" data-title="Nosotros">
+  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+    <div class="grid lg:grid-cols-2 gap-12 items-center">
+      <!-- Video fábrica -->
+      <div class="zoom">
+        <!-- ✏️ Pon el ID de tu video de fábrica en data-id (lo que va después de watch?v= en YouTube) -->
+        <div class="yt-facade shadow-2xl" data-id="TU_VIDEO_FABRICA_ID" role="button" tabindex="0" aria-label="Reproducir video de nuestra fábrica">
+          <img src="img/coche-minero-z20.jpg" alt="Coche minero Comboy Vid en socavón" class="w-full h-full object-cover" style="object-position:center 70%">
+          <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          <span class="absolute bottom-3 left-3 bg-cvred text-white text-xs font-title px-3 py-1 rounded">VIDEO · NUESTRA PLANTA</span>
+        </div>
+      </div>
+
+      <div class="reveal reveal-d1">
+        <span class="section-tag">Presentación empresarial</span>
+        <h2 class="text-3xl lg:text-5xl mt-4 text-cvblack">Fabricantes de <span class="text-cvred">remolcadores mineros</span> en Arequipa</h2>
+        <!-- ✏️ Edita la historia con tus datos reales -->
+        <p class="mt-5 text-gray-600 leading-relaxed">
+          En Comboy Vid tenemos una idea clara: que la minería subterránea peruana cuente con equipos de tracción <strong>fabricados en el Perú</strong>, robustos, de repuesto accesible y con soporte real. Hoy diseñamos, soldamos y probamos en planta remolcadores, coches mineros y tolvas que trabajan en socavones de todo el sur del país.
+        </p>
+        <div class="grid sm:grid-cols-2 gap-4 mt-8">
+          <div class="p-5 rounded-xl bg-cvred text-white lift">
+            <h3 class="text-lg">MISIÓN</h3>
+            <p class="text-sm mt-2 text-red-50">Fabricamos equipos de arrastre y transporte para minería subterránea, robustos,seguros y ecoeficientes, que permiten a la pequeña y mediana minería peruana trabajar más años con menos paradas y menor impacto ambiental.</p>
+          </div>
+          <div class="p-5 rounded-xl bg-cvblue text-white lift">
+            <h3 class="text-lg">VISIÓN</h3>
+            <p class="text-sm mt-2 text-blue-100">Ser la marca peruana de referencia en equipos para minería subterránea de pequeña y mediana escala, con la línea ECO más completa del sector y una base de clientes formales recurrentes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3b. VALORES + ORGANIGRAMA ===================== -->
+<section id="slide3" class="slide bg-cvgray" data-title="Valores y equipo">
+  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+    <!-- Valores -->
+    <div>
+      <div class="text-center reveal"><span class="section-tag">Lo que nos mueve</span></div>
+      <h2 class="text-center text-3xl lg:text-4xl text-cvblack mt-3 reveal reveal-d1">Nuestros <span class="text-cvred">valores</span></h2>
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-6">
+        <div class="bg-white rounded-2xl p-5 text-center lift reveal">
+          <div class="w-14 h-14 mx-auto rounded-xl bg-cvred flex items-center justify-center text-2xl">🦺</div>
+          <h4 class="mt-4 text-cvblack">ECOEFICIENTE</h4>
+          <p class="text-xs text-gray-600 mt-1">Diseño pensado en el operador y la mina.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 text-center lift reveal reveal-d1">
+          <div class="w-14 h-14 mx-auto rounded-xl bg-cvred flex items-center justify-center text-2xl">⚡</div>
+          <h4 class="mt-4 text-cvblack">RESISTENCIA</h4>
+          <p class="text-xs text-gray-600 mt-1">Tracción de alto tonelaje en pendiente.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 text-center lift reveal reveal-d2">
+          <div class="w-14 h-14 mx-auto rounded-xl bg-cvred flex items-center justify-center text-2xl">⏱️</div>
+          <h4 class="mt-4 text-cvblack">COMPROMISO</h4>
+          <p class="text-xs text-gray-600 mt-1">Entregas en plazo, sin excusas.</p>
+        </div>
+        <div class="bg-white rounded-2xl p-5 text-center lift reveal reveal-d3">
+          <div class="w-14 h-14 mx-auto rounded-xl bg-cvred flex items-center justify-center text-2xl">🛠️</div>
+          <h4 class="mt-4 text-cvblack">INNOVACION</h4>
+          <p class="text-xs text-gray-600 mt-1">Adaptación a las necesidades para mejorar las operaciones mineras</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Organigrama -->
+    <div class="mt-10 reveal reveal-d2">
+      <h3 class="text-center text-2xl lg:text-3xl text-cvblack">Nuestro <span class="text-cvred">equipo</span></h3>
+      <p class="text-center text-gray-500 text-sm mt-2">Pasa el cursor (o toca) sobre cada área.</p>
+      <!-- ✏️ Reemplaza fotos y nombres. Las fotos son placeholders con iniciales -->
+      <div class="flex flex-col items-center mt-6">
+        <div class="org-node bg-cvblack text-white rounded-2xl px-8 py-5 text-center shadow-xl" tabindex="0">
+          <div class="w-16 h-16 mx-auto rounded-full bg-cvred flex items-center justify-center font-title text-xl border-4 border-white">GG</div>
+          <h4 class="mt-3">GERENCIA GENERAL</h4>
+          <p class="text-xs text-gray-400">Dirección y estrategia</p>
+        </div>
+        <div class="org-line w-1 h-8"></div>
+        <div class="org-line h-1 w-[80%] max-w-3xl hidden md:block"></div>
+        <div class="grid md:grid-cols-3 gap-5 w-full max-w-4xl mt-0 md:mt-0">
+          <div class="flex flex-col items-center"><div class="org-line w-1 h-8 hidden md:block"></div>
+            <div class="org-node bg-white rounded-2xl px-6 py-5 text-center w-full" tabindex="0">
+              <div class="w-14 h-14 mx-auto rounded-full bg-cvblue text-white flex items-center justify-center font-title">PR</div>
+              <h4 class="mt-3 text-sm">PRODUCCIÓN</h4><p class="text-xs text-gray-500">Corte, soldadura, armado y pruebas</p>
+            </div></div>
+          <div class="flex flex-col items-center"><div class="org-line w-1 h-8 hidden md:block"></div>
+            <div class="org-node bg-white rounded-2xl px-6 py-5 text-center w-full" tabindex="0">
+              <div class="w-14 h-14 mx-auto rounded-full bg-cvblue text-white flex items-center justify-center font-title">VT</div>
+              <h4 class="mt-3 text-sm">VENTAS</h4><p class="text-xs text-gray-500">Cotizaciones y atención comercial</p>
+            </div></div>
+          <div class="flex flex-col items-center"><div class="org-line w-1 h-8 hidden md:block"></div>
+            <div class="org-node bg-white rounded-2xl px-6 py-5 text-center w-full" tabindex="0">
+              <div class="w-14 h-14 mx-auto rounded-full bg-cvblue text-white flex items-center justify-center font-title">PV</div>
+              <h4 class="mt-3 text-sm">POST-VENTA</h4><p class="text-xs text-gray-500">Garantía, mantenimiento y repuestos</p>
+            </div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 4. EQUIPOS PRINCIPALES ===================== -->
+<section id="slide4" class="slide bg-cvred relative" data-title="Equipos">
+  <div class="absolute -right-32 -top-32 w-96 h-96 rounded-full bg-white/5"></div>
+  <div class="absolute -left-20 bottom-0 w-72 h-72 rounded-full bg-black/10"></div>
+  <div class="max-w-7xl mx-auto px-5 lg:px-6 relative">
+    <div class="text-center max-w-3xl mx-auto reveal">
+      <span class="section-tag light">Línea principal</span>
+      <h2 class="text-white text-3xl lg:text-5xl mt-4">Equipos mineros para socavón</h2>
+      <p class="text-red-50 mt-4">Remolcadores y coches mineros fabricados en con calidad y garantia.</p>
+    </div>
+    <div id="equiposGrid" class="grid md:grid-cols-2 gap-6 lg:gap-8 mt-12"></div>
+  </div>
+</section>
+
+<!-- ===================== 5. TIENDA VIRTUAL ===================== -->
+<section id="slide5" class="slide bg-cvgray" data-title="Tienda">
+  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+    <!-- Breadcrumb -->
+    <nav aria-label="Ruta" class="text-sm text-gray-500 mb-6">
+      <a href="#slide1" class="hover:text-cvred">Inicio</a> <span class="mx-1">›</span>
+      <a href="#slide5" class="hover:text-cvred">Tienda</a> <span class="mx-1">›</span>
+      <span id="crumbCat" class="text-cvred font-semibold">Todos</span>
+    </nav>
+
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal">
+      <div>
+        <span class="section-tag">Catálogo 2026</span>
+        <h2 class="text-3xl lg:text-5xl mt-4 text-cvblack">Tienda virtual <span class="text-cvred"></span></h2>
+        <p class="text-gray-600 mt-3 max-w-2xl">Equipos y <strong>repuestos con código</strong> para moto carguero y remolcador minero. Arma tu lista, envíala y un asesor te responde con precio y stock. <strong>No se realizan pagos en esta web.</strong></p>
+      </div>
+      <!-- ✏️ Sube tu PDF a la misma carpeta con este nombre: catalogo-comboyvid-2026.pdf -->
+      <a href="catalogo-comboyvid-2026.pdf" download class="btn btn-blue px-6 py-4 text-xs shrink-0">⬇ Descargar catálogo PDF 2026</a>
+    </div>
+
+    <div class="mt-8 flex flex-col md:flex-row gap-4 md:items-center">
+      <div id="chips" class="flex gap-2 overflow-x-auto pb-2 min-w-0" role="tablist" aria-label="Categorías">
+      </div>
+      <div class="md:ml-auto relative md:w-80">
+        <label for="shopSearch" class="sr-only">Buscar en la tienda</label>
+        <input id="shopSearch" type="search" class="field pl-10" placeholder="Nombre o código (ej. CV084)">
+        <span class="absolute left-3 top-1/2 -translate-y-1/2">🔍</span>
+      </div>
+    </div>
+
+    <p id="resultInfo" class="text-sm text-gray-500 mt-4" aria-live="polite"></p>
+    <div id="shopGrid" class="grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-3 lg:gap-5 mt-4"></div>
+    <div class="text-center mt-6"><button id="moreBtn" class="btn btn-dark px-8 py-4 text-xs hidden">Ver más productos</button></div>
+  </div>
+</section>
+
+<!-- ===================== 6. FORMULARIO LEAD ===================== -->
+<section id="slide6" class="slide bg-cvblack relative" data-title="Cotizar">
+  <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 20% 30%,#A00000,transparent 40%),radial-gradient(circle at 85% 80%,#0A3D8F,transparent 40%)"></div>
+  <div class="max-w-6xl mx-auto px-5 lg:px-6 relative grid lg:grid-cols-5 gap-10 items-start">
+    <div class="lg:col-span-2 reveal">
+      <span class="section-tag light">Respuesta rápida</span>
+      <h2 class="text-white text-3xl lg:text-5xl mt-4">Solicita tu cotización en <span style="color:#E53935">30 segundos</span></h2>
+      <ul class="mt-8 space-y-4 text-gray-300">
+        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Respuesta de un asesor en horario laboral.</li>
+        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Cotización formal con RUC y condiciones por escrito.</li>
+        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Asesoría técnica según pendiente, tonelaje y trocha.</li>
+      </ul>
+      <div class="glass rounded-xl p-4 mt-8 text-sm text-gray-200">
+        🔒 Tus datos se tratan conforme a la <strong>Ley N° 29733</strong> de Protección de Datos Personales. Solo los usamos para atender tu solicitud.
+      </div>
+    </div>
+
+    <!-- ✏️ Cambia el correo en action: https://formsubmit.co/TU-CORREO@comboyvid.com
+         La primera vez FormSubmit te enviará un correo de activación que debes confirmar. -->
+    <form id="leadForm" action="https://formsubmit.co/areacomercial@comboyvid.com" method="POST" class="lg:col-span-3 glass rounded-2xl p-6 lg:p-8 reveal reveal-d1" novalidate>
+      <input type="hidden" name="_subject" value="Nueva cotización web - Comboy Vid">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="sm:col-span-2">
+          <label class="text-white text-sm font-semibold" for="lf_nombre">Nombre completo *</label>
+          <input id="lf_nombre" name="nombre" required class="field dark-field mt-1" autocomplete="name">
+        </div>
+        <div>
+          <label class="text-white text-sm font-semibold" for="lf_empresa">Empresa</label>
+          <input id="lf_empresa" name="empresa" class="field dark-field mt-1" autocomplete="organization">
+        </div>
+        <div>
+          <label class="text-white text-sm font-semibold" for="lf_ruc">RUC</label>
+          <input id="lf_ruc" name="ruc" inputmode="numeric" maxlength="11" pattern="\d{11}" class="field dark-field mt-1" placeholder="11 dígitos">
+        </div>
+        <div>
+          <label class="text-white text-sm font-semibold" for="lf_wa">WhatsApp *</label>
+          <input id="lf_wa" name="whatsapp" required inputmode="tel" pattern="[0-9+ ]{9,15}" class="field dark-field mt-1" placeholder="9XX XXX XXX" autocomplete="tel">
+        </div>
+        <div>
+          <label class="text-white text-sm font-semibold" for="lf_mail">Correo *</label>
+          <input id="lf_mail" name="email" type="email" required class="field dark-field mt-1" autocomplete="email">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-white text-sm font-semibold" for="lf_equipo">Equipo de interés</label>
+          <select id="lf_equipo" name="equipo" class="field dark-field mt-1">
+            <option value="">Selecciona un equipo</option>
+            <option>Remolcador CV-3000 - 4TN</option>
+            <option>Remolcador CV-3500 - 7TN</option>
+            <option>Coche Minero Z20</option>
+            <option>Remolcador Electrico</option>
+             </select>
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-white text-sm font-semibold" for="lf_msg">Mensaje</label>
+          <textarea id="lf_msg" name="mensaje" rows="3" class="field dark-field mt-1" placeholder="Cantidad, trocha, pendiente de la labor, lugar de entrega…"></textarea>
+        </div>
+      </div>
+
+      <div class="mt-5 space-y-3 text-sm text-gray-200">
+        <label class="flex gap-3 items-start cursor-pointer">
+          <input type="checkbox" name="acepta_privacidad" required class="mt-1 w-4 h-4 accent-red-600">
+          <span>He leído y <strong>acepto la <button type="button" class="underline text-white" data-modal="m-privacidad">Política de Privacidad</button></strong> para la atención de mi cotización. *</span>
+        </label>
+        <label class="flex gap-3 items-start cursor-pointer">
+          <input type="checkbox" name="autoriza_marketing" id="lf_mkt" class="mt-1 w-4 h-4 accent-red-600">
+          <span>Autorizo el envío de promociones y anuncios por WhatsApp, correo y SMS según la <button type="button" class="underline text-white" data-modal="m-marketing">Política de Autorización de Marketing</button>. <em class="text-gray-400">(Opcional)</em></span>
+        </label>
+      </div>
+      <p class="text-[11px] text-gray-400 mt-4 leading-relaxed">
+        Aviso de protección de datos: el responsable del tratamiento es Comboy Vid Soluciones Mineras. Tus datos se incorporan a nuestro banco de datos de clientes/prospectos para responder tu solicitud. Puedes ejercer tus derechos ARCO escribiendo a <!-- ✏️ correo de privacidad --> areacomercial@comboyvid.com. El consentimiento para marketing es libre y revocable en cualquier momento.
+      </p>
+
+      <p id="leadError" class="hidden mt-4 text-sm bg-red-600/30 border border-red-400 text-white rounded-lg p-3" role="alert"></p>
+      <button type="submit" class="btn btn-red w-full mt-5 py-4 text-sm">Enviar solicitud de cotización</button>
+
+      <div id="leadOk" class="hidden mt-5 bg-green-600/25 border border-green-400 text-white rounded-lg p-4 text-sm" role="status">
+        ✅ <strong>¡Solicitud recibida!</strong> Un asesor de Comboy Vid se comunicará contigo por WhatsApp o correo. Recuerda: solo cotizamos con comprobante a nombre de la empresa.
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== 7. GALERÍA ===================== -->
+<section id="slide7" class="slide bg-white" data-title="Galería">
+  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+    <div class="text-center max-w-3xl mx-auto reveal">
+      <span class="section-tag">En operación</span>
+      <h2 class="text-3xl lg:text-5xl mt-4 text-cvblack">Galería de <span class="text-cvred">operaciones mineras</span></h2>
+      <p class="text-gray-600 mt-3">Nuestros equipos trabajando en socavón. Los videos cargan solo al hacer clic para que la web sea rápida.</p>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-6 mt-12">
+      <!-- ✏️ Pon los ID de tus videos de YouTube en data-id -->
+      <div class="yt-facade shadow-xl zoom" data-id="TU_VIDEO_ID_1" role="button" tabindex="0" aria-label="Reproducir video: remolcador en socavón">
+        <img loading="lazy" src="img/moto-tunel.webp" alt="Remolcador moto carguero Comboy Vid en socavón" onerror="this.style.display='none'">
+        <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">REMOLCADOR MOTO CARGUERO EN SOCAVÓN</span>
+      </div>
+      <div class="yt-facade shadow-xl zoom reveal-d1" data-id="TU_VIDEO_ID_2" role="button" tabindex="0" aria-label="Reproducir video: tren de coches mineros U35">
+        <img loading="lazy" src="img/moto-tunel-2.webp" alt="Remolcador Comboy Vid en galería minera" onerror="this.style.display='none'">
+        <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">REMOLCADOR EN GALERÍA MINERA</span>
+      </div>
+    </div>
+
+    <!-- ✏️ Reemplaza por fotos de tus clientes (con su autorización) -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+      <figure class="relative rounded-xl overflow-hidden aspect-square img-fallback lift zoom"><img loading="lazy" class="w-full h-full object-cover" src="img/moto-mina.webp" alt="Remolcador Comboy Vid en bocamina" onerror="this.style.display='none'"><figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 p-3 text-white text-xs font-semibold">Minera · Arequipa</figcaption></figure>
+      <figure class="relative rounded-xl overflow-hidden aspect-square img-fallback lift zoom reveal-d1"><img loading="lazy" class="w-full h-full object-cover" src="img/equipo-tolva.webp" alt="Remolcador con tolva Comboy Vid" style="object-position:70% center" onerror="this.style.display='none'"><figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 p-3 text-white text-xs font-semibold">Entrega · Cusco</figcaption></figure>
+      <figure class="relative rounded-xl overflow-hidden aspect-square img-fallback lift zoom reveal-d2"><img loading="lazy" class="w-full h-full object-cover" src="img/comboyvid-poster.webp" alt="Coche minero Comboy Vid" style="object-position:center 75%" onerror="this.style.display='none'"><figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 p-3 text-white text-xs font-semibold">Tolva · Apurímac</figcaption></figure>
+      <figure class="relative rounded-xl overflow-hidden aspect-square img-fallback lift zoom reveal-d3"><img loading="lazy" class="w-full h-full object-cover" src="img/electrica.jpeg" alt="Remolcador Comboy Vid en túnel" onerror="this.style.display='none'"><figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/80 p-3 text-white text-xs font-semibold">Planta · Paucarpata</figcaption></figure>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center mt-10">
+      <!-- ✏️ Tus canales -->
+      <a href="https://youtube.com/@comboyvid" class="btn btn-red px-8 py-4 text-xs">▶ Ver más en YouTube</a>
+      <a href="https://tiktok.com/@comboyvidsecocha" class="btn btn-dark px-8 py-4 text-xs">♪ Ver más en TikTok</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 8. SUCURSALES + CONTACTO ===================== -->
+<section id="slide8" class="slide bg-cvgray" data-title="Sucursales">
+  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+    <div class="text-center max-w-3xl mx-auto reveal">
+      <span class="section-tag">Ubicación</span>
+      <h2 class="text-3xl lg:text-5xl mt-4 text-cvblack">2 sucursales, <span class="text-cvred">cobertura nacional</span></h2>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 mt-12">
+      <!-- ✏️ Sucursal 1: dirección, teléfono y número de WhatsApp -->
+      <article class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border-t-8 border-cvred lift reveal">
+        <span class="text-xs font-title tracking-widest text-cvred">SEDE PRINCIPAL</span>
+        <h3 class="text-2xl mt-1 text-cvblack">Arequipa – Paucarpata</h3>
+        <ul class="mt-4 space-y-2 text-sm text-gray-700">
+          <li>📍 Asoc. Viv Taller el Nazareno Mz. A Lt 25, Paucarpata, Arequipa</li>
+          <li>🕒 Lun–Vie 8:00–17:00 · Sáb 8:00–13:00</li>
+          <li>📞 <a href="tel:+51983148798" class="hover:text-cvred">+51 983 148 798</a></li>
+        </ul>
+        <div class="flex flex-wrap gap-3 mt-6">
+          <a href="#" data-wa="Hola COMBOY VID Arequipa, quiero información." data-wa-num="arequipa" class="btn btn-red px-5 py-3 text-xs">WhatsApp directo</a>
+          <button class="btn btn-dark px-5 py-3 text-xs" data-map="arequipa">Ver en mapa</button>
+          <a href="https://maps.app.goo.gl/kNy2ic7nu97o3z477" class="btn btn-blue px-5 py-3 text-xs">Cómo llegar</a>
+        </div>
+      </article>
+      <!-- ✏️ Sucursal 2 -->
+      <article class="bg-white rounded-2xl p-6 lg:p-8 shadow-md border-t-8 border-cvblue lift reveal reveal-d1">
+        <span class="text-xs font-title tracking-widest text-cvblue">SUCURSAL CAMANA</span>
+        <h3 class="text-2xl mt-1 text-cvblack">SECOCHA</h3>
+        <ul class="mt-4 space-y-2 text-sm text-gray-700">
+          <li>📍 Calle Los Angeles SN, Secocha, Camana, Arequipa</li>
+          <li>🕒 Lun–Vie 7:00–18:00 · Sáb 8:00–13:00</li>
+          <li>📞 <a href="tel:+51942371941" class="hover:text-cvred">+51942371941</a></li>
+        </ul>
+        <div class="flex flex-wrap gap-3 mt-6">
+          <a href="#" data-wa="Hola COMBOY VID Secocha, quiero información." data-wa-num="secocha" class="btn btn-red px-5 py-3 text-xs">WhatsApp directo</a>
+          <button class="btn btn-dark px-5 py-3 text-xs" data-map="secocha">Ver en mapa</button>
+         <a href="https://www.google.com/maps/place/COMBOYVID/@-15.979884946581594,-73.17359592327448,17z/data=!3m1!4b1!4m6!3m5!1s0x914019ffacc603cb:0x842cee7ec205719e!8m2!3d-15.979884946581594!4d-73.17359592327448" target="_blank" class="btn btn-blue px-5 py-3 text-xs">Cómo llegar</a>
+        </div>
+      </article>
+  <div id="contacto" class="grid lg:grid-cols-5 gap-6 mt-8">
+  <div class="lg:col-span-3 rounded-2xl overflow-hidden shadow-md bg-white">
+    <div class="flex border-b">
+      <button onclick="document.getElementById('map-arequipa').style.display='block';document.getElementById('map-secocha').style.display='none';this.classList.add('bg-cvred');this.classList.remove('bg-cvblack');document.getElementById('btn-secocha').classList.add('bg-cvblack');document.getElementById('btn-secocha').classList.remove('bg-cvred');" class="flex-1 py-3 bg-cvred text-white font-bold text-xs">📍 AREQUIPA</button>
+      <button id="btn-secocha" onclick="document.getElementById('map-secocha').style.display='block';document.getElementById('map-arequipa').style.display='none';this.classList.add('bg-cvred');this.classList.remove('bg-cvblack');this.parentElement.firstElementChild.classList.add('bg-cvblack');" class="flex-1 py-3 bg-cvblack text-white font-bold text-xs">📍 SECOCHA</button>
+    </div>
+
+    <!-- AREQUIPA -->
+    <div id="map-arequipa" style="display:block;">
+      <iframe class="w-full h-[450px] border-0" src="https://maps.google.com/maps?q=Paucarpata%2C%20Arequipa%2C%20Peru&amp;z=15&amp;output=embed"></iframe>
+    </div>
+
+    <!-- SECOCHA - C. Los Angeles COMBOYVID -->
+    <div id="map-secocha" style="display:none;">
+      <iframe class="w-full h-[450px] border-0" src="https://maps.google.com/maps?q=-15.9798849%2C-73.1735959&amp;z=18&amp;hl=es&amp;output=embed"></iframe>
+    </div>
+  </div>
+      <!-- Contacto rápido -->
+      <form id="quickForm" class="lg:col-span-2 bg-cvblack rounded-2xl p-6 lg:p-8 reveal reveal-d1" novalidate>
+        <h3 class="text-white text-2xl">Contacto rápido</h3>
+        <p class="text-gray-400 text-sm mt-1">Te respondemos por WhatsApp.</p>
+        <label for="qf_n" class="sr-only">Nombre</label>
+        <input id="qf_n" required class="field dark-field mt-5" placeholder="Nombre *">
+        <label for="qf_s" class="sr-only">Sucursal</label>
+        <select id="qf_s" class="field dark-field mt-3">
+          <option value="arequipa">Sucursal Arequipa</option>
+          <option value="secocha">Sucursal Secocha</option>
+        </select>
+        <label for="qf_m" class="sr-only">Mensaje</label>
+        <textarea id="qf_m" required rows="4" class="field dark-field mt-3" placeholder="¿En qué te ayudamos? *"></textarea>
+        <label class="flex gap-2 items-start text-xs text-gray-300 mt-3 cursor-pointer">
+          <input type="checkbox" id="qf_p" required class="mt-0.5 accent-red-600">
+          <span>Acepto la <button type="button" class="underline" data-modal="m-privacidad">Política de Privacidad</button>. *</span>
+        </label>
+        <p id="qfError" class="hidden text-xs text-red-300 mt-2" role="alert"></p>
+        <button class="btn btn-red w-full mt-5 py-4 text-xs">Enviar por WhatsApp</button>
+      </form>
+    </div>
+  </div>
+
+<!-- ===================== 9. FOOTER (solo en la última slide) ===================== -->
+<footer class="bg-cvblack text-gray-300 mt-10 w-full">
+  <div class="stripe"></div>
+  <div class="max-w-7xl mx-auto px-5 lg:px-6 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <div class="font-title text-2xl"><span style="color:#E53935">COMBOY</span> <span class="text-white">VID</span></div>
+      <p class="text-xs tracking-[.25em] text-gray-400 mt-1">SOLUCIONES MINERAS</p>
+      <p class="text-sm mt-4 text-gray-400">Fabricación y venta de remolcadores, coches mineros y tolvas para minería subterránea en el Perú.</p>
+      <!-- ✏️ Razón social y RUC reales (obligatorio mostrarlos) -->
+      <p class="text-xs mt-4 text-gray-500">Razón social: INVERSIONES GLOBAL COMPANY ROUSVID S.A.C.<br>RUC: 20613238566</p>
+    </div>
+    <div>
+      <h4 class="text-white text-sm tracking-widest">MENÚ</h4>
+      <ul class="mt-4 space-y-2 text-sm">
+        <li><a href="#slide1" class="hover:text-white">Inicio</a></li>
+        <li><a href="#slide2" class="hover:text-white">Nosotros</a></li>
+        <li><a href="#slide4" class="hover:text-white">Equipos</a></li>
+        <li><a href="#slide5" class="hover:text-white">Catálogo / Tienda</a></li>
+        <li><a href="#slide7" class="hover:text-white">Galería</a></li>
+        <li><a href="#slide8" class="hover:text-white">Sucursales</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-white text-sm tracking-widest">CONTACTO</h4>
+      <ul class="mt-4 space-y-2 text-sm">
+        <!-- ✏️ Tus datos -->
+        <li>✉️ <a href="mailto:areacomercial@comboyvid.com" class="hover:text-white">areacomercial@comboyvid.com</a></li>
+        <li>📞 <a href="tel:+51983148798" class="hover:text-white">+51 983 148 798</a></li>
+        <li>📞 <a href="tel:+51942371941" class="hover:text-white">+51 942 371 941</a></li>
+        <li>📍 Paucarpata, Arequipa</li>
+        <li>📍 Secocha, Camana</li>
+      </ul>
+      <div class="flex gap-3 mt-4 text-xs">
+        <a href="https://facebook.com/comboyvid" class="px-3 py-1.5 rounded bg-white/10 hover:bg-cvred">Facebook</a>
+        <a href="https://tiktok.com/@comboyvidsecocha" class="px-3 py-1.5 rounded bg-white/10 hover:bg-cvred">TikTok</a>
+        <a href="https://youtube.com/@comboyvid" class="px-3 py-1.5 rounded bg-white/10 hover:bg-cvred">YouTube</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="text-white text-sm tracking-widest">MÉTODOS DE PAGO</h4>
+      <div class="grid grid-cols-2 gap-2 mt-4 text-xs font-title">
+        <span class="bg-[#742384] text-white rounded px-2 py-2 text-center">YAPE</span>
+        <span class="bg-[#00A4E0] text-white rounded px-2 py-2 text-center">PLIN</span>
+        <span class="bg-cvblue text-white rounded px-2 py-2 text-center">TRANSFERENCIA</span>
+        <span class="bg-white text-[#1A1F71] rounded px-2 py-2 text-center">VISA</span>
+      </div>
+      <p class="text-[11px] text-gray-400 mt-3">⚠️ Solo aceptamos pagos a cuentas a nombre de la empresa, previa cotización formal.</p>
+      <!-- ✏️ Enlaza tu Libro de Reclamaciones virtual (obligatorio - Ley 29571). Puedes usar un formulario propio o un proveedor. -->
+      <a href="#" id="libroBtn" class="mt-5 flex items-center gap-3 bg-white text-cvblack rounded-lg p-3 hover:bg-gray-100">
+        <span class="text-2xl">📕</span>
+        <span class="text-xs font-bold leading-tight">LIBRO DE<br>RECLAMACIONES</span>
+      </a>
+    </div>
+  </div>
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-5 lg:px-6 py-6 flex flex-col md:flex-row gap-3 justify-between text-xs text-gray-500">
+      <p>© <span id="year"></span>2 Area Comercial - Todos los derechos reservados. Marca, logotipo, fotografías y diseños protegidos.</p>
+      <div class="flex flex-wrap gap-4">
+        <button class="hover:text-white underline" data-modal="m-privacidad">Política de Privacidad</button>
+        <button class="hover:text-white underline" data-modal="m-marketing">Autorización de Marketing</button>
+        <button class="hover:text-white underline" data-modal="m-terminos">Términos, Anti-Estafa y Copyright</button>
+      </div>
+    </div>
+  </div>
+</footer>
+</section>
+
+</main>
+
+<!-- ===================== CARRITO (DRAWER) ===================== -->
+<div id="overlay" class="fixed inset-0 bg-black/60 z-[70] hidden-ov"></div>
+<aside id="cartDrawer" class="closed fixed top-0 right-0 h-full w-full sm:w-[440px] bg-white z-[75] flex flex-col shadow-2xl" aria-label="Carrito de cotización" aria-hidden="true">
+  <div class="bg-cvred text-white px-5 py-4 flex items-center justify-between">
+    <h2 class="text-lg">Mi cotización</h2>
+    <button id="closeCart" class="text-2xl leading-none" aria-label="Cerrar carrito">×</button>
+  </div>
+
+  <div id="cartStep1" class="flex-1 overflow-y-auto">
+    <div id="cartItems" class="p-5 space-y-4"></div>
+  </div>
+
+  <!-- Checkout -->
+  <form id="checkoutForm" class="hidden flex-1 overflow-y-auto p-5 space-y-3" novalidate>
+    <button type="button" id="backToCart" class="text-sm text-cvblue font-semibold">← Volver a la lista</button>
+    <h3 class="text-lg text-cvblack">Datos para la cotización</h3>
+    <input id="co_nombre" required class="field" placeholder="Nombre completo *" autocomplete="name" aria-label="Nombre completo">
+    <input id="co_empresa" class="field" placeholder="Empresa" autocomplete="organization" aria-label="Empresa">
+    <input id="co_doc" required class="field" placeholder="RUC o DNI *" inputmode="numeric" maxlength="11" aria-label="RUC o DNI">
+    <input id="co_wa" required class="field" placeholder="WhatsApp *" inputmode="tel" aria-label="WhatsApp">
+    <input id="co_mail" type="email" required class="field" placeholder="Correo *" autocomplete="email" aria-label="Correo">
+    <select id="co_suc" class="field" aria-label="Sucursal de recojo">
+      <option value="arequipa">Recojo: Sucursal Arequipa (Paucarpata)</option>
+      <option value="secocha">Recojo: Sucursal Secocha</option>
+      <option value="envio">Envío a mina (coordinar flete)</option>
+    </select>
+    <label class="flex gap-2 items-start text-xs text-gray-600 cursor-pointer">
+      <input type="checkbox" id="co_priv" required class="mt-0.5 accent-red-600">
+      <span>Acepto la <button type="button" class="underline text-cvblue" data-modal="m-privacidad">Política de Privacidad</button> y los <button type="button" class="underline text-cvblue" data-modal="m-terminos">Términos</button>. *</span>
+    </label>
+    <p id="coError" class="hidden text-sm text-cvred" role="alert"></p>
+  </form>
+
+  <div class="border-t p-5 bg-cvgray">
+    <div class="flex justify-between text-sm text-gray-600"><span>Subtotal referencial</span><span id="cartSubtotal">S/ 0.00</span></div>
+    <div class="flex justify-between text-sm text-gray-600 mt-1"><span>IGV (18%)</span><span id="cartIgv">S/ 0.00</span></div>
+    <div class="flex justify-between font-title text-xl mt-2 text-cvblack"><span>TOTAL</span><span id="cartTotal">S/ 0.00</span></div>
+    <p id="cartNote" class="text-[11px] text-cvblue font-semibold mt-2"></p>
+    <p class="text-[11px] text-gray-500 mt-1">Precios referenciales. El precio final, stock y plazo se confirman en la cotización formal.</p>
+    <button id="checkoutBtn" class="btn btn-red w-full mt-4 py-4 text-sm">Continuar</button>
+  </div>
+</aside>
+
+<!-- ===================== MODAL FICHA TÉCNICA ===================== -->
+<div id="m-ficha" class="modal" role="dialog" aria-modal="true" aria-labelledby="fichaTitle">
+  <div class="modal-box">
+    <div class="p-6 lg:p-8">
+      <div class="flex justify-between items-start gap-4">
+        <h2 id="fichaTitle" class="text-2xl text-cvblack"></h2>
+        <button class="text-3xl leading-none" data-close aria-label="Cerrar">×</button>
+      </div>
+      <div id="fichaBody" class="mt-4"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== MODALES LEGALES ===================== -->
+<!-- ✏️ IMPORTANTE: reemplaza [RAZÓN SOCIAL], [RUC], [DIRECCIÓN] y correos. Recomendado: revisión final por un abogado. -->
+
+<!-- a) PRIVACIDAD -->
+<div id="m-privacidad" class="modal" role="dialog" aria-modal="true" aria-labelledby="t-priv">
+  <div class="modal-box">
+    <div class="p-6 lg:p-10 legal">
+      <div class="flex justify-between items-start gap-4">
+        <h2 id="t-priv" class="text-2xl text-cvblack">Política de Privacidad para Cotizaciones</h2>
+        <button class="text-3xl leading-none" data-close aria-label="Cerrar">×</button>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Última actualización: septiembre de 2026</p>
+
+      <h3>1. Titular del banco de datos</h3>
+      <p>INVERSIONES GLOBAL COMPANY ROUSVID S.A.C., con RUC N° 20613238566 y domicilio en EL NAZARENO MZ A LOTE 25, Paucarpata, Arequipa, que opera bajo la marca <strong>Comboy Vid Soluciones Mineras</strong> (en adelante, "COMBOY VID"), es el titular y responsable del tratamiento de los datos personales recopilados en este sitio web, conforme a la <strong>Ley N° 29733, Ley de Protección de Datos Personales</strong>, y su Reglamento vigente.</p>
+
+      <h3>2. Datos que recopilamos</h3>
+      <p>Nombre completo, empresa, RUC o DNI, número de WhatsApp/teléfono, correo electrónico, sucursal de preferencia, productos de interés y el contenido del mensaje que usted nos envía voluntariamente.</p>
+
+      <h3>3. Finalidad del tratamiento</h3>
+      <ul>
+        <li>Atender y responder su solicitud de cotización.</li>
+        <li>Contactarlo por WhatsApp, teléfono o correo para aclarar especificaciones técnicas.</li>
+        <li>Emitir la cotización formal, comprobantes y, de concretarse la compra, gestionar la entrega, garantía y post-venta.</li>
+      </ul>
+      <p>El uso de sus datos para <strong>publicidad o promociones</strong> es una finalidad adicional que solo se realiza si usted marca la casilla correspondiente (ver Política de Autorización de Marketing).</p>
+
+      <h3>4. No compartimos sus datos</h3>
+      <p>COMBOY VID <strong>no vende, alquila ni cede</strong> sus datos personales a terceros. Solo podrán ser accedidos por proveedores que nos prestan servicios tecnológicos (alojamiento web, correo, mensajería) bajo obligación de confidencialidad, o por autoridades competentes cuando exista mandato legal.</p>
+
+      <h3>5. Conservación y seguridad</h3>
+      <p>Conservamos sus datos mientras sea necesario para la finalidad de la cotización y la relación comercial, y durante los plazos exigidos por la normativa tributaria y comercial. Aplicamos medidas técnicas y organizativas razonables para evitar su pérdida, alteración o acceso no autorizado.</p>
+
+      <h3>6. Derechos ARCO</h3>
+      <p>Usted puede ejercer en cualquier momento sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición</strong>, así como revocar su consentimiento, enviando una solicitud con copia de su documento de identidad a <strong>areacomercial@comboyvid.com</strong> <!-- ✏️ -->. Atenderemos su solicitud dentro de los plazos legales. Si considera que sus derechos no fueron atendidos, puede acudir a la <strong>Autoridad Nacional de Protección de Datos Personales</strong> del Ministerio de Justicia y Derechos Humanos.</p>
+
+      <h3>7. Consentimiento</h3>
+      <p>Al marcar la casilla "Acepto la Política de Privacidad" y enviar un formulario o mensaje, usted otorga su consentimiento libre, previo, expreso, inequívoco e informado para el tratamiento de sus datos con las finalidades indicadas en el punto 3.</p>
+
+      <h3>8. Almacenamiento local</h3>
+      <p>Este sitio guarda en su propio navegador (localStorage) su lista de productos y una copia de su última solicitud, únicamente para su comodidad. Puede eliminarla borrando los datos de navegación.</p>
+    </div>
+  </div>
+</div>
+
+<!-- b) MARKETING -->
+<div id="m-marketing" class="modal" role="dialog" aria-modal="true" aria-labelledby="t-mkt">
+  <div class="modal-box">
+    <div class="p-6 lg:p-10 legal">
+      <div class="flex justify-between items-start gap-4">
+        <h2 id="t-mkt" class="text-2xl text-cvblack">Política de Autorización de Marketing</h2>
+        <button class="text-3xl leading-none" data-close aria-label="Cerrar">×</button>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Última actualización: septiembre de 2026</p>
+
+      <h3>1. Consentimiento expreso y opcional</h3>
+      <p>Al marcar la casilla "Autorizo el envío de promociones", usted otorga a COMBOY VID su consentimiento <strong>expreso, libre e informado</strong>, conforme a la Ley N° 29733 y al Código de Protección y Defensa del Consumidor (Ley N° 29571), para recibir comunicaciones comerciales. <strong>Esta autorización es opcional</strong>: no marcarla no afecta la atención de su cotización.</p>
+
+      <h3>2. Qué le enviaremos</h3>
+      <ul>
+        <li>Promociones, descuentos y lanzamientos de remolcadores, coches, tolvas y repuestos.</li>
+        <li>Anuncios de stock disponible, ferias mineras y eventos.</li>
+        <li>Recordatorios de mantenimiento preventivo y novedades técnicas.</li>
+      </ul>
+
+      <h3>3. Canales</h3>
+      <p>WhatsApp, correo electrónico, SMS y llamadas telefónicas, en horarios razonables.</p>
+
+      <h3>4. Vigencia</h3>
+      <p>La autorización se mantiene vigente hasta que usted la revoque.</p>
+
+      <h3>5. Cómo darse de baja</h3>
+      <ul>
+        <li>Responder <strong>"BAJA"</strong> a cualquier mensaje de WhatsApp o SMS.</li>
+        <li>Usar el enlace "darse de baja" incluido en nuestros correos.</li>
+        <li>Escribir a <strong>areacomercial@comboyvid.com</strong>. <!-- ✏️ --></li>
+      </ul>
+      <p>La baja se procesará sin costo y sin que tenga que justificar su decisión. Revocar este consentimiento no afecta la licitud de los envíos realizados previamente.</p>
+    </div>
+  </div>
+</div>
+
+<!-- c) TÉRMINOS + ANTI-ESTAFA + COPYRIGHT -->
+<div id="m-terminos" class="modal" role="dialog" aria-modal="true" aria-labelledby="t-term">
+  <div class="modal-box">
+    <div class="p-6 lg:p-10 legal">
+      <div class="flex justify-between items-start gap-4">
+        <h2 id="t-term" class="text-2xl text-cvblack">Términos y Condiciones, Aviso Anti-Estafa y Copyright</h2>
+        <button class="text-3xl leading-none" data-close aria-label="Cerrar">×</button>
+      </div>
+      <p class="text-xs text-gray-500 mt-1">Última actualización: septiembre de 2026</p>
+
+      <div class="alert">
+        <p><strong>⚠️ AVISO ANTI-ESTAFA.</strong> COMBOY VID <strong>NUNCA</strong> solicita depósitos, adelantos ni pagos a <strong>cuentas bancarias personales</strong>, Yape/Plin de personas naturales ni a nombre de terceros. Todo pago se realiza únicamente a cuentas a nombre de <strong>[RAZÓN SOCIAL S.A.C.] – RUC [20XXXXXXXXX]</strong>, después de recibir una <strong>cotización formal</strong> desde un correo con dominio <strong>@comboyvid.com</strong>. Si alguien le pide un pago de otra forma, <strong>no pague</strong> y repórtelo a areacomercial@comboyvid.com. COMBOY VID no se responsabiliza por pagos realizados fuera de estos canales oficiales.</p>
+      </div>
+
+      <h3>1. Naturaleza del sitio</h3>
+      <p>Este sitio web es una <strong>vitrina informativa</strong>. La "tienda virtual" y el "carrito" son herramientas para armar una <strong>solicitud de cotización</strong>; no constituyen una oferta vinculante ni una compra. <strong>No se procesan pagos en esta web.</strong> La relación comercial se perfecciona únicamente con la aceptación de la cotización formal emitida por COMBOY VID y la emisión del comprobante de pago correspondiente.</p>
+
+      <h3>2. Precios referenciales</h3>
+      <p>Los precios mostrados son <strong>referenciales</strong>, expresados en soles y sin IGV salvo indicación contraria. Pueden variar sin previo aviso por costo de insumos (acero, componentes), tipo de cambio, configuración técnica, flete y disponibilidad. El precio válido es exclusivamente el de la cotización formal, dentro de su plazo de vigencia.</p>
+
+      <h3>3. Imágenes y especificaciones referenciales</h3>
+      <p>Las fotografías, renders, videos y fichas técnicas son <strong>referenciales</strong> y pueden no reflejar exactamente el color, accesorios o acabado del equipo entregado. Las especificaciones definitivas son las consignadas en la cotización y/o ficha técnica firmada.</p>
+
+      <h3>4. Plazos de entrega y stock</h3>
+      <p>Los plazos (incluido "entrega en 7 días") aplican a modelos estándar con stock o materiales disponibles y se cuentan desde la confirmación del pedido y del adelanto pactado. Equipos a medida, fuerza mayor, paralizaciones o bloqueos de vías pueden modificar el plazo, lo que será comunicado oportunamente.</p>
+
+      <h3>5. Garantía</h3>
+      <p>Los equipos cuentan con garantía de fábrica según las condiciones, plazo y cobertura indicados en la cotización. La garantía no cubre desgaste normal, sobrecarga fuera de la capacidad nominal, mal uso, falta de mantenimiento, ni modificaciones o reparaciones realizadas por terceros no autorizados.</p>
+
+      <h3>6. Uso adecuado</h3>
+      <p>Los equipos deben ser operados por personal capacitado y conforme al Reglamento de Seguridad y Salud Ocupacional en Minería vigente y a las normas internas de cada unidad minera. COMBOY VID no se responsabiliza por daños derivados de operación indebida.</p>
+
+      <h3>7. Propiedad intelectual y copyright</h3>
+      <p>La marca <strong>COMBOY VID</strong>, su logotipo, nombre comercial, diseños de equipos, planos, fotografías, videos, textos y el diseño de este sitio son propiedad exclusiva de COMBOY VID y están protegidos por el Decreto Legislativo N° 822 (Ley sobre el Derecho de Autor) y el Decreto Legislativo N° 1075 (Propiedad Industrial). <strong>Queda prohibida</strong> su copia, reproducción, uso en publicaciones de terceros, en perfiles falsos o para ofrecer equipos a nombre de COMBOY VID sin autorización escrita. El uso indebido será denunciado ante INDECOPI y las autoridades competentes, reservándonos las acciones civiles y penales correspondientes.</p>
+
+      <h3>8. Suplantación de identidad</h3>
+      <p>COMBOY VID solo se comunica mediante los números y cuentas publicados en este sitio. Cualquier perfil, página o número que use nuestro nombre o imágenes y no figure aquí <strong>no está autorizado</strong>. Recomendamos verificar siempre llamando a nuestras sucursales.</p>
+
+      <h3>9. Libro de Reclamaciones</h3>
+      <p>Conforme al Código de Protección y Defensa del Consumidor, ponemos a su disposición nuestro Libro de Reclamaciones virtual, accesible desde el pie de página.</p>
+
+      <h3>10. Ley aplicable y jurisdicción</h3>
+      <p>Estos términos se rigen por las leyes de la República del Perú. Toda controversia se someterá a los jueces y tribunales del <strong>Distrito Judicial de Arequipa</strong>, sin perjuicio de los derechos que la ley reconozca al consumidor.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Aviso flotante (toast) -->
+<div id="toast" class="fixed left-1/2 -translate-x-1/2 bottom-24 z-[90] bg-cvblack text-white px-5 py-3 rounded-xl shadow-2xl text-sm opacity-0 pointer-events-none transition-opacity duration-300" role="status" aria-live="polite"></div>
+
+<!-- Botón flotante "Ver catálogo" -->
+<a href="#slide5" id="floatCatalog" class="hidden md:inline-flex fixed left-4 bottom-5 z-[60] btn btn-blue px-4 py-3 text-[11px] shadow-xl transition-opacity">📘 Ver catálogo</a>
+
+<!-- ===================== NAVEGACIÓN DE DIAPOSITIVAS ===================== -->
+<!-- Puntitos laterales (se generan por JS) -->
+<nav id="dots" class="fixed right-2 md:right-5 top-1/2 -translate-y-1/2 z-[45] flex flex-col gap-3" aria-label="Diapositivas"></nav>
+
+<!-- Botones Anterior / Siguiente -->
+<div id="pager" class="fixed bottom-4 left-1/2 -translate-x-1/2 z-[55] flex items-center gap-1 rounded-full p-1.5 shadow-2xl">
+  <button id="prevBtn" class="pager-btn" aria-label="Diapositiva anterior">←<span class="hidden sm:inline"> Anterior</span></button>
+  <span id="pagerCount" class="hidden sm:inline font-title text-white text-xs px-3">1 / 8</span>
+  <button id="nextBtn" class="pager-btn pager-next" aria-label="Diapositiva siguiente"><span class="hidden sm:inline">Siguiente </span>→</button>
+</div>
+
+<!-- Botón "Llamar ahora" (solo móvil) ✏️ tu número -->
+<a href="tel:+51983148798" class="md:hidden fixed left-4 bottom-4 z-[60] w-14 h-14 rounded-full btn btn-dark text-xl shadow-xl" aria-label="Llamar ahora">📞</a>
+
+<!-- Botón flotante WhatsApp con pulso -->
+<a href="#" data-wa="Hola COMBOY VID, quiero una cotización." class="wa-float" aria-label="Escribir por WhatsApp">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="#fff"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.64.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.8h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.72.98 1-3.63-.24-.37a9.82 9.82 0 1 1 8.33 4.6zm8.35-18.16A11.8 11.8 0 0 0 12.05.2C5.5.2.17 5.53.17 12.08c0 2.1.55 4.14 1.59 5.94L.07 24.2l6.33-1.66a11.87 11.87 0 0 0 5.65 1.44h.01c6.55 0 11.88-5.33 11.88-11.88 0-3.17-1.24-6.16-3.48-8.4z"/></svg>
+</a>
+
+<!-- ===================== JAVASCRIPT ===================== -->
+<script>
+/* =========================================================
+   ✏️ CONFIGURACIÓN — CAMBIA AQUÍ TUS DATOS
+   Número de WhatsApp: código de país + número, SIN "+", espacios ni guiones.
+   Ejemplo Perú: 51987654321
+   Las claves (arequipa, secocha, envio) deben coincidir con los
+   value de los <select> y con data-wa-num / data-map del HTML.
+   ========================================================= */
+const CONFIG = {
+  whatsapp: {
+    arequipa: '51983148798',   // ✏️ WhatsApp sucursal Arequipa (principal)
+    secocha:  '51942371941',   // ✏️ WhatsApp sucursal Secocha
+    envio:    '51942304539'    // ✏️ WhatsApp envío a mina
+  },
+  emailVentas: 'areacomercial@comboyvid.com',                         // ✏️ tu correo de ventas
+  formsubmitAjax: 'https://formsubmit.co/ajax/areacomercial@comboyvid.com', // ✏️ mismo correo del formulario
+  maps: {
+    arequipa: 'https://www.google.com/maps?q=Paucarpata,+Arequipa,+Peru&z=14&output=embed',  // ✏️ pon tu dirección exacta
+    secocha:  'https://www.google.com/maps?q=Secocha,+Camana,+Arequipa,+Peru&z=15&output=embed' // ✏️
+  },
+  libroReclamaciones: '#'  // ✏️ URL de tu Libro de Reclamaciones virtual
+};
+
+/* =========================================================
+   PRODUCTOS
+   1) EQUIPOS: ✏️ edita nombres, precios (S/ sin IGV), specs e imágenes.
+   2) REPUESTOS: catálogo con código. Fotos en img/repuestos/CODIGO.webp
+      ✏️ Para mostrar un precio, agrégalo en PRECIOS: 'CV084': 25.00
+      Si no tiene precio, la web muestra "Precio a cotizar".
+   ========================================================= */
+const EQUIPOS = [
+  { id:'cv3000', name:'Remolcador CV-3000 - 4TN', tipo:'Remolcador', price:null, featured:true, img:'img/moto-mina.webp', pos:'60% center',
+    specs:[['⚙️','Capacidad de arrastre 4 TN'],['🔋','Motor a combustión con catalizador'],['🛤️','Llantas todo terreno']],
+    desc:'Remolcador tipo moto carguero para galerías estrechas. Chasis de acero estructural, suspensión reforzada, frenos de servicio y parqueo, iluminación frontal.',
+    ficha:[['Capacidad de arrastre','4 TN'],['Motor','Combustión con catalizador químico'],['Tracción','Posterior, llantas todo terreno'],['Frenos','Servicio + parqueo'],['Iluminación','Faro frontal y Posterior Multivoltaje'],['Garantía','Según cotización']] },
+  { id:'cv3500', name:'Remolcador CV-3500 - 7TN', tipo:'Remolcador', price:null, featured:true, img:'img/moto-tunel.webp', pos:'55% center',
+    specs:[['⚙️','Capacidad de arrastre 5 TN'],['💪','Tracción reforzada'],['🔋','Combustión']],
+    desc:'Mayor potencia para arrastrar coches cargados en pendientes exigentes. Disponible a combustión con catalizador o eléctrico con 9 baterías.',
+    ficha:[['Capacidad de arrastre','7 TN'],['Motor','Combustión con catalizador'],['Tracción','Reforzada'],['Frenos','Servicio + parqueo + emergencia'],['Asiento','Ergonómico con respaldo'],['Garantía','Según cotización']] },
+  { id:'u35', name:'Coche Minero Z20', tipo:'Coche minero', price:null, featured:true, img:'img/comboyvid-poster.webp', pos:'center 78%',
+    specs:[['📦','Tolva en U de acero'],['🛞','4 ruedas con aro de acero'],['🔗','Enganche estándar']],
+    desc:'Coche minero tipo Z20 para acarreo de mineral y desmonte. Estructura soldada de alta resistencia y enganche para remolcador.',
+    ficha:[['Tipo','Coche minero Z20'],['Material','Plancha de acero estructural'],['Ruedas','4 llantas con aro de acero'],['Enganche','Compatible con remolcadores Comboy Vid'],['Capacidad','A pedido'],['Garantía','Según cotización']] },
+  { id:'Electrica', name:'Remolcador Electrico', tipo:'Remolcador', price:null, featured:true, img:'img/electrica.jpeg', pos:'0% center',
+    specs:[['&#128663','Controlador Empowere 72v'],['🔋','Motor de 4000 Whatts'],['🛡','Chasis reforzado acero estructural de 5mm ']],
+    desc:'Remolcador 100% Electrica con 9 baterias acido-plomo de 150Ah, garantizando 9 horas de trabajo.',
+    ficha:[['⚙️','Potencia','30HP'],['Uso','Galeria Sin Ventilación'],['🛞 Ruedas','3 llantas con aro de acero'],['Enganche','Compatible con coche minero Z20 Comboy Vid'],['Garantía','Según cotización']] }
+];
+
+// ✏️ Para mostrar precio en un equipo, cambia price:null por el monto en soles sin IGV (ej. price:12500)
+
+// Catálogo de repuestos: [código, nombre, categoría]
+const REPUESTOS = [
+  ['CV001', "Tanque de combustible", 'Chasis'],
+  ['CV002', "Corona", 'Transmisión'],
+  ['CV003', "Máscara", 'Chasis'],
+  ['CV004', "Muelles", 'Chasis'],
+  ['CV005', "Tablero", 'Chasis'],
+  ['CV006', "Faro cuadrado", 'Eléctrico'],
+  ['CV007', "Tapabarro", 'Chasis'],
+  ['CV008', "Asiento", 'Chasis'],
+  ['CV009', "Eje de arrastre", 'Transmisión'],
+  ['CV010', "Piñón de ataque", 'Transmisión'],
+  ['CV011', "Eje de corona", 'Transmisión'],
+  ['CV012', "Eje delantero", 'Transmisión'],
+  ['CV013', "Extractor de volante", 'Herramientas'],
+  ['CV014', "Extractor de seguro de válvulas", 'Herramientas'],
+  ['CV015', "Filtro de aire", 'Motor'],
+  ['CV016', "Filtro de combustible", 'Motor'],
+  ['CV017', "Grifo combustible", 'Motor'],
+  ['CV018', "Caja filtro de aire", 'Motor'],
+  ['CV019', "Fusibles automotriz", 'Eléctrico'],
+  ['CV020', "Bocamasa delantero", 'Llantas'],
+  ['CV021', "Tambor hidráulico", 'Frenos'],
+  ['CV022', "Base bocamasa posterior", 'Llantas'],
+  ['CV023', "Aro", 'Llantas'],
+  ['CV024', "Kit accesorios de tambor", 'Frenos'],
+  ['CV025', "Timón", 'Comandos y cables'],
+  ['CV026', "Comandos de timón", 'Comandos y cables'],
+  ['CV027', "Comando derecho", 'Comandos y cables'],
+  ['CV028', "Manija de freno", 'Comandos y cables'],
+  ['CV029', "Comando izquierdo", 'Comandos y cables'],
+  ['CV030', "Manija de embrague", 'Comandos y cables'],
+  ['CV031', "Manubrios para timón", 'Comandos y cables'],
+  ['CV032', "Abrazadera de catalizador", 'Motor'],
+  ['CV033', "Abrazadera de muelle", 'Chasis'],
+  ['CV034', "Abrazadera de catalizador plano", 'Motor'],
+  ['CV035', "Articulación de cambio", 'Transmisión'],
+  ['CV036', "Resorte para freno", 'Frenos'],
+  ['CV037', "Accesorios de freno", 'Frenos'],
+  ['CV038', "Cabezal motor Pluss 300", 'Motor'],
+  ['CV039', "Cilindro", 'Motor'],
+  ['CV040', "Culata", 'Motor'],
+  ['CV041', "Catalizador", 'Motor'],
+  ['CV042', "Cardán", 'Transmisión'],
+  ['CV043', "Yugo", 'Transmisión'],
+  ['CV044', "Vibrador", 'Eléctrico'],
+  ['CV045', "Pomo para líquido de freno", 'Frenos'],
+  ['CV046', "Tanque de agua", 'Chasis'],
+  ['CV047', "Barra telescópica", 'Chasis'],
+  ['CV048', "Bomba de freno", 'Frenos'],
+  ['CV049', "Pedal de cambio", 'Transmisión'],
+  ['CV050', "Bomba de freno para zapata", 'Frenos'],
+  ['CV051', "Zapata hidráulico", 'Frenos'],
+  ['CV052', "Zapata mecánica", 'Frenos'],
+  ['CV053', "Cañerías para freno", 'Frenos'],
+  ['CV054', "Terminal de cañería", 'Frenos'],
+  ['CV055', "Manguera de combustible", 'Motor'],
+  ['CV056', "Manguera para líquido de freno", 'Frenos'],
+  ['CV057', "Cable de freno delantero", 'Comandos y cables'],
+  ['CV058', "Cable de embrague completo", 'Comandos y cables'],
+  ['CV059', "Cable de acelerador", 'Comandos y cables'],
+  ['CV060', "Cable de embrague solo", 'Comandos y cables'],
+  ['CV061', "Cable de velocímetro", 'Comandos y cables'],
+  ['CV062', "Cable de ruster", 'Comandos y cables'],
+  ['CV063', "Palanca de enganche", 'Comandos y cables'],
+  ['CV064', "Cable para freno de enganche", 'Comandos y cables'],
+  ['CV065', "Varilla de freno", 'Frenos'],
+  ['CV066', "Cañería", 'Frenos'],
+  ['CV067', "Manguera corrugada", 'Motor'],
+  ['CV068', "Cremallera", 'Transmisión'],
+  ['CV069', "Disco de embrague", 'Transmisión'],
+  ['CV070', "Volante completo", 'Motor'],
+  ['CV071', "Bendix", 'Motor'],
+  ['CV072', "Alternador", 'Eléctrico'],
+  ['CV073', "Cigüeñal", 'Motor'],
+  ['CV074', "Soporte de motor", 'Motor'],
+  ['CV075', "Bomba de agua", 'Motor'],
+  ['CV076', "Arrancador", 'Eléctrico'],
+  ['CV077', "Caja retro", 'Transmisión'],
+  ['CV078', "Carburador Hongju", 'Motor'],
+  ['CV079', "Carburador Shein Wey", 'Motor'],
+  ['CV080', "Carburador orig. Japan", 'Motor'],
+  ['CV081', "CDI", 'Eléctrico'],
+  ['CV082', "Bobina de alta", 'Eléctrico'],
+  ['CV083', "Relay chanchito", 'Eléctrico'],
+  ['CV084', "Bujía NGK", 'Eléctrico'],
+  ['CV085', "Capuchón de bujía", 'Eléctrico'],
+  ['CV086', "Selenio regulador", 'Eléctrico'],
+  ['CV087', "Carbón arrancador", 'Eléctrico'],
+  ['CV088', "Kit caja de cambio", 'Transmisión'],
+  ['CV089', "Radiador", 'Motor'],
+  ['CV090', "Botellón de líquido radiador", 'Motor'],
+  ['CV091', "Buje para soporte motor", 'Motor'],
+  ['CV092', "Balancines", 'Motor'],
+  ['CV093', "Válvula de admisión y escape", 'Motor'],
+  ['CV094', "Calibrador gauge", 'Herramientas'],
+  ['CV095', "Ramal configurado", 'Eléctrico'],
+  ['CV096', "Teléfono para mina", 'Eléctrico'],
+  ['CV097', "Kit pistón", 'Motor'],
+  ['CV098', "Cable para batería negro", 'Eléctrico'],
+  ['CV099', "Cable para batería rojo", 'Eléctrico'],
+  ['CV100', "Cable automotriz", 'Eléctrico'],
+  ['CV101', "Relay", 'Eléctrico'],
+  ['CV102', "Porta relay", 'Eléctrico'],
+  ['CV103', "Chapa contacto", 'Eléctrico'],
+  ['CV104', "Buje de muelle", 'Chasis'],
+  ['CV105', "Anillo de cobre", 'Motor'],
+  ['CV106', "Anillo de tela", 'Motor'],
+  ['CV107', "Anillo de asbesto", 'Motor'],
+  ['CV108', "Brida de carburador", 'Motor'],
+  ['CV109', "Cuello de filtro de aire", 'Motor'],
+  ['CV110', "Amoladora DeWalt", 'Herramientas'],
+  ['CV111', "Amoladora Total", 'Herramientas'],
+  ['CV112', "Pistola de impacto", 'Herramientas'],
+  ['CV113', "Taladro inalámbrico", 'Herramientas'],
+  ['CV114', "Taladro", 'Herramientas'],
+  ['CV115', "Motosierra", 'Herramientas'],
+  ['CV116', "Cargador de batería", 'Herramientas'],
+  ['CV117', "Sierra circular", 'Herramientas'],
+  ['CV118', "Desarmador eléctrico", 'Herramientas'],
+  ['CV119', "Máquina de soldar", 'Herramientas'],
+  ['CV120', "Pistola para soldar", 'Herramientas'],
+  ['CV121', "Calibrador de neumático", 'Herramientas'],
+  ['CV122', "Multímetro", 'Herramientas'],
+  ['CV123', "Sensor de monóxido", 'Herramientas'],
+  ['CV124', "Probador de corriente", 'Herramientas'],
+  ['CV125', "Broca para metal", 'Herramientas'],
+  ['CV126', "Cadena para motosierra 12\"", 'Herramientas'],
+  ['CV127', "Estaño para soldar", 'Herramientas'],
+  ['CV128', "Batería 9 placas", 'Baterías'],
+  ['CV129', "Batería 12N6.5", 'Baterías'],
+  ['CV130', "Batería 12N7", 'Baterías'],
+  ['CV131', "Batería 20V 4.0Ah", 'Baterías'],
+  ['CV132', "Alicate de punta", 'Herramientas'],
+  ['CV133', "Terminal de batería", 'Baterías'],
+  ['CV134', "Borne de batería", 'Baterías'],
+  ['CV135', "Alicate de corte", 'Herramientas'],
+  ['CV136', "Kit alicate saca seguro", 'Herramientas'],
+  ['CV137', "Pelacable", 'Herramientas'],
+  ['CV138', "Stilson", 'Herramientas'],
+  ['CV139', "Llave inglesa", 'Herramientas'],
+  ['CV140', "Juego de llaves", 'Herramientas'],
+  ['CV141', "Destornillador de impacto", 'Herramientas'],
+  ['CV142', "Set dados 10 pzs", 'Herramientas'],
+  ['CV143', "Kit de dados 94 pzs", 'Herramientas'],
+  ['CV144', "Juego de puntas de impacto", 'Herramientas'],
+  ['CV145', "Cutter retráctil", 'Herramientas'],
+  ['CV146', "Saca bujía", 'Herramientas'],
+  ['CV147', "Extractor de volante tipo 2", 'Herramientas'],
+  ['CV148', "Llave Torx", 'Herramientas'],
+  ['CV149', "Aceite sintético", 'Lubricantes'],
+  ['CV150', "Aceite semisintético", 'Lubricantes'],
+  ['CV151', "Aceite mineral", 'Lubricantes'],
+  ['CV152', "Aflojatodo", 'Lubricantes'],
+  ['CV153', "Lubricatodo", 'Lubricantes'],
+  ['CV154', "Limpia contacto", 'Lubricantes'],
+  ['CV155', "Limpia carburador", 'Lubricantes'],
+  ['CV156', "Aceite transmisión GL-4", 'Lubricantes'],
+  ['CV157', "Aceite transmisión LT SAE 140", 'Lubricantes'],
+  ['CV158', "Líquido para freno DOT3", 'Lubricantes'],
+  ['CV159', "Refrigerante", 'Lubricantes'],
+  ['CV160', "Grasa multifuncional", 'Lubricantes'],
+  ['CV161', "Agua para batería", 'Baterías'],
+  ['CV162', "Llanta completa carguero", 'Llantas'],
+  ['CV163', "Llanta c/cámara", 'Llantas'],
+  ['CV164', "Cámara Anka 5.00-12", 'Llantas'],
+  ['CV165', "Llanta tractor", 'Llantas'],
+  ['CV166', "Cámara Tajal Gold", 'Llantas']
+];
+
+// ✏️ PRECIOS DE REPUESTOS (S/ sin IGV). Ejemplo: 'CV084': 25.00,
+const PRECIOS = {
+};
+
+const PRODUCTS = [
+  ...EQUIPOS.map(p => ({...p, cat:'Equipos', kind:'equipo'})),
+  ...REPUESTOS.map(([code, name, cat]) => ({
+    id: code, code, name, cat, kind:'repuesto',
+    price: PRECIOS[code] ?? null,
+    img: 'img/repuestos/' + code + '.webp',
+    desc: 'Repuesto para moto carguero y remolcador minero.'
+  }))
+];
+const CATEGORIAS = ['Todos','Equipos','Motor','Transmisión','Frenos','Eléctrico','Comandos y cables','Chasis','Llantas','Baterías','Herramientas','Lubricantes'];
+
+/* ---------- Utilidades ---------- */
+const $ = (s, c=document) => c.querySelector(s);
+const $$ = (s, c=document) => [...c.querySelectorAll(s)];
+const money = n => 'S/ ' + n.toLocaleString('es-PE',{minimumFractionDigits:2, maximumFractionDigits:2});
+const esc = s => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+function toast(msg){
+  const t = $('#toast'); t.textContent = msg; t.style.opacity = '1';
+  clearTimeout(toast._t); toast._t = setTimeout(()=> t.style.opacity = '0', 2400);
+}
+// Arma el enlace de WhatsApp hacia la sucursal indicada (arequipa, secocha o envio)
+function waLink(text, branch='arequipa'){
+  const num = CONFIG.whatsapp[String(branch).toLowerCase()] || CONFIG.whatsapp.arequipa;
+  return 'https://wa.me/' + num + '?text=' + encodeURIComponent(text);
+}
+function imgTag(src, alt, cls, pos){
+  return `<div class="img-fallback ${cls}"><img loading="lazy" decoding="async" src="${src}" alt="${esc(alt)}" class="w-full h-full object-cover" ${pos ? `style="object-position:${pos}"` : ''} onerror="this.style.display='none'"></div>`;
+}
+// Foto de repuesto: fondo blanco y producto completo (sin recortar)
+function prodImg(p, cls){
+  if (p.kind === 'equipo') return imgTag(p.img, p.name, cls, p.pos);
+  return `<div class="bg-white ${cls}"><img loading="lazy" decoding="async" src="${p.img}" alt="${esc(p.code + ' ' + p.name)}" class="w-full h-full object-contain p-2" onerror="this.style.visibility='hidden'"></div>`;
+}
+const priceHTML = (p, big) => p.price != null
+  ? `${money(p.price)} <span class="text-[10px] text-gray-400 font-normal">+ IGV</span>`
+  : `<span class="${big ? 'text-base' : 'text-xs'} text-cvblue">Precio a cotizar</span>`;
+
+/* ---------- Loader ---------- */
+window.addEventListener('load', ()=> setTimeout(()=> $('#loader').classList.add('hide'), 350));
+setTimeout(()=> $('#loader').classList.add('hide'), 3500); // respaldo
+
+/* ---------- Año ---------- */
+$('#year').textContent = new Date().getFullYear();
+
+/* ---------- Enlaces WhatsApp genéricos ---------- */
+$$('[data-wa]').forEach(a => {
+  a.href = waLink(a.dataset.wa, a.dataset.waNum || 'arequipa');
+});
+$('#libroBtn').href = CONFIG.libroReclamaciones;
+
+/* =========================================================
+   SPA · PRESENTACIÓN DE 8 DIAPOSITIVAS
+   - Scroll-snap nativo (swipe en móvil y rueda del mouse)
+   - Botones Anterior / Siguiente, flechas del teclado, puntitos laterales
+   - URL #slide1…#slide8 con history.pushState (sin recargar)
+   ========================================================= */
+const deck = $('#deck');
+const slides = $$('#deck > .slide');
+const TOTAL = slides.length;
+const header = $('#header');
+let current = -1, fromHistory = false, scrollTimer = null;
+
+// Altura real del header → padding superior de cada slide
+function setHeaderHeight(){ document.documentElement.style.setProperty('--hh', header.offsetHeight + 'px'); }
+setHeaderHeight();
+window.addEventListener('resize', ()=>{ setHeaderHeight(); if (current >= 0) deck.scrollTop = current * deck.clientHeight; });
+
+// Puntitos laterales
+$('#dots').innerHTML = slides.map((s,i) =>
+  `<button class="dot" data-go="${i}" aria-label="Ir a diapositiva ${i+1}: ${esc(s.dataset.title)}"><span class="dot-label">${i+1}. ${esc(s.dataset.title)}</span></button>`).join('');
+
+function slideFromHash(){
+  const m = /^#slide(\d+)$/.exec(location.hash);
+  const n = m ? parseInt(m[1],10) - 1 : 0;
+  return Math.min(Math.max(n,0), TOTAL-1);
+}
+
+function goTo(i, smooth = true){
+  i = Math.min(Math.max(i,0), TOTAL-1);
+  deck.scrollTo({ top: i * deck.clientHeight, behavior: smooth ? 'smooth' : 'auto' });
+  if (!smooth) setActive(i);
+}
+
+function setActive(i){
+  if (i === current) return;
+  const prev = current;
+  current = i;
+  slides.forEach((s,k) => {
+    s.classList.toggle('active', k === i);
+    s.setAttribute('aria-hidden', k === i ? 'false' : 'true');
+  });
+  // Reinicia el scroll interno de la slide que se deja, para que la animación se repita
+  if (prev >= 0 && slides[prev]) setTimeout(()=> { if (current !== prev) slides[prev].scrollTop = 0; }, 400);
+
+  const n = i + 1;
+  $('#slideCounter').textContent = `${n} / ${TOTAL}`;
+  $('#pagerCount').textContent = `${n} / ${TOTAL}`;
+  $('#slideName').textContent = slides[i].dataset.title;
+  $('#progressBar').style.width = (n / TOTAL * 100) + '%';
+  $$('.dot').forEach((d,k) => { d.classList.toggle('active', k === i); d.setAttribute('aria-current', k === i ? 'step' : 'false'); });
+  $('#prevBtn').disabled = i === 0;
+  $('#nextBtn').disabled = i === TOTAL - 1;
+  $('#floatCatalog').style.opacity = (slides[i].id === 'slide5') ? '0' : '1';
+  $('#floatCatalog').style.pointerEvents = (slides[i].id === 'slide5') ? 'none' : 'auto';
+  // Menú activo (la slide 3 pertenece a "Nosotros")
+  const menuTarget = slides[i].id === 'slide3' ? 'slide2' : slides[i].id;
+  $$('.nav-link').forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + menuTarget));
+  document.title = `${slides[i].dataset.title} | Comboy Vid Soluciones Mineras`;
+
+  // Actualiza la URL sin recargar
+  const hash = '#slide' + n;
+  if (fromHistory) { fromHistory = false; }
+  else if (location.hash !== hash) { history.pushState({slide:n}, '', hash); }
+}
+
+// Detecta la slide actual cuando termina el desplazamiento
+deck.addEventListener('scroll', ()=>{
+  clearTimeout(scrollTimer);
+  scrollTimer = setTimeout(()=> setActive(Math.round(deck.scrollTop / deck.clientHeight)), 90);
+}, {passive:true});
+
+// Botón atrás/adelante del navegador
+window.addEventListener('popstate', ()=>{ fromHistory = true; goTo(slideFromHash()); });
+
+$('#prevBtn').addEventListener('click', ()=> goTo(current - 1));
+$('#nextBtn').addEventListener('click', ()=> goTo(current + 1));
+
+// Teclado: ← → siempre cambian de slide. ↑ ↓ primero recorren el contenido de la slide si es más alto que la pantalla.
+document.addEventListener('keydown', e => {
+  const t = e.target;
+  if (t.closest && t.closest('input, textarea, select, [contenteditable]')) return;
+  if ($('.modal.open') || !$('#cartDrawer').classList.contains('closed')) return;
+  const s = slides[current];
+  const atBottom = s.scrollTop + s.clientHeight >= s.scrollHeight - 4;
+  const atTop = s.scrollTop <= 4;
+  switch (e.key) {
+    case 'ArrowRight': case 'PageDown':
+      e.preventDefault(); goTo(current + 1); break;
+    case 'ArrowLeft': case 'PageUp':
+      e.preventDefault(); goTo(current - 1); break;
+    case 'ArrowDown':
+      e.preventDefault(); atBottom ? goTo(current + 1) : s.scrollBy({top:160, behavior:'smooth'}); break;
+    case 'ArrowUp':
+      e.preventDefault(); atTop ? goTo(current - 1) : s.scrollBy({top:-160, behavior:'smooth'}); break;
+    case 'Home': e.preventDefault(); goTo(0); break;
+    case 'End':  e.preventDefault(); goTo(TOTAL - 1); break;
+  }
+});
+
+// Carga inicial: abre la slide indicada en la URL (#slide3, etc.)
+history.replaceState({slide: slideFromHash()+1}, '', '#slide' + (slideFromHash()+1));
+fromHistory = true;
+requestAnimationFrame(()=> goTo(slideFromHash(), false));
+
+/* ---------- Menú móvil ---------- */
+const menuBtn = $('#menuBtn'), mobileMenu = $('#mobileMenu');
+menuBtn.addEventListener('click', ()=>{
+  const open = mobileMenu.classList.toggle('hidden') === false;
+  menuBtn.setAttribute('aria-expanded', open);
+  setHeaderHeight();
+});
+function closeMobileMenu(){ mobileMenu.classList.add('hidden'); menuBtn.setAttribute('aria-expanded', false); setHeaderHeight(); }
+
+/* ---------- Equipos principales ---------- */
+function renderEquipos(){
+  $('#equiposGrid').innerHTML = EQUIPOS.filter(p => p.featured).map((p,i) => `
+    <article class="equip-card bg-white rounded-2xl overflow-hidden shadow-xl lift reveal ${i%2 ? 'reveal-d1':''}">
+      <div class="relative h-60 overflow-hidden">
+        ${imgTag(p.img, p.name, 'w-full h-full zoom', p.pos)}
+        <span class="absolute top-4 left-4 bg-cvred text-white text-[11px] font-title px-3 py-1 rounded">${esc(p.tipo.toUpperCase())}</span>
+        <span class="absolute top-4 right-4 glass text-white text-[11px] font-title px-3 py-1 rounded">STOCK AREQUIPA</span>
+      </div>
+      <div class="p-6">
+        <h3 class="text-xl lg:text-2xl text-cvblack">${esc(p.name.toUpperCase())}</h3>
+        <ul class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-4">
+          ${p.specs.map(s => `<li class="bg-cvgray rounded-lg px-3 py-2 text-xs text-gray-700 flex gap-2 items-center"><span>${s[0]}</span>${esc(s[1])}</li>`).join('')}
+        </ul>
+        <div class="flex items-end justify-between mt-5">
+          ${p.price != null
+            ? `<div><span class="text-xs text-gray-500">Precio desde</span><div class="font-title text-2xl text-cvred">${money(p.price)}</div><span class="text-[10px] text-gray-400">+ IGV · referencial</span></div>`
+            : `<div><span class="text-xs text-gray-500">Precio</span><div class="font-title text-xl text-cvblue">A cotizar</div></div>`}
+        </div>
+        <div class="grid grid-cols-2 gap-3 mt-5">
+          <button class="btn btn-dark py-3 text-[11px]" data-ficha="${p.id}">Ver ficha</button>
+          <button class="btn btn-red py-3 text-[11px]" data-add="${p.id}">Agregar a cotización</button>
+        </div>
+      </div>
+    </article>`).join('');
+}
+
+/* ---------- Tienda ---------- */
+let currentCat = 'Todos', currentQuery = '', shown = 0;
+const PAGE = 24;
+const norm = s => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+function renderChips(){
+  $('#chips').innerHTML = CATEGORIAS.map(c => {
+    const n = c === 'Todos' ? PRODUCTS.length : PRODUCTS.filter(p => p.cat === c).length;
+    return `<button class="chip ${c === currentCat ? 'active' : ''}" data-cat="${esc(c)}" role="tab" aria-selected="${c === currentCat}">${esc(c)} <span class="opacity-60">${n}</span></button>`;
+  }).join('');
+}
+function filtered(){
+  const q = norm(currentQuery.trim()).replace(/\s+/g,' ');
+  return PRODUCTS.filter(p =>
+    (currentCat === 'Todos' || p.cat === currentCat) &&
+    (!q || norm([p.code||'', p.name, p.cat, p.tipo||''].join(' ')).includes(q))
+  );
+}
+function cardHTML(p){
+  return `
+    <article class="bg-white rounded-xl overflow-hidden shadow-sm lift flex flex-col border border-gray-100">
+      <div class="relative">
+        ${prodImg(p, 'h-32 sm:h-40 w-full overflow-hidden')}
+        <span class="absolute top-2 left-2 ${p.code ? 'bg-cvred' : 'bg-cvblack/80'} text-white text-[10px] font-title px-2 py-1 rounded">${esc(p.code || p.tipo)}</span>
+      </div>
+      <div class="p-3 sm:p-4 flex flex-col flex-1 border-t border-gray-100">
+        <p class="text-[10px] uppercase tracking-wider text-gray-400 font-semibold">${esc(p.cat)}</p>
+        <h3 class="text-xs sm:text-sm text-cvblack mt-0.5 flex-1">${esc(p.name)}</h3>
+        <div class="font-title text-base text-cvred mt-2">${priceHTML(p)}</div>
+        <div class="flex gap-2 mt-3">
+          <button class="btn btn-dark flex-1 py-2.5 text-[10px]" data-ficha="${p.id}" aria-label="Ver ficha de ${esc(p.name)}">Ficha</button>
+          <button class="btn btn-red flex-[2] py-2.5 text-[10px]" data-add="${p.id}">+ Cotizar</button>
+        </div>
+      </div>
+    </article>`;
+}
+function renderShop(more){
+  const list = filtered();
+  shown = more ? Math.min(shown + PAGE, list.length) : Math.min(PAGE, list.length);
+  $('#crumbCat').textContent = currentCat + (currentQuery.trim() ? ` · "${currentQuery.trim()}"` : '');
+  $('#resultInfo').textContent = list.length
+    ? `Mostrando ${shown} de ${list.length} ${list.length === 1 ? 'producto' : 'productos'}`
+    : '';
+  $('#shopGrid').innerHTML = list.length ? list.slice(0, shown).map(cardHTML).join('')
+  : `<div class="col-span-full text-center py-16 bg-white rounded-xl">
+       <p class="font-title text-lg">No encontramos "${esc(currentQuery)}"</p>
+       <p class="text-sm text-gray-500 mt-2">Escríbenos: conseguimos el repuesto o lo fabricamos a medida.</p>
+       <a href="${waLink('Hola COMBOY VID, busco: ' + currentQuery)}" class="btn btn-red px-6 py-3 text-xs mt-4">Consultar por WhatsApp</a>
+     </div>`;
+  const rest = list.length - shown;
+  $('#moreBtn').classList.toggle('hidden', rest <= 0);
+  $('#moreBtn').textContent = `Ver más productos (${rest})`;
+}
+$('#moreBtn').addEventListener('click', ()=> renderShop(true));
+$('#chips').addEventListener('click', e => {
+  const c = e.target.closest('.chip'); if (!c) return;
+  currentCat = c.dataset.cat; renderChips(); renderShop();
+});
+$('#shopSearch').addEventListener('input', e => { currentQuery = e.target.value; renderShop(); });
+
+// Buscadores del header → llevan a la tienda
+function headerSearch(e){
+  e.preventDefault();
+  const v = e.target.querySelector('input').value;
+  currentQuery = v; $('#shopSearch').value = v;
+  currentCat = 'Todos'; renderChips();
+  renderShop(); closeMobileMenu();
+  goTo(slides.findIndex(s => s.id === 'slide5'));
+}
+$('#headerSearch').addEventListener('submit', headerSearch);
+$('#mobileSearch').addEventListener('submit', headerSearch);
+$('#hq').addEventListener('input', e => { currentQuery = e.target.value; $('#shopSearch').value = e.target.value; renderShop(); });
+
+/* ---------- Carrito ---------- */
+let cart = store.get('cv_cart', {});   // {id: qty}
+const byId = id => PRODUCTS.find(p => p.id === id);
+function saveCart(){ store.set('cv_cart', cart); }
+function cartCount(){ return Object.values(cart).reduce((a,b)=>a+b,0); }
+function cartSubtotal(){ return Object.entries(cart).reduce((s,[id,q]) => s + (byId(id) && byId(id).price != null ? byId(id).price*q : 0), 0); }
+function cartHasUnpriced(){ return Object.keys(cart).some(id => byId(id) && byId(id).price == null); }
+
+function renderCart(){
+  const n = cartCount(); const badge = $('#cartCount');
+  badge.textContent = n; badge.classList.remove('bump'); void badge.offsetWidth; badge.classList.add('bump');
+  const ids = Object.keys(cart).filter(byId);
+  $('#cartItems').innerHTML = ids.length ? ids.map(id => { const p = byId(id), q = cart[id]; return `
+    <div class="flex gap-3 border-b pb-4">
+      ${prodImg(p, 'w-20 h-20 rounded-lg overflow-hidden shrink-0 border')}
+      <div class="flex-1 min-w-0">
+        <p class="font-semibold text-sm text-cvblack">${p.code ? `<span class="text-cvred">${esc(p.code)}</span> · ` : ''}${esc(p.name)}</p>
+        <p class="text-xs text-gray-500">${p.price != null ? money(p.price) + ' c/u' : 'Precio a cotizar'}</p>
+        <div class="flex items-center gap-2 mt-2">
+          <button class="w-8 h-8 rounded bg-cvgray font-bold" data-qty="${id}" data-d="-1" aria-label="Restar">−</button>
+          <span class="w-8 text-center font-semibold" aria-live="polite">${q}</span>
+          <button class="w-8 h-8 rounded bg-cvgray font-bold" data-qty="${id}" data-d="1" aria-label="Sumar">+</button>
+          <button class="ml-auto text-xs text-cvred underline" data-del="${id}">Quitar</button>
+        </div>
+      </div>
+      <div class="font-title text-sm text-right whitespace-nowrap">${p.price != null ? money(p.price*q) : '—'}</div>
+    </div>`; }).join('')
+  : `<div class="text-center py-16 text-gray-500">
+       <div class="text-5xl">🛒</div>
+       <p class="mt-3 font-semibold">Tu lista de cotización está vacía</p>
+       <a href="#slide5" class="btn btn-red px-6 py-3 text-xs mt-5" id="goShop">Ir al catálogo</a>
+     </div>`;
+  const sub = cartSubtotal(), igv = sub*0.18;
+  $('#cartSubtotal').textContent = money(sub);
+  $('#cartIgv').textContent = money(igv);
+  $('#cartTotal').textContent = money(sub+igv);
+  $('#cartNote').textContent = cartHasUnpriced() ? 'Los productos con "Precio a cotizar" no suman al total: el asesor te enviará su precio y stock.' : '';
+  const g = $('#goShop'); if (g) g.addEventListener('click', closeCart);
+}
+function addToCart(id){
+  cart[id] = (cart[id]||0) + 1; saveCart(); renderCart();
+  toast('✔ ' + byId(id).name + ' agregado a tu cotización');
+}
+
+const drawer = $('#cartDrawer'), overlay = $('#overlay');
+let checkoutMode = false;
+function openCart(){ drawer.classList.remove('closed'); drawer.setAttribute('aria-hidden','false'); overlay.classList.remove('hidden-ov'); document.body.style.overflow='hidden'; }
+function closeCart(){ drawer.classList.add('closed'); drawer.setAttribute('aria-hidden','true'); overlay.classList.add('hidden-ov'); document.body.style.overflow=''; setCheckout(false); }
+function setCheckout(on){
+  checkoutMode = on;
+  $('#cartStep1').classList.toggle('hidden', on);
+  $('#checkoutForm').classList.toggle('hidden', !on);
+  $('#checkoutBtn').textContent = on ? 'Solicitar cotización por WhatsApp' : 'Continuar';
+}
+$('#cartBtn').addEventListener('click', openCart);
+$('#closeCart').addEventListener('click', closeCart);
+overlay.addEventListener('click', closeCart);
+$('#backToCart').addEventListener('click', ()=> setCheckout(false));
+
+// Prellenar checkout con datos guardados
+const savedClient = store.get('cv_cliente', null);
+if (savedClient){
+  ['nombre','empresa','doc','wa','mail'].forEach(k => { if (savedClient[k]) $('#co_'+k).value = savedClient[k]; });
+}
+
+$('#checkoutBtn').addEventListener('click', ()=>{
+  if (!cartCount()){ toast('Agrega al menos un producto'); return; }
+  if (!checkoutMode){ setCheckout(true); return; }
+  const f = { nombre:$('#co_nombre').value.trim(), empresa:$('#co_empresa').value.trim(), doc:$('#co_doc').value.trim(),
+              wa:$('#co_wa').value.trim(), mail:$('#co_mail').value.trim(), suc:$('#co_suc').value };
+  const err = $('#coError');
+  let msg = '';
+  if (!f.nombre) msg = 'Ingresa tu nombre.';
+  else if (!/^(\d{8}|\d{11})$/.test(f.doc)) msg = 'Ingresa un DNI (8 dígitos) o RUC (11 dígitos) válido.';
+  else if (!/^[0-9+ ]{9,15}$/.test(f.wa)) msg = 'Ingresa un número de WhatsApp válido.';
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.mail)) msg = 'Ingresa un correo válido.';
+  else if (!$('#co_priv').checked) msg = 'Debes aceptar la Política de Privacidad.';
+  if (msg){ err.textContent = msg; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  store.set('cv_cliente', f);
+
+  const sucName = {arequipa:'Arequipa (Paucarpata)', secocha:'Secocha', envio:'Envío a mina (coordinar)'}[f.suc];
+  const lines = Object.entries(cart).filter(([id]) => byId(id)).map(([id,q]) => { const p = byId(id); return `• ${q} x ${p.code ? '[' + p.code + '] ' : ''}${p.name} (${p.price != null ? money(p.price) + ' c/u' : 'precio a cotizar'})`; });
+  const sub = cartSubtotal();
+  // Si ningún producto tiene precio, no se muestran montos en el mensaje
+  const totales = sub > 0
+    ? `Subtotal referencial: ${money(sub)} + IGV\nTotal referencial: ${money(sub*1.18)}${cartHasUnpriced() ? '\n(+ productos con precio a cotizar)' : ''}`
+    : 'Precio: a cotizar';
+  const text =
+`Hola COMBOY VID, quiero cotizar:
+
+${lines.join('\n')}
+
+${totales}
+
+*Mis datos:*
+Nombre: ${f.nombre}
+Empresa: ${f.empresa || '-'}
+RUC/DNI: ${f.doc}
+WhatsApp: ${f.wa}
+Correo: ${f.mail}
+Sucursal: ${sucName}`;
+  // Envía al WhatsApp de la sucursal seleccionada (arequipa, secocha o envio)
+  location.href = waLink(text, f.suc);
+  toast('Abriendo WhatsApp…');
+});
+
+/* ---------- Delegación: agregar, cantidad, quitar, ficha ---------- */
+document.addEventListener('click', e => {
+  // Navegación interna entre diapositivas (#slide1…#slide8) sin recargar
+  const link = e.target.closest('a[href^="#slide"]');
+  if (link){
+    e.preventDefault();
+    const n = parseInt(link.getAttribute('href').replace('#slide',''),10);
+    closeMobileMenu();
+    if (!drawer.classList.contains('closed')) closeCart();
+    if ($('.modal.open')) closeModals();
+    goTo(n - 1); return;
+  }
+  const dot = e.target.closest('[data-go]');
+  if (dot){ goTo(+dot.dataset.go); return; }
+  const add = e.target.closest('[data-add]');
+  if (add){ addToCart(add.dataset.add); return; }
+  const qty = e.target.closest('[data-qty]');
+  if (qty){ const id = qty.dataset.qty; cart[id] = (cart[id]||0) + Number(qty.dataset.d); if (cart[id] <= 0) delete cart[id]; saveCart(); renderCart(); return; }
+  const del = e.target.closest('[data-del]');
+  if (del){ delete cart[del.dataset.del]; saveCart(); renderCart(); return; }
+  const fi = e.target.closest('[data-ficha]');
+  if (fi){ openFicha(fi.dataset.ficha); return; }
+  const mo = e.target.closest('[data-modal]');
+  if (mo){ e.preventDefault(); openModal(mo.dataset.modal); return; }
+  if (e.target.closest('[data-close]') || e.target.classList.contains('modal')){ closeModals(); }
+});
+
+/* ---------- Modales ---------- */
+let lastFocus = null;
+function openModal(id){ lastFocus = document.activeElement; const m = $('#'+id); m.classList.add('open'); const c = m.querySelector('[data-close]'); if (c) c.focus(); }
+function closeModals(){ $$('.modal.open').forEach(m => m.classList.remove('open')); if (lastFocus) lastFocus.focus(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape'){ closeModals(); if (!drawer.classList.contains('closed')) closeCart(); } });
+
+function openFicha(id){
+  const p = byId(id); if (!p) return;
+  $('#fichaTitle').textContent = (p.code ? p.code + ' · ' : '') + p.name;
+  const rows = p.kind === 'equipo' ? p.ficha : [
+    ['Código', p.code], ['Categoría', p.cat], ['Aplicación', 'Moto carguero / remolcador minero'],
+    ['Disponibilidad', 'Consultar stock en Arequipa'], ['Precio', p.price != null ? money(p.price) + ' + IGV' : 'A cotizar']
+  ];
+  const waText = p.kind === 'equipo'
+    ? 'Hola COMBOY VID, quiero la ficha técnica completa de: ' + p.name
+    : `Hola COMBOY VID, quiero precio y stock del repuesto ${p.code} - ${p.name}`;
+  $('#fichaBody').innerHTML = `
+    <div class="grid md:grid-cols-2 gap-6">
+      ${prodImg(p, 'rounded-xl overflow-hidden h-60 md:h-full min-h-[240px] border')}
+      <div>
+        <p class="text-sm text-gray-600">${esc(p.desc)}</p>
+        <table class="w-full text-sm mt-4">
+          ${rows.map(r => `<tr class="border-b"><th class="text-left py-2 pr-3 text-gray-500 font-medium">${esc(r[0])}</th><td class="py-2 font-semibold">${esc(r[1])}</td></tr>`).join('')}
+        </table>
+        ${p.price != null ? `<div class="font-title text-2xl text-cvred mt-4">${p.kind === 'equipo' ? 'Desde ' : ''}${money(p.price)} <span class="text-xs text-gray-400 font-normal">+ IGV · referencial</span></div>` : ''}
+        <div class="grid grid-cols-2 gap-3 mt-5">
+          <button class="btn btn-red py-3 text-[11px]" data-add="${p.id}">Agregar a cotización</button>
+          <a class="btn btn-dark py-3 text-[11px]" href="${waLink(waText)}">${p.kind === 'equipo' ? 'Pedir ficha PDF' : 'Consultar por WhatsApp'}</a>
+        </div>
+        <p class="text-[11px] text-gray-400 mt-3">Imágenes y especificaciones referenciales. Datos definitivos en la cotización formal.</p>
+      </div>
+    </div>`;
+  openModal('m-ficha');
+}
+
+/* ---------- Videos YouTube (carga al hacer clic) ---------- */
+function playVideo(el){
+  const id = el.dataset.id;
+  if (!id || id.startsWith('TU_')){ toast('✏️ Agrega el ID de tu video de YouTube en el código'); return; }
+  el.innerHTML = `<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?autoplay=1&rel=0" title="Video Comboy Vid" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+}
+$$('.yt-facade').forEach(el => {
+  el.addEventListener('click', ()=> playVideo(el));
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); playVideo(el); } });
+});
+
+/* ---------- Mapa: cambiar sucursal ---------- */
+function showMap(branch){
+  const url = CONFIG.maps[branch];
+  if (!url) return;
+  $('#mapFrame').src = url;
+  $$('.map-tab').forEach(t => {
+    const on = t.dataset.map === branch;
+    t.classList.toggle('bg-cvred', on); t.classList.toggle('text-white', on); t.classList.toggle('text-cvcoal', !on);
+  });
+}
+$$('[data-map]').forEach(b => b.addEventListener('click', ()=> {
+  showMap(b.dataset.map);
+  if (!b.classList.contains('map-tab')) $('#contacto').scrollIntoView({behavior:'smooth'});
+}));
+
+/* ---------- Formulario lead ---------- */
+$('#leadForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  const form = e.target, err = $('#leadError');
+  const data = Object.fromEntries(new FormData(form).entries());
+  let msg = '';
+  if (!data.nombre.trim()) msg = 'Ingresa tu nombre completo.';
+  else if (!/^[0-9+ ]{9,15}$/.test(data.whatsapp.trim())) msg = 'ingrese su numero de whatsapp';
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) msg = 'Ingresa un correo válido';
+  else if (data.ruc && !/^\d{11}$/.test(data.ruc.trim())) msg = 'El RUC debe tener 11 dígitos.';
+  else if (!form.acepta_privacidad.checked) msg = 'Debes aceptar la Política de Privacidad para continuar.';
+  if (msg){ err.textContent = msg; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  if (data._honey) return; // bot
+
+  const lead = { nombre:data.nombre, empresa:data.empresa, ruc:data.ruc, whatsapp:data.whatsapp, email:data.email,
+                 equipo:data.equipo, mensaje:data.mensaje, autoriza_marketing: form.autoriza_marketing.checked ? 'SÍ' : 'NO',
+                 fecha:new Date().toISOString() };
+  // 1) Guardar en localStorage (historial local del visitante)
+  const leads = store.get('cv_leads', []); leads.push(lead); store.set('cv_leads', leads);
+
+  const btn = form.querySelector('button[type=submit]'); btn.disabled = true; btn.textContent = 'Enviando…';
+  // 2) Enviar por FormSubmit (AJAX). Si falla → 3) abrir correo (mailto)
+  let sent = false;
+  try{
+    const r = await fetch(CONFIG.formsubmitAjax, { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body: JSON.stringify({ ...lead, _subject:'Nueva cotización web - Comboy Vid', _template:'table' }) });
+    sent = r.ok;
+  }catch(ex){ sent = false; }
+  if (!sent){
+    const body = Object.entries(lead).map(([k,v]) => `${k}: ${v || '-'}`).join('\n');
+    window.location.href = `mailto:${CONFIG.emailVentas}?subject=${encodeURIComponent('Solicitud de cotización - ' + lead.nombre)}&body=${encodeURIComponent(body)}`;
+  }
+  btn.disabled = false; btn.textContent = 'Enviar solicitud de cotización';
+  $('#leadOk').classList.remove('hidden');
+  form.reset();
+});
+
+/* ---------- Contacto rápido → WhatsApp ---------- */
+$('#quickForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = $('#qf_n').value.trim(), m = $('#qf_m').value.trim(), s = $('#qf_s').value, err = $('#qfError');
+  if (!n || !m){ err.textContent = 'Completa nombre y mensaje.'; err.classList.remove('hidden'); return; }
+  if (!$('#qf_p').checked){ err.textContent = 'Debes aceptar la Política de Privacidad.'; err.classList.remove('hidden'); return; }
+  err.classList.add('hidden');
+  location.href = waLink(`Hola COMBOY VID, soy ${n}.\n${m}`, s);
+});
+
+/* --------- Inicio --------- */
+renderEquipos();
+renderChips();
+renderShop();
+renderCart();
+var cc = document.getElementById('cartCount');
+if(cc) cc.classList.remove('bump');
+</script>
+
+<script>
+// Activa slide - versión corregida sin duplicar
+(function(){
+  var deckEl = document.getElementById('deck');
+  var slidesEl = document.querySelectorAll('.slide');
+  function setActive(){
+    if(!deckEl) return;
+    var i = Math.round(deckEl.scrollTop / window.innerHeight);
+    slidesEl.forEach(function(s, idx){ s.classList.toggle('active', idx===i); });
+  }
+  if(deckEl){ deckEl.addEventListener('scroll', setActive); setActive(); }
+})();
+</script>
+</body>
+</html>
