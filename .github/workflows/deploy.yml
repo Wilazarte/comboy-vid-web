@@ -3,13 +3,13 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Subir a public_html
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
