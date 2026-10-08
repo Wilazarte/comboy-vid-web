@@ -225,6 +225,74 @@ if (window.tailwind) tailwind.config = {
   background:#dc2626; animation: loading 1s infinite ease-in-out;
 }
 @keyframes loading{ 0%{left:-40%} 100%{left:100%} }
+
+/* =========================================================
+   TEMA ERP · fondo plomo, header navy, botones azules, Inter
+   (se aplica encima de los estilos anteriores)
+   ========================================================= */
+:root{ --erp-bg:#E2E8F0; --erp-navy:#1E293B; --erp-navy-dark:#0F172A; --erp-blue:#2563EB; --erp-blue-dark:#1D4ED8;
+       --erp-shadow:0 4px 12px rgba(0,0,0,.08); }
+body{background:var(--erp-bg);font-family:'Inter',sans-serif}
+h1,h2,h3,h4,h5,h6,.font-title,.btn,.nav-link,.chip,.pager-btn,.section-tag,.dot .dot-label{font-family:'Inter',sans-serif !important}
+h1,h2,h3,h4,.font-title{font-weight:800;letter-spacing:-.02em}
+
+/* Secciones: 100vw, fondo plomo, padding 40px */
+.slide{background:var(--erp-bg) !important;scrollbar-color:rgba(37,99,235,.5) transparent}
+.equip-full,.full-wrap{padding-left:40px !important;padding-right:40px !important}
+@media (max-width:767px){.equip-full,.full-wrap{padding-left:20px !important;padding-right:20px !important}}
+
+/* Header navy */
+#header > div:first-child{background:var(--erp-navy-dark) !important}
+#mainbar,#header.scrolled #mainbar{background:var(--erp-navy) !important;backdrop-filter:none}
+#header.scrolled{background:var(--erp-navy);box-shadow:0 4px 12px rgba(0,0,0,.18)}
+#mobileMenu{background:var(--erp-navy) !important}
+.nav-link::after{background:var(--erp-blue)}
+
+/* Botones azules radius 8px */
+.btn{border-radius:8px;letter-spacing:.02em}
+.btn:hover{transform:translateY(-1px)}
+.btn-red,.btn-blue{background:var(--erp-blue);color:#fff;box-shadow:none}
+.btn-red:hover,.btn-blue:hover{background:var(--erp-blue-dark);box-shadow:none}
+.btn-dark{background:var(--erp-navy);color:#fff}
+.btn-dark:hover{background:var(--erp-navy-dark)}
+.btn-outline{border:2px solid var(--erp-blue);color:var(--erp-blue);background:#fff}
+.btn-outline:hover{background:var(--erp-blue);color:#fff}
+.pager-next{background:var(--erp-blue)} .pager-next:hover{background:var(--erp-blue-dark)}
+#pager{background:rgba(30,41,59,.92)}
+.chip{border-color:#CBD5E1;color:var(--erp-navy);background:#fff;border-radius:8px}
+.chip.active,.chip:hover{background:var(--erp-blue);border-color:var(--erp-blue);color:#fff}
+.wa-float,.wa-float::before,.wa-float::after{background:var(--erp-blue)}
+.wa-float{box-shadow:0 8px 20px rgba(37,99,235,.4)}
+.yt-play{background:var(--erp-blue);box-shadow:0 0 0 10px rgba(37,99,235,.25)}
+.dot.active{background:var(--erp-blue);box-shadow:0 0 0 4px rgba(37,99,235,.25)}
+.dot:hover{background:var(--erp-blue)}
+.field{border:1px solid #CBD5E1;border-radius:8px}
+.field:focus{border-color:var(--erp-blue);box-shadow:0 0 0 3px rgba(37,99,235,.15)}
+
+/* Cards blancas radius 12px + sombra suave */
+.equip-card,.slide article,.slide .bg-white.rounded-xl,.slide .bg-white.rounded-2xl,
+#leadForm,#quickForm,#contacto-rapido > div:first-child,.org-node,.yt-facade,.slide figure.rounded-xl,.slide figure.rounded-2xl{
+  border-radius:12px !important;box-shadow:var(--erp-shadow) !important}
+.equip-card,.slide article{border:0}
+.lift:hover,.equip-card:hover{box-shadow:0 10px 24px rgba(0,0,0,.12) !important}
+#quickForm{background:#fff !important}
+#quickForm h3{color:var(--erp-navy)}
+#quickForm .text-gray-400,#quickForm .text-gray-300{color:#64748B}
+#quickForm .dark-field{background:#fff;border-color:#CBD5E1;color:#1E293B}
+#quickForm .dark-field::placeholder{color:#94A3B8}
+.org-node.bg-cvblack{background:var(--erp-navy)}
+
+/* Portada sobre fondo plomo */
+.hero .hero-bg,.hero::before,.hero::after{display:none}
+.hero h1.text-white,.hero strong.text-white,.hero .font-title.text-white{color:var(--erp-navy)}
+.hero .text-gray-200{color:#334155}
+.hero .text-gray-400{color:#64748B}
+.hero .section-tag.light{color:var(--erp-blue);opacity:1}
+.hero figure{border:0}
+.hero .glass{background:var(--erp-navy) !important;border:0;border-radius:12px}
+
+/* Footer navy */
+.slide > footer{background:var(--erp-navy) !important}
 </style>
 </head>
 
@@ -266,7 +334,7 @@ if (window.tailwind) tailwind.config = {
         <img src="img/logo-comboyvid.webp" alt="Comboy Vid – Soluciones Mineras" width="626" height="222" class="h-10 lg:h-12 w-auto">
       </a>
       <span class="flex items-center gap-2 shrink-0" aria-live="polite">
-        <span id="slideCounter" class="font-title text-xs text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">1 / 8</span>
+        <span id="slideCounter" class="font-title text-xs text-white bg-white/10 border border-white/20 rounded-full px-3 py-1">1 / 7</span>
         <span id="slideName" class="hidden 2xl:inline text-xs text-gray-300 font-semibold uppercase tracking-wider">Inicio</span>
       </span>
 
@@ -274,10 +342,10 @@ if (window.tailwind) tailwind.config = {
         <a href="#inicio" class="nav-link">INICIO</a>
         <a href="#nosotros" class="nav-link">NOSOTROS</a>
         <a href="#equipos" class="nav-link">EQUIPOS</a>
-        <a href="#tienda" class="nav-link">CATÁLOGO/TIENDA</a>
+        <a href="#catalogo" class="nav-link">CATÁLOGO/TIENDA</a>
         <a href="#galeria" class="nav-link">GALERÍA</a>
         <a href="#sucursales" class="nav-link">SUCURSALES</a>
-        <a href="#cotizar" class="nav-link">CONTACTO</a>
+        <a href="#contacto" class="nav-link">CONTACTO</a>
       </nav>
 
       <div class="flex items-center gap-2 lg:gap-3">
@@ -307,15 +375,15 @@ if (window.tailwind) tailwind.config = {
         <a href="#inicio" class="nav-link text-base">INICIO</a>
         <a href="#nosotros" class="nav-link text-base">NOSOTROS</a>
         <a href="#equipos" class="nav-link text-base">EQUIPOS</a>
-        <a href="#tienda" class="nav-link text-base">CATÁLOGO/TIENDA</a>
+        <a href="#catalogo" class="nav-link text-base">CATÁLOGO/TIENDA</a>
         <a href="#galeria" class="nav-link text-base">GALERÍA</a>
         <a href="#sucursales" class="nav-link text-base">SUCURSALES</a>
-        <a href="#cotizar" class="nav-link text-base">CONTACTO</a>
+        <a href="#contacto" class="nav-link text-base">CONTACTO</a>
         <a href="#" target="_blank" rel="noopener" data-wa="Hola COMBOY VID, quiero una cotización." class="btn btn-red py-3 mt-2">Cotizar por WhatsApp</a>
       </div>
     </nav>
     <!-- Barra de progreso de la presentación -->
-    <div class="h-[3px] bg-white/10"><div id="progressBar" class="h-full" style="width:12.5%;background:#E53935;transition:width .5s"></div></div>
+    <div class="h-[3px] bg-white/10"><div id="progressBar" class="h-full" style="width:14.3%;background:#2563EB;transition:width .5s"></div></div>
   </div>
 </header>
 
@@ -341,7 +409,7 @@ if (window.tailwind) tailwind.config = {
       </p>
       <div class="flex flex-col sm:flex-row gap-3 mt-8 reveal reveal-d3">
         <a href="#equipos" class="btn btn-red px-6 py-4 text-xs whitespace-nowrap">Ver equipos principales →</a>
-        <a href="#tienda" class="btn btn-outline px-6 py-4 text-xs whitespace-nowrap">Tienda virtual</a>
+        <a href="#catalogo" class="btn btn-outline px-6 py-4 text-xs whitespace-nowrap">Tienda virtual</a>
       </div>
       <div class="grid grid-cols-3 gap-4 mt-12 max-w-lg reveal">
         <div><div class="font-title text-3xl text-white">5</div><div class="text-xs text-gray-400 uppercase tracking-wider">Años fabricando</div></div>
@@ -402,12 +470,8 @@ if (window.tailwind) tailwind.config = {
         </div>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ===================== 3b. VALORES + ORGANIGRAMA ===================== -->
-<section id="valores" class="slide bg-cvgray" data-title="Valores y equipo">
-  <div class="full-wrap">
+    <!-- Valores + organigrama (antes sección #valores) -->
+    <div class="mt-14">
     <!-- Valores -->
     <div>
       <div class="border-b border-gray-300 pb-6 reveal"><span class="section-tag">Lo que nos mueve</span>
@@ -470,7 +534,10 @@ if (window.tailwind) tailwind.config = {
       </div>
     </div>
   </div>
+  </div>
 </section>
+
+
 
 <!-- ===================== 4. EQUIPOS PRINCIPALES ===================== -->
 <section id="equipos" class="slide bg-cvgray relative" data-title="Equipos">
@@ -488,12 +555,12 @@ if (window.tailwind) tailwind.config = {
 </section>
 
 <!-- ===================== 5. TIENDA VIRTUAL ===================== -->
-<section id="tienda" class="slide bg-cvgray" data-title="Tienda">
+<section id="catalogo" class="slide bg-cvgray" data-title="Catálogo">
   <div class="full-wrap">
     <!-- Breadcrumb -->
     <nav aria-label="Ruta" class="text-sm text-gray-500 mb-6">
       <a href="#inicio" class="hover:text-cvred">Inicio</a> <span class="mx-1">›</span>
-      <a href="#tienda" class="hover:text-cvred">Tienda</a> <span class="mx-1">›</span>
+      <a href="#catalogo" class="hover:text-cvred">Tienda</a> <span class="mx-1">›</span>
       <span id="crumbCat" class="text-cvred font-semibold">Todos</span>
     </nav>
 
@@ -524,91 +591,7 @@ if (window.tailwind) tailwind.config = {
   </div>
 </section>
 
-<!-- ===================== 6. FORMULARIO LEAD ===================== -->
-<section id="cotizar" class="slide bg-white relative" data-title="Cotizar">
-  <div class="full-wrap relative grid lg:grid-cols-5 gap-10 items-start">
-    <div class="lg:col-span-2 reveal">
-      <span class="section-tag">Respuesta rápida</span>
-      <h2 class="text-cvblack text-3xl lg:text-5xl mt-2">Solicita tu cotización en <span class="text-cvred">30 segundos</span></h2>
-      <span class="block w-16 h-1 bg-cvred mt-4"></span>
-      <ul class="mt-8 space-y-4 text-gray-700">
-        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Respuesta de un asesor en horario laboral.</li>
-        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Cotización formal con RUC y condiciones por escrito.</li>
-        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Asesoría técnica según pendiente, tonelaje y trocha.</li>
-      </ul>
-      <div class="bg-cvgray border border-gray-200 rounded-md p-4 mt-8 text-sm text-gray-700">
-        🔒 Tus datos se tratan conforme a la <strong>Ley N° 29733</strong> de Protección de Datos Personales. Solo los usamos para atender tu solicitud.
-      </div>
-    </div>
 
-    <!-- ✏️ Cambia el correo en action: https://formsubmit.co/TU-CORREO@comboyvid.com
-         La primera vez FormSubmit te enviará un correo de activación que debes confirmar. -->
-    <form id="leadForm" action="https://formsubmit.co/areacomercial@comboyvid.com" method="POST" class="lg:col-span-3 bg-white border border-gray-200 shadow-md rounded-md p-6 lg:p-8 reveal reveal-d1" novalidate>
-      <input type="hidden" name="_subject" value="Nueva cotización web - Comboy Vid">
-      <input type="hidden" name="_template" value="table">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-
-      <div class="grid sm:grid-cols-2 gap-4">
-        <div class="sm:col-span-2">
-          <label class="text-cvblack text-sm font-semibold" for="lf_nombre">Nombre completo *</label>
-          <input id="lf_nombre" name="nombre" required class="field mt-1" autocomplete="name">
-        </div>
-        <div>
-          <label class="text-cvblack text-sm font-semibold" for="lf_empresa">Empresa</label>
-          <input id="lf_empresa" name="empresa" class="field mt-1" autocomplete="organization">
-        </div>
-        <div>
-          <label class="text-cvblack text-sm font-semibold" for="lf_ruc">RUC</label>
-          <input id="lf_ruc" name="ruc" inputmode="numeric" maxlength="11" pattern="\d{11}" class="field mt-1" placeholder="11 dígitos">
-        </div>
-        <div>
-          <label class="text-cvblack text-sm font-semibold" for="lf_wa">WhatsApp *</label>
-          <input id="lf_wa" name="whatsapp" required inputmode="tel" pattern="[0-9+ ]{9,15}" class="field mt-1" placeholder="9XX XXX XXX" autocomplete="tel">
-        </div>
-        <div>
-          <label class="text-cvblack text-sm font-semibold" for="lf_mail">Correo *</label>
-          <input id="lf_mail" name="email" type="email" required class="field mt-1" autocomplete="email">
-        </div>
-        <div class="sm:col-span-2">
-          <label class="text-cvblack text-sm font-semibold" for="lf_equipo">Equipo de interés</label>
-          <select id="lf_equipo" name="equipo" class="field mt-1">
-            <option value="">Selecciona un equipo</option>
-            <option>Remolcador CV-3000 - 4TN</option>
-            <option>Remolcador CV-3500 - 7TN</option>
-            <option>Coche Minero Z20</option>
-            <option>Remolcador Electrico</option>
-             </select>
-        </div>
-        <div class="sm:col-span-2">
-          <label class="text-cvblack text-sm font-semibold" for="lf_msg">Mensaje</label>
-          <textarea id="lf_msg" name="mensaje" rows="3" class="field mt-1" placeholder="Cantidad, trocha, pendiente de la labor, lugar de entrega…"></textarea>
-        </div>
-      </div>
-
-      <div class="mt-5 space-y-3 text-sm text-gray-700">
-        <label class="flex gap-3 items-start cursor-pointer">
-          <input type="checkbox" name="acepta_privacidad" required class="mt-1 w-4 h-4 accent-red-600">
-          <span>He leído y <strong>acepto la <button type="button" class="underline text-cvred" data-modal="m-privacidad">Política de Privacidad</button></strong> para la atención de mi cotización. *</span>
-        </label>
-        <label class="flex gap-3 items-start cursor-pointer">
-          <input type="checkbox" name="autoriza_marketing" id="lf_mkt" class="mt-1 w-4 h-4 accent-red-600">
-          <span>Autorizo el envío de promociones y anuncios por WhatsApp, correo y SMS según la <button type="button" class="underline text-cvred" data-modal="m-marketing">Política de Autorización de Marketing</button>. <em class="text-gray-500">(Opcional)</em></span>
-        </label>
-      </div>
-      <p class="text-[11px] text-gray-500 mt-4 leading-relaxed">
-        Aviso de protección de datos: el responsable del tratamiento es Comboy Vid Soluciones Mineras. Tus datos se incorporan a nuestro banco de datos de clientes/prospectos para responder tu solicitud. Puedes ejercer tus derechos ARCO escribiendo a <!-- ✏️ correo de privacidad --> areacomercial@comboyvid.com. El consentimiento para marketing es libre y revocable en cualquier momento.
-      </p>
-
-      <p id="leadError" class="hidden mt-4 text-sm bg-red-50 border border-red-400 text-red-800 rounded-lg p-3" role="alert"></p>
-      <button type="submit" class="btn btn-red w-full mt-5 py-4 text-sm">Enviar solicitud de cotización</button>
-
-      <div id="leadOk" class="hidden mt-5 bg-green-50 border border-green-500 text-green-800 rounded-lg p-4 text-sm" role="status">
-        ✅ <strong>¡Solicitud recibida!</strong> Un asesor de Comboy Vid se comunicará contigo por WhatsApp o correo. Recuerda: solo cotizamos con comprobante a nombre de la empresa.
-      </div>
-    </form>
-  </div>
-</section>
 
 <!-- ===================== 7. GALERÍA ===================== -->
 <section id="galeria" class="slide bg-white" data-title="Galería">
@@ -692,7 +675,7 @@ if (window.tailwind) tailwind.config = {
          <a href="https://www.google.com/maps/place/COMBOYVID/@-15.979884946581594,-73.17359592327448,17z/data=!3m1!4b1!4m6!3m5!1s0x914019ffacc603cb:0x842cee7ec205719e!8m2!3d-15.979884946581594!4d-73.17359592327448" target="_blank" class="btn btn-blue px-5 py-3 text-xs">Cómo llegar</a>
         </div>
       </article>
-  <div id="contacto" class="md:col-span-2 grid lg:grid-cols-5 gap-6 mt-2">
+  <div id="contacto-rapido" class="md:col-span-2 grid lg:grid-cols-5 gap-6 mt-2">
   <div class="lg:col-span-3 rounded-2xl overflow-hidden shadow-md bg-white">
     <div class="flex border-b">
       <button onclick="document.getElementById('map-arequipa').style.display='block';document.getElementById('map-secocha').style.display='none';this.classList.add('bg-cvred');this.classList.remove('bg-cvblack');document.getElementById('btn-secocha').classList.add('bg-cvblack');document.getElementById('btn-secocha').classList.remove('bg-cvred');" class="flex-1 py-3 bg-cvred text-white font-bold text-xs">📍 AREQUIPA</button>
@@ -732,6 +715,93 @@ if (window.tailwind) tailwind.config = {
     </div>
   </div>
 
+
+</section>
+
+<!-- ===================== 7. CONTACTO / COTIZAR ===================== -->
+<section id="contacto" class="slide bg-white relative" data-title="Contacto">
+  <div class="full-wrap relative grid lg:grid-cols-5 gap-10 items-start">
+    <div class="lg:col-span-2 reveal">
+      <span class="section-tag">Respuesta rápida</span>
+      <h2 class="text-cvblack text-3xl lg:text-5xl mt-2">Solicita tu cotización en <span class="text-cvred">30 segundos</span></h2>
+      <span class="block w-16 h-1 bg-cvred mt-4"></span>
+      <ul class="mt-8 space-y-4 text-gray-700">
+        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Respuesta de un asesor en horario laboral.</li>
+        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Cotización formal con RUC y condiciones por escrito.</li>
+        <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Asesoría técnica según pendiente, tonelaje y trocha.</li>
+      </ul>
+      <div class="bg-cvgray border border-gray-200 rounded-md p-4 mt-8 text-sm text-gray-700">
+        🔒 Tus datos se tratan conforme a la <strong>Ley N° 29733</strong> de Protección de Datos Personales. Solo los usamos para atender tu solicitud.
+      </div>
+    </div>
+
+    <!-- ✏️ Cambia el correo en action: https://formsubmit.co/TU-CORREO@comboyvid.com
+         La primera vez FormSubmit te enviará un correo de activación que debes confirmar. -->
+    <form id="leadForm" action="https://formsubmit.co/areacomercial@comboyvid.com" method="POST" class="lg:col-span-3 bg-white border border-gray-200 shadow-md rounded-md p-6 lg:p-8 reveal reveal-d1" novalidate>
+      <input type="hidden" name="_subject" value="Nueva cotización web - Comboy Vid">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="grid sm:grid-cols-2 gap-4">
+        <div class="sm:col-span-2">
+          <label class="text-cvblack text-sm font-semibold" for="lf_nombre">Nombre completo *</label>
+          <input id="lf_nombre" name="nombre" required class="field mt-1" autocomplete="name">
+        </div>
+        <div>
+          <label class="text-cvblack text-sm font-semibold" for="lf_empresa">Empresa</label>
+          <input id="lf_empresa" name="empresa" class="field mt-1" autocomplete="organization">
+        </div>
+        <div>
+          <label class="text-cvblack text-sm font-semibold" for="lf_ruc">RUC</label>
+          <input id="lf_ruc" name="ruc" inputmode="numeric" maxlength="11" pattern="\d{11}" class="field mt-1" placeholder="11 dígitos">
+        </div>
+        <div>
+          <label class="text-cvblack text-sm font-semibold" for="lf_wa">WhatsApp *</label>
+          <input id="lf_wa" name="whatsapp" required inputmode="tel" pattern="[0-9+ ]{9,15}" class="field mt-1" placeholder="9XX XXX XXX" autocomplete="tel">
+        </div>
+        <div>
+          <label class="text-cvblack text-sm font-semibold" for="lf_mail">Correo *</label>
+          <input id="lf_mail" name="email" type="email" required class="field mt-1" autocomplete="email">
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-cvblack text-sm font-semibold" for="lf_equipo">Equipo de interés</label>
+          <select id="lf_equipo" name="equipo" class="field mt-1">
+            <option value="">Selecciona un equipo</option>
+            <option>Remolcador CV-3000 - 4TN</option>
+            <option>Remolcador CV-3500 - 7TN</option>
+            <option>Coche Minero Z20</option>
+            <option>Remolcador Electrico</option>
+             </select>
+        </div>
+        <div class="sm:col-span-2">
+          <label class="text-cvblack text-sm font-semibold" for="lf_msg">Mensaje</label>
+          <textarea id="lf_msg" name="mensaje" rows="3" class="field mt-1" placeholder="Cantidad, trocha, pendiente de la labor, lugar de entrega…"></textarea>
+        </div>
+      </div>
+
+      <div class="mt-5 space-y-3 text-sm text-gray-700">
+        <label class="flex gap-3 items-start cursor-pointer">
+          <input type="checkbox" name="acepta_privacidad" required class="mt-1 w-4 h-4 accent-red-600">
+          <span>He leído y <strong>acepto la <button type="button" class="underline text-cvred" data-modal="m-privacidad">Política de Privacidad</button></strong> para la atención de mi cotización. *</span>
+        </label>
+        <label class="flex gap-3 items-start cursor-pointer">
+          <input type="checkbox" name="autoriza_marketing" id="lf_mkt" class="mt-1 w-4 h-4 accent-red-600">
+          <span>Autorizo el envío de promociones y anuncios por WhatsApp, correo y SMS según la <button type="button" class="underline text-cvred" data-modal="m-marketing">Política de Autorización de Marketing</button>. <em class="text-gray-500">(Opcional)</em></span>
+        </label>
+      </div>
+      <p class="text-[11px] text-gray-500 mt-4 leading-relaxed">
+        Aviso de protección de datos: el responsable del tratamiento es Comboy Vid Soluciones Mineras. Tus datos se incorporan a nuestro banco de datos de clientes/prospectos para responder tu solicitud. Puedes ejercer tus derechos ARCO escribiendo a <!-- ✏️ correo de privacidad --> areacomercial@comboyvid.com. El consentimiento para marketing es libre y revocable en cualquier momento.
+      </p>
+
+      <p id="leadError" class="hidden mt-4 text-sm bg-red-50 border border-red-400 text-red-800 rounded-lg p-3" role="alert"></p>
+      <button type="submit" class="btn btn-red w-full mt-5 py-4 text-sm">Enviar solicitud de cotización</button>
+
+      <div id="leadOk" class="hidden mt-5 bg-green-50 border border-green-500 text-green-800 rounded-lg p-4 text-sm" role="status">
+        ✅ <strong>¡Solicitud recibida!</strong> Un asesor de Comboy Vid se comunicará contigo por WhatsApp o correo. Recuerda: solo cotizamos con comprobante a nombre de la empresa.
+      </div>
+    </form>
+  </div>
 <!-- ===================== 9. FOOTER (solo en la última slide) ===================== -->
 <footer class="bg-cvblack text-gray-300 mt-10 w-full">
   <div class="stripe"></div>
@@ -749,7 +819,7 @@ if (window.tailwind) tailwind.config = {
         <li><a href="#inicio" class="hover:text-white">Inicio</a></li>
         <li><a href="#nosotros" class="hover:text-white">Nosotros</a></li>
         <li><a href="#equipos" class="hover:text-white">Equipos</a></li>
-        <li><a href="#tienda" class="hover:text-white">Catálogo / Tienda</a></li>
+        <li><a href="#catalogo" class="hover:text-white">Catálogo / Tienda</a></li>
         <li><a href="#galeria" class="hover:text-white">Galería</a></li>
         <li><a href="#sucursales" class="hover:text-white">Sucursales</a></li>
       </ul>
@@ -990,7 +1060,7 @@ if (window.tailwind) tailwind.config = {
 <div id="toast" class="fixed left-1/2 -translate-x-1/2 bottom-24 z-[90] bg-cvblack text-white px-5 py-3 rounded-xl shadow-2xl text-sm opacity-0 pointer-events-none transition-opacity duration-300" role="status" aria-live="polite"></div>
 
 <!-- Botón flotante "Ver catálogo" -->
-<a href="#tienda" id="floatCatalog" class="hidden md:inline-flex fixed left-4 bottom-5 z-[60] btn btn-blue px-4 py-3 text-[11px] shadow-xl transition-opacity">📘 Ver catálogo</a>
+<a href="#catalogo" id="floatCatalog" class="hidden md:inline-flex fixed left-4 bottom-5 z-[60] btn btn-blue px-4 py-3 text-[11px] shadow-xl transition-opacity">📘 Ver catálogo</a>
 
 <!-- ===================== NAVEGACIÓN DE DIAPOSITIVAS ===================== -->
 <!-- Puntitos laterales (se generan por JS) -->
@@ -1313,12 +1383,14 @@ $('#dots').innerHTML = slides.map((s,i) =>
   `<button class="dot" data-go="${i}" aria-label="Ir a diapositiva ${i+1}: ${esc(s.dataset.title)}"><span class="dot-label">${i+1}. ${esc(s.dataset.title)}</span></button>`).join('');
 
 // Índice de la sección según su id (#inicio, #equipos…); -1 si no existe
-const slideIndex = hash => slides.findIndex(s => '#' + s.id === hash);
+// Enlaces antiguos (#tienda, #cotizar, #valores, #slide1…#slide8) → sección actual
+const HASH_ALIAS = {'#tienda':'#catalogo','#cotizar':'#contacto','#valores':'#nosotros'};
+const OLD_SLIDES = ['inicio','nosotros','nosotros','equipos','catalogo','contacto','galeria','sucursales'];
+const slideIndex = hash => slides.findIndex(s => '#' + s.id === (HASH_ALIAS[hash] || hash));
 function slideFromHash(){
   let n = slideIndex(location.hash);
-  // Compatibilidad con enlaces antiguos #slide1…#slide8
   const m = /^#slide(\d+)$/.exec(location.hash);
-  if (n < 0 && m) n = parseInt(m[1],10) - 1;
+  if (n < 0 && m && OLD_SLIDES[m[1]-1]) n = slideIndex('#' + OLD_SLIDES[m[1]-1]);
   return Math.min(Math.max(n,0), TOTAL-1);
 }
 
@@ -1347,10 +1419,10 @@ function setActive(i){
   $$('.dot').forEach((d,k) => { d.classList.toggle('active', k === i); d.setAttribute('aria-current', k === i ? 'step' : 'false'); });
   $('#prevBtn').disabled = i === 0;
   $('#nextBtn').disabled = i === TOTAL - 1;
-  $('#floatCatalog').style.opacity = (slides[i].id === 'tienda') ? '0' : '1';
-  $('#floatCatalog').style.pointerEvents = (slides[i].id === 'tienda') ? 'none' : 'auto';
-  // Menú activo (Valores pertenece a "Nosotros")
-  const menuTarget = slides[i].id === 'valores' ? 'nosotros' : slides[i].id;
+  $('#floatCatalog').style.opacity = (slides[i].id === 'catalogo') ? '0' : '1';
+  $('#floatCatalog').style.pointerEvents = (slides[i].id === 'catalogo') ? 'none' : 'auto';
+  // Menú activo
+  const menuTarget = slides[i].id;
   $$('.nav-link').forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + menuTarget));
   document.title = `${slides[i].dataset.title} | Comboy Vid Soluciones Mineras`;
 
@@ -1501,7 +1573,7 @@ function headerSearch(e){
   currentQuery = v; $('#shopSearch').value = v;
   currentCat = 'Todos'; renderChips();
   renderShop(); closeMobileMenu();
-  goTo(slideIndex('#tienda'));
+  goTo(slideIndex('#catalogo'));
 }
 $('#headerSearch').addEventListener('submit', headerSearch);
 $('#mobileSearch').addEventListener('submit', headerSearch);
@@ -1537,7 +1609,7 @@ function renderCart(){
   : `<div class="text-center py-16 text-gray-500">
        <div class="text-5xl">🛒</div>
        <p class="mt-3 font-semibold">Tu lista de cotización está vacía</p>
-       <a href="#tienda" class="btn btn-red px-6 py-3 text-xs mt-5" id="goShop">Ir al catálogo</a>
+       <a href="#catalogo" class="btn btn-red px-6 py-3 text-xs mt-5" id="goShop">Ir al catálogo</a>
      </div>`;
   const sub = cartSubtotal(), igv = sub*0.18;
   $('#cartSubtotal').textContent = money(sub);
@@ -1699,7 +1771,7 @@ function showMap(branch){
 }
 $$('[data-map]').forEach(b => b.addEventListener('click', ()=> {
   showMap(b.dataset.map);
-  if (!b.classList.contains('map-tab')) $('#contacto').scrollIntoView({behavior:'smooth'});
+  if (!b.classList.contains('map-tab')) $('#contacto-rapido').scrollIntoView({behavior:'smooth'});
 }));
 
 /* ---------- Formulario lead ---------- */
