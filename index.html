@@ -374,14 +374,16 @@ html{scroll-behavior:smooth}
 #nosotros.slide, #catalogo.slide, #sucursales.slide{background:#E8EEF4 !important}
 #equipos.slide, #galeria.slide, #contacto.slide{background:#FFFFFF !important}
 .card, #nosotros .bg-white, #catalogo .bg-white, #sucursales .bg-white{background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.06)}
-/* PRELOADER · logo oficial casi pantalla completa, 2.2 s */
-#loader{background:#000 !important;z-index:99999 !important;flex-direction:column;padding:0 1rem}
-#loader .loader-logo{width:95vw;max-width:900px;height:auto;object-fit:contain;animation:loaderLogo .6s ease-out both}
-@media (min-width:768px){#loader .loader-logo{width:85vw}}
-@media (min-width:1024px){#loader .loader-logo{width:70vw}}
-#loader .loader-text{color:#fff !important;letter-spacing:.6em;font-size:13px;margin-top:2rem;font-weight:300 !important;opacity:0;animation:loaderText .6s ease-out .5s forwards}
-@media (min-width:768px){#loader .loader-text{font-size:18px;margin-top:2.5rem}}
+/* PRELOADER · logo oficial: celular 90vw (máx 380px), PC 65vw (máx 1000/1100px), 2.2 s */
+#loader{background:#000 !important;z-index:99999 !important;flex-direction:column}
+#loader .loader-logo{width:90vw;max-width:380px;height:auto;object-fit:contain;animation:loaderLogo .6s ease-out both}
+@media (min-width:768px){#loader .loader-logo{max-width:700px}}
+@media (min-width:1024px){#loader .loader-logo{width:65vw;max-width:1000px}}
+@media (min-width:1280px){#loader .loader-logo{max-width:1100px}}
+#loader .loader-text{color:#fff !important;letter-spacing:.6em;font-size:11px;margin-top:2.5rem;font-weight:300 !important;opacity:0;animation:loaderText .6s ease-out .5s forwards}
+@media (min-width:768px){#loader .loader-text{font-size:16px}}
 @media (min-width:1024px){#loader .loader-text{font-size:20px}}
+@media (min-width:1280px){#loader .loader-text{font-size:22px}}
 @keyframes loaderLogo{from{transform:scale(.7);opacity:0}to{transform:scale(1);opacity:1}}
 @keyframes loaderText{to{opacity:1}}
 </style>
@@ -391,12 +393,12 @@ html{scroll-behavior:smooth}
 
 <!-- ===================== LOADER ===================== -->
 <!-- LOADER COMBOY VID -->
-<div id="loader" class="fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center px-4">
+<div id="loader" class="fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center">
   <picture>
     <source srcset="public/images/logo-comboy-vid-oficial.webp" type="image/webp">
-    <img src="public/images/logo-comboy-vid-oficial.png" alt="COMBOY VID" width="1100" height="360" class="loader-logo w-[95vw] md:w-[85vw] lg:w-[70vw] max-w-[900px] h-auto object-contain">
+    <img src="public/images/logo-comboy-vid-oficial.png" alt="COMBOY VID" width="1100" height="360" class="loader-logo w-[90vw] max-w-[380px] md:max-w-[700px] lg:max-w-[1000px] xl:max-w-[1100px] lg:w-[65vw] h-auto object-contain">
   </picture>
-  <p class="loader-text mt-8 md:mt-10 text-white text-[13px] md:text-[18px] lg:text-[20px] tracking-[0.6em] font-light">SOLUCIONES MINERAS</p>
+  <p class="loader-text mt-10 text-white text-[11px] md:text-[16px] lg:text-[20px] xl:text-[22px] tracking-[0.6em] font-light">SOLUCIONES MINERAS</p>
 </div>
 
 <!-- Enlace de salto (accesibilidad) -->
