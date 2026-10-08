@@ -635,34 +635,63 @@ html{scroll-behavior:smooth}
       <p class="text-gray-600 lg:max-w-md lg:text-right">Nuestros equipos trabajando en socavón. Los videos cargan solo al hacer clic para que la web sea rápida.</p>
     </div>
 
-    <!-- TikTok @comboyvidsecocha: 3 videos reales (embed.js al final del body) -->
-    <div id="tiktok-feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-      <!-- VIDEO 1 - 7677234071705013524 -->
-      <div class="relative bg-black rounded-xl overflow-hidden aspect-[9/16] shadow-lg">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@comboyvidsecocha/video/7677234071705013524" data-video-id="7677234071705013524" style="max-width:100%; min-width:325px;">
-          <section><a target="_blank" title="@comboyvidsecocha" href="https://www.tiktok.com/@comboyvidsecocha">@comboyvidsecocha</a></section>
-        </blockquote>
-      </div>
-
-      <!-- VIDEO 2 - 7685850155228187925 -->
-      <div class="relative bg-black rounded-xl overflow-hidden aspect-[9/16] shadow-lg">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@comboyvidsecocha/video/7685850155228187925" data-video-id="7685850155228187925" style="max-width:100%; min-width:325px;">
-          <section><a target="_blank" title="@comboyvidsecocha" href="https://www.tiktok.com/@comboyvidsecocha">@comboyvidsecocha</a></section>
-        </blockquote>
-      </div>
-
-      <!-- VIDEO 3 - 7690789808750202133 -->
-      <div class="relative bg-black rounded-xl overflow-hidden aspect-[9/16] shadow-lg">
-        <blockquote class="tiktok-embed" cite="https://www.tiktok.com/@comboyvidsecocha/video/7690789808750202133" data-video-id="7690789808750202133" style="max-width:100%; min-width:325px;">
-          <section><a target="_blank" title="@comboyvidsecocha" href="https://www.tiktok.com/@comboyvidsecocha">@comboyvidsecocha</a></section>
-        </blockquote>
-      </div>
-
+    <!-- TikTok @comboyvidsecocha: iframes /embed que reproducen dentro de la web.
+         Lista automática de videos (tikwm.com) con respaldo a 3 IDs fijos; rota sola cada 8 s
+         y se detiene cuando el visitante toca un video para no cortarle la reproducción. -->
+    <div id="tiktok-feed-auto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+      <div class="col-span-full text-center py-20 text-zinc-500">Cargando videos de @comboyvidsecocha...</div>
     </div>
 
-    <div class="text-center mt-8">
-      <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-black text-white px-6 py-3 rounded-full text-sm font-bold hover:bg-zinc-800 transition">Ver más en TikTok @comboyvidsecocha →</a>
+    <div class="flex justify-center items-center gap-3 mt-8">
+      <button type="button" id="prevTikTok" class="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center text-xl" aria-label="Videos anteriores">‹</button>
+      <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener" class="bg-black text-white px-6 py-2 rounded-full text-sm font-bold">Ver más en TikTok @comboyvidsecocha →</a>
+      <button type="button" id="nextTikTok" class="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center text-xl" aria-label="Videos siguientes">›</button>
     </div>
+
+    <script>
+    (function(){
+      const USERNAME = "comboyvidsecocha";
+      let allVideos = ["7677234071705013524","7685850155228187925","7690789808750202133"];
+      let currentIndex = 0, paused = false;
+      const VIDEOS_PER_PAGE = 3;
+      const feed = document.getElementById('tiktok-feed-auto');
+
+      async function fetchTikToksAuto(){
+        try {
+          const res = await fetch(`https://www.tikwm.com/api/user/posts?unique_id=${USERNAME}&count=12`);
+          const json = await res.json();
+          const ids = (json && json.data && json.data.videos || []).map(v => String(v.video_id)).filter(id => /^\d{10,}$/.test(id));
+          if (ids.length && ids.join() !== allVideos.join()){ allVideos = ids; currentIndex = 0; if (!paused) renderTikToks(); return; }
+        } catch(e){ console.log('TikTok: uso los 3 IDs fijos', e); }
+        if (!feed.querySelector('iframe')) renderTikToks();
+      }
+
+      function renderTikToks(){
+        feed.innerHTML = '';
+        const n = Math.min(VIDEOS_PER_PAGE, allVideos.length);
+        for (let k = 0; k < n; k++){
+          const id = allVideos[(currentIndex + k) % allVideos.length];
+          const div = document.createElement('div');
+          div.className = "relative bg-black rounded-xl overflow-hidden aspect-[9/16] shadow-lg";
+          div.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${id}" class="w-full h-full absolute inset-0" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Video TikTok @${USERNAME}"></iframe>`;
+          feed.appendChild(div);
+        }
+      }
+
+      function move(step){ currentIndex = (currentIndex + step + allVideos.length) % allVideos.length; renderTikToks(); }
+
+      /* Rota sola, pero no mientras el visitante tiene el mouse encima o ya tocó un video */
+      feed.addEventListener('mouseenter', () => paused = true);
+      feed.addEventListener('mouseleave', () => { if (!feed.contains(document.activeElement)) paused = false; });
+      window.addEventListener('blur', () => { setTimeout(() => { if (document.activeElement && feed.contains(document.activeElement)) paused = true; }, 0); });
+      document.getElementById('nextTikTok').onclick = () => move(1);
+      document.getElementById('prevTikTok').onclick = () => move(-1);
+
+      fetchTikToksAuto();
+      setInterval(() => { if (!paused && !document.hidden && allVideos.length > VIDEOS_PER_PAGE) move(1); }, 8000);
+      setInterval(fetchTikToksAuto, 3600000);
+    })();
+    </script>
 
     <!-- ✏️ Reemplaza por fotos de tus clientes (con su autorización) -->
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
@@ -1832,7 +1861,5 @@ document.querySelectorAll('a[data-wa]').forEach(function(a){
   a.setAttribute('rel', 'noopener');
 });
 </script>
-<!-- TikTok: reproduce los videos de #tiktok-feed dentro de la web -->
-<script async src="https://www.tiktok.com/embed.js"></script>
 </body>
 </html>
