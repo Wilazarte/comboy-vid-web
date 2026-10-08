@@ -635,18 +635,28 @@ html{scroll-behavior:smooth}
       <p class="text-gray-600 lg:max-w-md lg:text-right">Nuestros equipos trabajando en socavón. Los videos cargan solo al hacer clic para que la web sea rápida.</p>
     </div>
 
-    <div class="grid lg:grid-cols-2 gap-6 mt-12">
-      <!-- ✏️ Pon los ID de tus videos de YouTube en data-id -->
-      <div class="yt-facade shadow-xl zoom" data-id="TU_VIDEO_ID_1" role="button" tabindex="0" aria-label="Reproducir video: remolcador en socavón">
-        <img loading="lazy" src="img/moto-tunel.webp" alt="Remolcador moto carguero Comboy Vid en socavón" onerror="this.style.display='none'">
+    <!-- TikTok @comboyvidsecocha: el video carga solo al hacer clic (no hace lenta la web).
+         TODO: reemplazar TODO_ID_1..3 por los IDs reales (el número al final de tiktok.com/@comboyvidsecocha/video/XXXXXXXX).
+         Mientras no haya ID, el clic abre el perfil de TikTok. -->
+    <div id="tiktok-feed" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom" data-tiktok-id="TODO_ID_1" role="button" tabindex="0" aria-label="Reproducir video 1 de TikTok @comboyvidsecocha">
+        <img loading="lazy" src="img/moto-tunel.webp" alt="Remolcador Comboy Vid en socavón" class="absolute inset-0 w-full h-full object-cover opacity-70" onerror="this.style.display='none'">
         <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">REMOLCADOR MOTO CARGUERO EN SOCAVÓN</span>
+        <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">♪ @comboyvidsecocha</span>
       </div>
-      <div class="yt-facade shadow-xl zoom reveal-d1" data-id="TU_VIDEO_ID_2" role="button" tabindex="0" aria-label="Reproducir video: tren de coches mineros U35">
-        <img loading="lazy" src="img/moto-tunel-2.webp" alt="Remolcador Comboy Vid en galería minera" onerror="this.style.display='none'">
+      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom reveal-d1" data-tiktok-id="TODO_ID_2" role="button" tabindex="0" aria-label="Reproducir video 2 de TikTok @comboyvidsecocha">
+        <img loading="lazy" src="img/moto-tunel-2.webp" alt="Remolcador Comboy Vid en galería minera" class="absolute inset-0 w-full h-full object-cover opacity-70" onerror="this.style.display='none'">
         <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
-        <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">REMOLCADOR EN GALERÍA MINERA</span>
+        <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">♪ @comboyvidsecocha</span>
       </div>
+      <div class="tt-facade relative bg-black rounded-xl overflow-hidden aspect-[9/16] cursor-pointer shadow-xl zoom reveal-d2" data-tiktok-id="TODO_ID_3" role="button" tabindex="0" aria-label="Reproducir video 3 de TikTok @comboyvidsecocha">
+        <img loading="lazy" src="img/comboyvid-poster.webp" alt="Coche minero Comboy Vid" class="absolute inset-0 w-full h-full object-cover opacity-70" onerror="this.style.display='none'">
+        <span class="yt-play"><svg width="30" height="30" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+        <span class="absolute bottom-3 left-3 bg-black/70 text-white text-xs font-title px-3 py-1 rounded">♪ @comboyvidsecocha</span>
+      </div>
+    </div>
+    <div class="text-center mt-6">
+      <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener" class="text-sm font-bold underline">Ver más en TikTok @comboyvidsecocha →</a>
     </div>
 
     <!-- ✏️ Reemplaza por fotos de tus clientes (con su autorización) -->
@@ -1735,6 +1745,17 @@ function playVideo(el){
 $$('.yt-facade').forEach(el => {
   el.addEventListener('click', ()=> playVideo(el));
   el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); playVideo(el); } });
+});
+
+/* ---------- TikTok @comboyvidsecocha: carga el reproductor solo al hacer clic ---------- */
+function playTikTok(el){
+  const id = el.dataset.tiktokId;
+  if (!id || !/^\d{10,}$/.test(id)){ window.open('https://www.tiktok.com/@comboyvidsecocha', '_blank', 'noopener'); return; }
+  el.innerHTML = `<iframe class="absolute inset-0 w-full h-full" src="https://www.tiktok.com/player/v1/${id}?autoplay=1&rel=0" title="Video TikTok Comboy Vid" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>`;
+}
+$$('.tt-facade').forEach(el => {
+  el.addEventListener('click', ()=> playTikTok(el));
+  el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); playTikTok(el); } });
 });
 
 /* ---------- Mapa: cambiar sucursal ---------- */
