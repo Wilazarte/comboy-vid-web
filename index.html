@@ -374,6 +374,13 @@ html{scroll-behavior:smooth}
 #nosotros.slide, #catalogo.slide, #sucursales.slide{background:#E8EEF4 !important}
 #equipos.slide, #galeria.slide, #contacto.slide{background:#FFFFFF !important}
 .card, #nosotros .bg-white, #catalogo .bg-white, #sucursales .bg-white{background:#fff;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+/* PRELOADER · logo oficial grande sobre negro, 2.3 s */
+#loader{background:#000 !important}
+#loader .loader-logo{width:340px;max-width:92vw;height:auto}
+@media (min-width:768px){#loader .loader-logo{width:560px}}
+@media (min-width:1024px){#loader .loader-logo{width:680px}}
+#loader .loader-text{color:#fff !important;letter-spacing:.45em;font-size:14px;margin-top:24px;font-weight:300 !important}
+@media (min-width:768px){#loader .loader-text{font-size:18px}}
 </style>
 </head>
 
@@ -381,10 +388,13 @@ html{scroll-behavior:smooth}
 
 <!-- ===================== LOADER ===================== -->
 <!-- LOADER COMBOY VID -->
-<div id="loader">
+<div id="loader" class="bg-black fixed inset-0 z-[9999]">
   <div class="loader-content">
-    <img src="img/logo-comboyvid.webp" alt="COMBOY VID" class="loader-logo">
-    <div class="loader-text">Soluciones mineras</div>
+    <picture>
+      <source srcset="public/images/logo-comboy-vid-oficial.webp" type="image/webp">
+      <img src="public/images/logo-comboy-vid-oficial.png" alt="COMBOY VID Soluciones Mineras" width="1100" height="360" class="loader-logo w-[340px] md:w-[560px] lg:w-[680px] h-auto">
+    </picture>
+    <div class="loader-text text-white tracking-[0.45em] text-[14px] md:text-[18px] mt-6 font-light">Soluciones mineras</div>
     <div class="loader-bar"><span></span></div>
   </div>
 </div>
@@ -1416,8 +1426,10 @@ const priceHTML = (p, big) => p.price != null
   : `<span class="${big ? 'text-base' : 'text-xs'} text-cvblue">Precio a cotizar</span>`;
 
 /* ---------- Loader ---------- */
-window.addEventListener('load', ()=> setTimeout(()=> $('#loader').classList.add('hide'), 350));
-setTimeout(()=> $('#loader').classList.add('hide'), 3500); // respaldo
+// El preloader dura 2.3 s (o hasta que cargue la página, lo que tarde más; máximo 5 s)
+const LOADER_MS = 2300;
+window.addEventListener('load', ()=> setTimeout(()=> $('#loader').classList.add('hide'), Math.max(0, LOADER_MS - performance.now())));
+setTimeout(()=> $('#loader').classList.add('hide'), 5000); // respaldo
 
 /* ---------- Año ---------- */
 $('#year').textContent = new Date().getFullYear();
