@@ -352,6 +352,52 @@ html{scroll-behavior:smooth}
 .hero-card:hover{transform:translateY(-3px);box-shadow:0 10px 22px rgba(0,0,0,.12)}
 .hero-ico{flex-shrink:0;width:52px;height:52px;border-radius:50%;background:#DBEAFE;display:flex;align-items:center;justify-content:center}
 #headerSearch{background:transparent !important;border-color:rgba(255,255,255,.5) !important}
+
+/* =========================================================
+   PORTADA MINA · fondo oscuro con luces y niebla, equipo de volante
+   ========================================================= */
+#inicio.hero-mina{background:#07090c !important;position:relative;overflow:hidden !important;isolation:isolate}
+.mina-bg{position:absolute;inset:0;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 62% 42%, rgba(70,78,90,.35), transparent 70%),
+    radial-gradient(ellipse 120% 80% at 50% 110%, rgba(40,44,52,.9), transparent 60%),
+    linear-gradient(180deg,#0b0e13 0%,#11151b 45%,#0a0c10 100%),
+    url('public/images/hero-mina.jpg') center/cover no-repeat}
+.mina-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 85% 75% at 55% 45%, transparent 40%, rgba(0,0,0,.75) 100%)}
+.mina-luces{position:absolute;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(circle at 22% 0%, rgba(255,214,150,.38), transparent 18%),
+    radial-gradient(circle at 50% 0%, rgba(255,226,170,.30), transparent 16%),
+    radial-gradient(circle at 78% 0%, rgba(255,214,150,.36), transparent 18%),
+    radial-gradient(ellipse 30% 22% at 22% 4%, rgba(255,200,120,.12), transparent 70%),
+    radial-gradient(ellipse 30% 22% at 78% 4%, rgba(255,200,120,.12), transparent 70%)}
+.mina-niebla{position:absolute;left:-10%;right:-10%;bottom:-4%;height:42%;z-index:1;pointer-events:none;filter:blur(18px);
+  background:
+    radial-gradient(ellipse 40% 60% at 25% 85%, rgba(200,210,220,.22), transparent 70%),
+    radial-gradient(ellipse 45% 55% at 70% 90%, rgba(210,220,230,.26), transparent 70%),
+    linear-gradient(0deg, rgba(190,200,212,.28), transparent 85%);
+  animation:niebla 14s ease-in-out infinite alternate}
+@keyframes niebla{from{transform:translateX(-2%)}to{transform:translateX(2%)}}
+.hero-mina .hero-content{z-index:2}
+.mina-btn-red{background:#DC2626 !important;color:#fff !important;border:2px solid #DC2626;border-radius:8px;box-shadow:0 8px 22px rgba(220,38,38,.35)}
+.mina-btn-red:hover{background:#B91C1C !important;border-color:#B91C1C}
+.mina-btn-outline{background:transparent !important;color:#fff !important;border:2px solid #fff;border-radius:8px}
+.mina-btn-outline:hover{background:rgba(255,255,255,.12) !important}
+.mina-equipo{position:relative;display:flex;justify-content:center;align-items:flex-end}
+.mina-equipo-main{position:relative;z-index:2;display:inline-block;max-width:100%}
+.mina-equipo-main img{display:block;height:min(640px,72vh);width:auto;max-width:100%;object-fit:contain;
+  filter:drop-shadow(0 30px 28px rgba(0,0,0,.65)) drop-shadow(0 0 1px rgba(255,255,255,.15)) contrast(1.04) saturate(1.05)}
+.mina-fantasma{position:absolute;z-index:1;right:-4rem;top:2.5rem;height:min(640px,72vh);width:auto;max-width:100%;transform:scale(.9);transform-origin:top right;opacity:.15;filter:blur(4px);pointer-events:none}
+/* brillo del faro LED (posición relativa a la imagen) */
+.mina-glow{position:absolute;z-index:3;pointer-events:none;width:42%;aspect-ratio:1;left:14%;top:32.5%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle, rgba(255,250,235,.55) 0%, rgba(255,240,200,.18) 30%, transparent 62%);mix-blend-mode:screen}
+.mina-card{display:flex;align-items:center;justify-content:center;gap:12px;padding:1rem;border-radius:.5rem;background:rgba(0,0,0,.3);
+  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.2);color:#fff;font-weight:700;letter-spacing:.04em;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 8px 20px rgba(0,0,0,.35);transition:background .2s,border-color .2s,transform .2s}
+.mina-card:hover{background:rgba(0,0,0,.45);border-color:rgba(255,255,255,.4);transform:translateY(-2px)}
+@media (max-width:767px){.mina-equipo-main img,.mina-fantasma{height:420px}.mina-fantasma{right:-1.5rem}}
+.mina-card svg{flex-shrink:0}
+@media (max-width:767px){.mina-card{flex-direction:column;gap:6px;font-size:.8rem;padding:.9rem .5rem}}
 </style>
 </head>
 
@@ -428,49 +474,42 @@ html{scroll-behavior:smooth}
 <main id="deck">
 
 <!-- ===================== 2. HERO ===================== -->
-<section id="inicio" class="slide hero" data-title="Inicio">
-  <div class="hero-content full-wrap w-full">
-    <div class="grid lg:grid-cols-2 gap-10 items-center">
+<section id="inicio" class="slide hero hero-mina" data-title="Inicio">
+  <!-- Fondo de mina: si subes una foto real en public/images/hero-mina.jpg se usa debajo de la niebla y las luces -->
+  <div class="mina-bg" aria-hidden="true"></div>
+  <div class="mina-luces" aria-hidden="true"></div>
+  <div class="mina-niebla" aria-hidden="true"></div>
+
+  <div class="hero-content full-wrap w-full relative">
+    <div class="grid lg:grid-cols-2 gap-8 items-center">
       <div>
-        <h1 class="hero-title reveal">Comboy Vid:<br><span class="text-[#B91C1C]">soluciones</span> mineras</h1>
-        <p class="text-gray-700 text-lg lg:text-xl mt-6 max-w-xl leading-relaxed reveal reveal-d1">
-          Equipos industriales, repuestos y servicios especializados para minería subterránea y superficie. Ingeniería, fabricación y soporte técnico confiable.
-        </p>
+        <h1 class="text-5xl lg:text-6xl font-bold text-[#3B82F6] leading-tight reveal">Comboy Vid:<br><span class="text-[#EF4444]">soluciones</span> <span class="text-[#EF4444]">mineras</span></h1>
+        <p class="text-white text-base mt-4 max-w-xl reveal reveal-d1">Equipos industriales • repuestos y servicios especializados para minería subterránea y superficie</p>
         <div class="flex flex-col sm:flex-row gap-3 mt-8 reveal reveal-d2">
-          <a href="#catalogo" class="btn hero-btn-red px-7 py-4 text-sm">Ver Catálogo</a>
-          <a href="#contacto" class="btn hero-btn-outline px-7 py-4 text-sm">Cotizar Ahora</a>
+          <a href="#catalogo" class="btn mina-btn-red px-7 py-4 text-sm">VER CATÁLOGO <span aria-hidden="true">→</span></a>
+          <a href="#contacto" class="btn mina-btn-outline px-7 py-4 text-sm">COTIZAR AHORA <span aria-hidden="true">→</span></a>
         </div>
       </div>
 
-      <!-- Equipo con efecto fantasma: public/images/equipo-final.png (sin fondo) -->
-      <div class="hero-equipo zoom" aria-hidden="false">
-        <img src="public/images/equipo-final.webp" alt="" aria-hidden="true" class="hero-ghost hero-ghost-2" onerror="this.src='public/images/equipo-final.png'">
-        <img src="public/images/equipo-final.webp" alt="" aria-hidden="true" class="hero-ghost hero-ghost-1" onerror="this.src='public/images/equipo-final.png'">
-        <picture>
-          <source srcset="public/images/equipo-final.webp" type="image/webp">
-          <img src="public/images/equipo-final.png" alt="Remolcador minero Comboy Vid con resortes azules y luces encendidas" class="hero-main" fetchpriority="high" width="996" height="1427">
-        </picture>
+      <!-- Equipo: public/images/hero-equipo-volante.png (sin fondo) + 1 fantasma detrás -->
+      <div class="mina-equipo zoom">
+        <img src="public/images/hero-equipo-volante.webp" alt="" aria-hidden="true" class="mina-fantasma" onerror="this.src='public/images/hero-equipo-volante.png'">
+        <div class="mina-equipo-main">
+          <picture>
+            <source srcset="public/images/hero-equipo-volante.webp" type="image/webp">
+            <img src="public/images/hero-equipo-volante.png" alt="Remolcador minero Comboy Vid con volante, guardafango amarillo y faro LED" width="1137" height="1663" fetchpriority="high">
+          </picture>
+          <span class="mina-glow" aria-hidden="true"></span>
+        </div>
       </div>
     </div>
 
-    <!-- 4 accesos rápidos -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-12">
-      <a href="#equipos" class="hero-card reveal ">
-        <span class="hero-ico"><svg width="26" height="26" fill="none" stroke="#1E3A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="2" y="9" width="13" height="7" rx="1"/><path d="M15 11h4l3 3v2h-7"/><circle cx="6" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg></span>
-        <span><span class="block text-sm tracking-wider text-[#1E3A8A]">EQUIPOS</span><span class="block text-sm text-gray-600 mt-1">Perforadoras y loaders</span></span>
-      </a>
-      <a href="#catalogo" class="hero-card reveal reveal-d1">
-        <span class="hero-ico"><svg width="26" height="26" fill="none" stroke="#1E3A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg></span>
-        <span><span class="block text-sm tracking-wider text-[#1E3A8A]">REPUESTOS</span><span class="block text-sm text-gray-600 mt-1">Componentes y piezas originales</span></span>
-      </a>
-      <a href="#galeria" class="hero-card reveal reveal-d2">
-        <span class="hero-ico"><svg width="26" height="26" fill="none" stroke="#1E3A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 21h18M5 21V10l5 3V10l5 3V6l4 2v13"/></svg></span>
-        <span><span class="block text-sm tracking-wider text-[#1E3A8A]">FABRICACIÓN</span><span class="block text-sm text-gray-600 mt-1">Diseño y fabricación a medida</span></span>
-      </a>
-      <a href="#contacto" class="hero-card reveal reveal-d3">
-        <span class="hero-ico"><svg width="26" height="26" fill="none" stroke="#1E3A8A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="2" y="14" width="5" height="6" rx="1.5"/><rect x="17" y="14" width="5" height="6" rx="1.5"/></svg></span>
-        <span><span class="block text-sm tracking-wider text-[#1E3A8A]">SOPORTE</span><span class="block text-sm text-gray-600 mt-1">Servicio técnico 24/7</span></span>
-      </a>
+    <!-- 4 accesos -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mt-10 relative">
+      <a href="#equipos" class="mina-card reveal "><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg><span>EQUIPOS</span></a>
+      <a href="#catalogo" class="mina-card reveal reveal-d1"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 16V8a2 2 0 0 0-1-1.7l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.7l7 4a2 2 0 0 0 2 0l7-4a2 2 0 0 0 1-1.7z"/><path d="M3.3 7 12 12l8.7-5M12 22V12"/></svg><span>REPUESTOS</span></a>
+      <a href="#galeria" class="mina-card reveal reveal-d2"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 20h20M4 20V9l5 3V9l5 3V9l5 3v8"/><path d="M17 5h2v4h-2z"/><path d="M8 16h1M12 16h1M16 16h1"/></svg><span>FABRICACIÓN</span></a>
+      <a href="#contacto" class="mina-card reveal reveal-d3"><svg width="30" height="30" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15a2 2 0 0 1-2 2h-1v-6h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-6H5a2 2 0 0 0-2 2z"/><path d="M19 17v1a3 3 0 0 1-3 3h-3"/></svg><span>SOPORTE</span></a>
     </div>
   </div>
 </section>
