@@ -635,61 +635,61 @@ html{scroll-behavior:smooth}
       <p class="text-gray-600 lg:max-w-md lg:text-right">Nuestros equipos trabajando en socavón. Los videos cargan solo al hacer clic para que la web sea rápida.</p>
     </div>
 
-    <!-- TikTok @comboyvidsecocha: iframes /embed que reproducen dentro de la web.
-         Lista automática de videos (tikwm.com) con respaldo a 3 IDs fijos; rota sola cada 8 s
-         y se detiene cuando el visitante toca un video para no cortarle la reproducción. -->
-    <div id="tiktok-feed-auto" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-      <div class="col-span-full text-center py-20 text-zinc-500">Cargando videos de @comboyvidsecocha...</div>
+    <!-- TikTok @comboyvidsecocha: 3 tarjetas de 700px con iframe embed/v2.
+         Lista automática (tikwm.com) con respaldo a 3 IDs fijos; rota cada 10 s
+         y se pausa con el mouse encima o al tocar un video para no cortar la reproducción. -->
+    <div id="tiktok-feed-auto" class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12"></div>
+
+    <div class="flex justify-center gap-3 mt-8">
+      <button type="button" id="prevTikTok" class="bg-black text-white w-10 h-10 rounded-full" aria-label="Videos anteriores">‹</button>
+      <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener" class="bg-black text-white px-6 py-2 rounded-full text-sm font-bold">Ver más en TikTok →</a>
+      <button type="button" id="nextTikTok" class="bg-black text-white w-10 h-10 rounded-full" aria-label="Videos siguientes">›</button>
     </div>
 
-    <div class="flex justify-center items-center gap-3 mt-8">
-      <button type="button" id="prevTikTok" class="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center text-xl" aria-label="Videos anteriores">‹</button>
-      <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener" class="bg-black text-white px-6 py-2 rounded-full text-sm font-bold">Ver más en TikTok @comboyvidsecocha →</a>
-      <button type="button" id="nextTikTok" class="bg-black text-white w-10 h-10 rounded-full flex items-center justify-center text-xl" aria-label="Videos siguientes">›</button>
-    </div>
+    <style>
+    .tiktok-card { position:relative; width:100%; height:700px; background:#000; border-radius:16px; overflow:hidden; }
+    .tiktok-card iframe { width:100%; height:100%; border:0; display:block; }
+    </style>
 
     <script>
     (function(){
-      const USERNAME = "comboyvidsecocha";
-      let allVideos = ["7677234071705013524","7685850155228187925","7690789808750202133"];
+      let allVideos = ["7685850155228187925","7690789808750202133","7677234071705013524"];
       let currentIndex = 0, paused = false;
-      const VIDEOS_PER_PAGE = 3;
-      const feed = document.getElementById('tiktok-feed-auto');
-
-      async function fetchTikToksAuto(){
-        try {
-          const res = await fetch(`https://www.tikwm.com/api/user/posts?unique_id=${USERNAME}&count=12`);
-          const json = await res.json();
-          const ids = (json && json.data && json.data.videos || []).map(v => String(v.video_id)).filter(id => /^\d{10,}$/.test(id));
-          if (ids.length && ids.join() !== allVideos.join()){ allVideos = ids; currentIndex = 0; if (!paused) renderTikToks(); return; }
-        } catch(e){ console.log('TikTok: uso los 3 IDs fijos', e); }
-        if (!feed.querySelector('iframe')) renderTikToks();
-      }
+      const container = document.getElementById('tiktok-feed-auto');
 
       function renderTikToks(){
-        feed.innerHTML = '';
-        const n = Math.min(VIDEOS_PER_PAGE, allVideos.length);
-        for (let k = 0; k < n; k++){
-          const id = allVideos[(currentIndex + k) % allVideos.length];
-          const div = document.createElement('div');
-          div.className = "relative bg-black rounded-xl overflow-hidden aspect-[9/16] shadow-lg";
-          div.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${id}" class="w-full h-full absolute inset-0" frameborder="0" allowfullscreen allow="autoplay; encrypted-media; fullscreen; picture-in-picture" loading="lazy" title="Video TikTok @${USERNAME}"></iframe>`;
-          feed.appendChild(div);
+        container.innerHTML = '';
+        // Muestra 3 a la vez
+        for (let i = 0; i < Math.min(3, allVideos.length); i++){
+          const id = allVideos[(currentIndex + i) % allVideos.length];
+          const card = document.createElement('div');
+          card.className = 'tiktok-card shadow-lg';
+          card.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${id}?lang=es-PE" scrolling="no" allowfullscreen allow="autoplay; fullscreen; encrypted-media" title="Video TikTok @comboyvidsecocha"></iframe>`;
+          container.appendChild(card);
         }
       }
 
-      function move(step){ currentIndex = (currentIndex + step + allVideos.length) % allVideos.length; renderTikToks(); }
+      async function fetchAuto(){
+        try {
+          const r = await fetch('https://www.tikwm.com/api/user/posts?unique_id=comboyvidsecocha&count=12');
+          const j = await r.json();
+          const ids = (j.data?.videos || []).map(v => String(v.video_id)).filter(id => /^\d{10,}$/.test(id));
+          if (ids.length >= 3) allVideos = ids;
+        } catch(e){}
+        renderTikToks();
+      }
 
-      /* Rota sola, pero no mientras el visitante tiene el mouse encima o ya tocó un video */
-      feed.addEventListener('mouseenter', () => paused = true);
-      feed.addEventListener('mouseleave', () => { if (!feed.contains(document.activeElement)) paused = false; });
-      window.addEventListener('blur', () => { setTimeout(() => { if (document.activeElement && feed.contains(document.activeElement)) paused = true; }, 0); });
+      function move(step){ currentIndex = (currentIndex + step + allVideos.length) % allVideos.length; renderTikToks(); }
       document.getElementById('nextTikTok').onclick = () => move(1);
       document.getElementById('prevTikTok').onclick = () => move(-1);
 
-      fetchTikToksAuto();
-      setInterval(() => { if (!paused && !document.hidden && allVideos.length > VIDEOS_PER_PAGE) move(1); }, 8000);
-      setInterval(fetchTikToksAuto, 3600000);
+      /* pausa: mouse encima o video tocado (el foco pasa al iframe) */
+      container.addEventListener('mouseenter', () => paused = true);
+      container.addEventListener('mouseleave', () => { if (!container.contains(document.activeElement)) paused = false; });
+      window.addEventListener('blur', () => setTimeout(() => { if (container.contains(document.activeElement)) paused = true; }, 0));
+
+      fetchAuto();
+      setInterval(() => { if (!paused && !document.hidden) move(1); }, 10000);
     })();
     </script>
 
