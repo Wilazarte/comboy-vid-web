@@ -133,7 +133,7 @@ if (window.tailwind) tailwind.config = {
   .hero-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;filter:blur(8px) brightness(.55) saturate(1.1);transform:scale(1.08);animation:zoom 18s ease-in-out infinite alternate}
   @keyframes zoom{to{transform:scale(1.15)}}
   @keyframes float{0%,100%{translate:0 0}50%{translate:0 -12px}}
-  .hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(10,10,10,.95) 0%,rgba(10,10,10,.75) 45%,rgba(160,0,0,.45) 100%)}
+  .hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(10,10,10,.95) 0%,rgba(10,10,10,.7) 45%,rgba(10,10,10,.35) 100%)}
   .hero::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 75% 55%,rgba(255,200,80,.18),transparent 45%)}
   .hero-content{position:relative;z-index:2}
   .stripe{height:6px;background:repeating-linear-gradient(-45deg,#FFD400 0 14px,#141414 14px 28px)}
@@ -150,10 +150,12 @@ if (window.tailwind) tailwind.config = {
 .equip-card:hover .equip-media img{transform:scale(1.05)}
 @media (min-width:1536px){.equip-card .equip-media{height:400px}}
 @media (max-width:767px){.equip-card .equip-media{height:260px}}
-/* Sección Equipos a pantalla completa (estilo cat.com) */
-.equip-full{width:100%;padding-left:24px;padding-right:24px;margin-top:auto;margin-bottom:auto}
+/* Secciones a pantalla completa (estilo cat.com): 100vw con 24px de margen */
+.equip-full,.full-wrap{width:100%;padding-left:24px;padding-right:24px;margin-top:auto;margin-bottom:auto}
 /* En desktop deja libre la columna de puntitos de navegación (derecha) */
-@media (min-width:768px){.equip-full{padding-right:56px}}
+@media (min-width:768px){.equip-full,.full-wrap{padding-right:56px}}
+.section-tag{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+.section-tag.light{color:#fff;opacity:.85}
   /* ---------- Organigrama ---------- */
   .org-node{transition:transform .25s, box-shadow .25s, background .25s}
   .org-node:hover{transform:scale(1.06);background:var(--red);color:#fff;box-shadow:0 14px 30px rgba(160,0,0,.35)}
@@ -245,7 +247,7 @@ if (window.tailwind) tailwind.config = {
 <header id="header" class="fixed top-0 inset-x-0 z-50">
   <!-- Barra superior -->
   <div class="hidden lg:block bg-cvred text-white text-xs">
-    <div class="max-w-7xl mx-auto px-6 py-1.5 flex justify-between items-center">
+    <div class="w-full px-6 py-1.5 flex justify-between items-center">
       <span>📍 Arequipa (Paucarpata) · Distribución nacional</span>
       <div class="flex items-center gap-4">
         <span>🕒 Lun–Sáb 8:00–18:00</span>
@@ -258,7 +260,7 @@ if (window.tailwind) tailwind.config = {
   </div>
 
   <div class="bg-black/85 backdrop-blur-md" id="mainbar">
-    <div class="max-w-7xl mx-auto px-4 lg:px-6 h-[68px] flex items-center justify-between gap-4">
+    <div class="w-full px-6 h-[68px] flex items-center justify-between gap-4">
       <a href="#inicio" class="flex items-center gap-2 shrink-0" aria-label="Comboy Vid inicio">
         <!-- Logo oficial (img/logo-comboyvid.webp) -->
         <img src="img/logo-comboyvid.webp" alt="Comboy Vid – Soluciones Mineras" width="626" height="222" class="h-10 lg:h-12 w-auto">
@@ -328,7 +330,7 @@ if (window.tailwind) tailwind.config = {
     <source src="video/socavon.mp4" type="video/mp4">
   </video> -->
 
-  <div class="hero-content max-w-7xl mx-auto px-5 lg:px-6 py-6 w-full grid lg:grid-cols-12 gap-10 items-center">
+  <div class="hero-content full-wrap py-6 w-full grid lg:grid-cols-12 gap-10 items-center">
     <div class="lg:col-span-5">
       <span class="section-tag light reveal">Innovación que impulsa la minería</span>
       <h1 class="text-white text-4xl sm:text-5xl xl:text-6xl leading-[1.02] mt-5 reveal reveal-d1">
@@ -369,7 +371,7 @@ if (window.tailwind) tailwind.config = {
 
 <!-- ===================== 3. NOSOTROS ===================== -->
 <section id="nosotros" class="slide bg-white" data-title="Nosotros">
-  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+  <div class="full-wrap">
     <div class="grid lg:grid-cols-2 gap-12 items-center">
       <!-- Video fábrica -->
       <div class="zoom">
@@ -405,11 +407,12 @@ if (window.tailwind) tailwind.config = {
 
 <!-- ===================== 3b. VALORES + ORGANIGRAMA ===================== -->
 <section id="valores" class="slide bg-cvgray" data-title="Valores y equipo">
-  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+  <div class="full-wrap">
     <!-- Valores -->
     <div>
-      <div class="text-center reveal"><span class="section-tag">Lo que nos mueve</span></div>
-      <h2 class="text-center text-3xl lg:text-4xl text-cvblack mt-3 reveal reveal-d1">Nuestros <span class="text-cvred">valores</span></h2>
+      <div class="border-b border-gray-300 pb-6 reveal"><span class="section-tag">Lo que nos mueve</span>
+      <h2 class="text-3xl lg:text-5xl text-cvblack mt-2">Nuestros <span class="text-cvred">valores</span></h2>
+      <span class="block w-16 h-1 bg-cvred mt-4"></span></div>
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 mt-6">
         <div class="bg-white rounded-2xl p-5 text-center lift reveal">
           <div class="w-14 h-14 mx-auto rounded-xl bg-cvred flex items-center justify-center text-2xl">🦺</div>
@@ -486,7 +489,7 @@ if (window.tailwind) tailwind.config = {
 
 <!-- ===================== 5. TIENDA VIRTUAL ===================== -->
 <section id="tienda" class="slide bg-cvgray" data-title="Tienda">
-  <div class="max-w-7xl mx-auto px-5 lg:px-6">
+  <div class="full-wrap">
     <!-- Breadcrumb -->
     <nav aria-label="Ruta" class="text-sm text-gray-500 mb-6">
       <a href="#inicio" class="hover:text-cvred">Inicio</a> <span class="mx-1">›</span>
@@ -497,7 +500,8 @@ if (window.tailwind) tailwind.config = {
     <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal">
       <div>
         <span class="section-tag">Catálogo 2026</span>
-        <h2 class="text-3xl lg:text-5xl mt-4 text-cvblack">Tienda virtual <span class="text-cvred"></span></h2>
+        <h2 class="text-3xl lg:text-5xl mt-2 text-cvblack">Tienda virtual</h2>
+        <span class="block w-16 h-1 bg-cvred mt-4"></span>
         <p class="text-gray-600 mt-3 max-w-2xl">Equipos y <strong>repuestos con código</strong> para moto carguero y remolcador minero. Arma tu lista, envíala y un asesor te responde con precio y stock. <strong>No se realizan pagos en esta web.</strong></p>
       </div>
       <!-- ✏️ Sube tu PDF a la misma carpeta con este nombre: catalogo-comboyvid-2026.pdf -->
@@ -521,25 +525,25 @@ if (window.tailwind) tailwind.config = {
 </section>
 
 <!-- ===================== 6. FORMULARIO LEAD ===================== -->
-<section id="cotizar" class="slide bg-cvblack relative" data-title="Cotizar">
-  <div class="absolute inset-0 opacity-20" style="background:radial-gradient(circle at 20% 30%,#A00000,transparent 40%),radial-gradient(circle at 85% 80%,#0A3D8F,transparent 40%)"></div>
-  <div class="max-w-6xl mx-auto px-5 lg:px-6 relative grid lg:grid-cols-5 gap-10 items-start">
+<section id="cotizar" class="slide bg-white relative" data-title="Cotizar">
+  <div class="full-wrap relative grid lg:grid-cols-5 gap-10 items-start">
     <div class="lg:col-span-2 reveal">
-      <span class="section-tag light">Respuesta rápida</span>
-      <h2 class="text-white text-3xl lg:text-5xl mt-4">Solicita tu cotización en <span style="color:#E53935">30 segundos</span></h2>
-      <ul class="mt-8 space-y-4 text-gray-300">
+      <span class="section-tag">Respuesta rápida</span>
+      <h2 class="text-cvblack text-3xl lg:text-5xl mt-2">Solicita tu cotización en <span class="text-cvred">30 segundos</span></h2>
+      <span class="block w-16 h-1 bg-cvred mt-4"></span>
+      <ul class="mt-8 space-y-4 text-gray-700">
         <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Respuesta de un asesor en horario laboral.</li>
         <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Cotización formal con RUC y condiciones por escrito.</li>
         <li class="flex gap-3"><span class="text-cvred font-bold">✔</span> Asesoría técnica según pendiente, tonelaje y trocha.</li>
       </ul>
-      <div class="glass rounded-xl p-4 mt-8 text-sm text-gray-200">
+      <div class="bg-cvgray border border-gray-200 rounded-md p-4 mt-8 text-sm text-gray-700">
         🔒 Tus datos se tratan conforme a la <strong>Ley N° 29733</strong> de Protección de Datos Personales. Solo los usamos para atender tu solicitud.
       </div>
     </div>
 
     <!-- ✏️ Cambia el correo en action: https://formsubmit.co/TU-CORREO@comboyvid.com
          La primera vez FormSubmit te enviará un correo de activación que debes confirmar. -->
-    <form id="leadForm" action="https://formsubmit.co/areacomercial@comboyvid.com" method="POST" class="lg:col-span-3 glass rounded-2xl p-6 lg:p-8 reveal reveal-d1" novalidate>
+    <form id="leadForm" action="https://formsubmit.co/areacomercial@comboyvid.com" method="POST" class="lg:col-span-3 bg-white border border-gray-200 shadow-md rounded-md p-6 lg:p-8 reveal reveal-d1" novalidate>
       <input type="hidden" name="_subject" value="Nueva cotización web - Comboy Vid">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_captcha" value="false">
@@ -547,28 +551,28 @@ if (window.tailwind) tailwind.config = {
 
       <div class="grid sm:grid-cols-2 gap-4">
         <div class="sm:col-span-2">
-          <label class="text-white text-sm font-semibold" for="lf_nombre">Nombre completo *</label>
-          <input id="lf_nombre" name="nombre" required class="field dark-field mt-1" autocomplete="name">
+          <label class="text-cvblack text-sm font-semibold" for="lf_nombre">Nombre completo *</label>
+          <input id="lf_nombre" name="nombre" required class="field mt-1" autocomplete="name">
         </div>
         <div>
-          <label class="text-white text-sm font-semibold" for="lf_empresa">Empresa</label>
-          <input id="lf_empresa" name="empresa" class="field dark-field mt-1" autocomplete="organization">
+          <label class="text-cvblack text-sm font-semibold" for="lf_empresa">Empresa</label>
+          <input id="lf_empresa" name="empresa" class="field mt-1" autocomplete="organization">
         </div>
         <div>
-          <label class="text-white text-sm font-semibold" for="lf_ruc">RUC</label>
-          <input id="lf_ruc" name="ruc" inputmode="numeric" maxlength="11" pattern="\d{11}" class="field dark-field mt-1" placeholder="11 dígitos">
+          <label class="text-cvblack text-sm font-semibold" for="lf_ruc">RUC</label>
+          <input id="lf_ruc" name="ruc" inputmode="numeric" maxlength="11" pattern="\d{11}" class="field mt-1" placeholder="11 dígitos">
         </div>
         <div>
-          <label class="text-white text-sm font-semibold" for="lf_wa">WhatsApp *</label>
-          <input id="lf_wa" name="whatsapp" required inputmode="tel" pattern="[0-9+ ]{9,15}" class="field dark-field mt-1" placeholder="9XX XXX XXX" autocomplete="tel">
+          <label class="text-cvblack text-sm font-semibold" for="lf_wa">WhatsApp *</label>
+          <input id="lf_wa" name="whatsapp" required inputmode="tel" pattern="[0-9+ ]{9,15}" class="field mt-1" placeholder="9XX XXX XXX" autocomplete="tel">
         </div>
         <div>
-          <label class="text-white text-sm font-semibold" for="lf_mail">Correo *</label>
-          <input id="lf_mail" name="email" type="email" required class="field dark-field mt-1" autocomplete="email">
+          <label class="text-cvblack text-sm font-semibold" for="lf_mail">Correo *</label>
+          <input id="lf_mail" name="email" type="email" required class="field mt-1" autocomplete="email">
         </div>
         <div class="sm:col-span-2">
-          <label class="text-white text-sm font-semibold" for="lf_equipo">Equipo de interés</label>
-          <select id="lf_equipo" name="equipo" class="field dark-field mt-1">
+          <label class="text-cvblack text-sm font-semibold" for="lf_equipo">Equipo de interés</label>
+          <select id="lf_equipo" name="equipo" class="field mt-1">
             <option value="">Selecciona un equipo</option>
             <option>Remolcador CV-3000 - 4TN</option>
             <option>Remolcador CV-3500 - 7TN</option>
@@ -577,29 +581,29 @@ if (window.tailwind) tailwind.config = {
              </select>
         </div>
         <div class="sm:col-span-2">
-          <label class="text-white text-sm font-semibold" for="lf_msg">Mensaje</label>
-          <textarea id="lf_msg" name="mensaje" rows="3" class="field dark-field mt-1" placeholder="Cantidad, trocha, pendiente de la labor, lugar de entrega…"></textarea>
+          <label class="text-cvblack text-sm font-semibold" for="lf_msg">Mensaje</label>
+          <textarea id="lf_msg" name="mensaje" rows="3" class="field mt-1" placeholder="Cantidad, trocha, pendiente de la labor, lugar de entrega…"></textarea>
         </div>
       </div>
 
-      <div class="mt-5 space-y-3 text-sm text-gray-200">
+      <div class="mt-5 space-y-3 text-sm text-gray-700">
         <label class="flex gap-3 items-start cursor-pointer">
           <input type="checkbox" name="acepta_privacidad" required class="mt-1 w-4 h-4 accent-red-600">
-          <span>He leído y <strong>acepto la <button type="button" class="underline text-white" data-modal="m-privacidad">Política de Privacidad</button></strong> para la atención de mi cotización. *</span>
+          <span>He leído y <strong>acepto la <button type="button" class="underline text-cvred" data-modal="m-privacidad">Política de Privacidad</button></strong> para la atención de mi cotización. *</span>
         </label>
         <label class="flex gap-3 items-start cursor-pointer">
           <input type="checkbox" name="autoriza_marketing" id="lf_mkt" class="mt-1 w-4 h-4 accent-red-600">
-          <span>Autorizo el envío de promociones y anuncios por WhatsApp, correo y SMS según la <button type="button" class="underline text-white" data-modal="m-marketing">Política de Autorización de Marketing</button>. <em class="text-gray-400">(Opcional)</em></span>
+          <span>Autorizo el envío de promociones y anuncios por WhatsApp, correo y SMS según la <button type="button" class="underline text-cvred" data-modal="m-marketing">Política de Autorización de Marketing</button>. <em class="text-gray-500">(Opcional)</em></span>
         </label>
       </div>
-      <p class="text-[11px] text-gray-400 mt-4 leading-relaxed">
+      <p class="text-[11px] text-gray-500 mt-4 leading-relaxed">
         Aviso de protección de datos: el responsable del tratamiento es Comboy Vid Soluciones Mineras. Tus datos se incorporan a nuestro banco de datos de clientes/prospectos para responder tu solicitud. Puedes ejercer tus derechos ARCO escribiendo a <!-- ✏️ correo de privacidad --> areacomercial@comboyvid.com. El consentimiento para marketing es libre y revocable en cualquier momento.
       </p>
 
-      <p id="leadError" class="hidden mt-4 text-sm bg-red-600/30 border border-red-400 text-white rounded-lg p-3" role="alert"></p>
+      <p id="leadError" class="hidden mt-4 text-sm bg-red-50 border border-red-400 text-red-800 rounded-lg p-3" role="alert"></p>
       <button type="submit" class="btn btn-red w-full mt-5 py-4 text-sm">Enviar solicitud de cotización</button>
 
-      <div id="leadOk" class="hidden mt-5 bg-green-600/25 border border-green-400 text-white rounded-lg p-4 text-sm" role="status">
+      <div id="leadOk" class="hidden mt-5 bg-green-50 border border-green-500 text-green-800 rounded-lg p-4 text-sm" role="status">
         ✅ <strong>¡Solicitud recibida!</strong> Un asesor de Comboy Vid se comunicará contigo por WhatsApp o correo. Recuerda: solo cotizamos con comprobante a nombre de la empresa.
       </div>
     </form>
@@ -608,11 +612,14 @@ if (window.tailwind) tailwind.config = {
 
 <!-- ===================== 7. GALERÍA ===================== -->
 <section id="galeria" class="slide bg-white" data-title="Galería">
-  <div class="max-w-7xl mx-auto px-5 lg:px-6">
-    <div class="text-center max-w-3xl mx-auto reveal">
-      <span class="section-tag">En operación</span>
-      <h2 class="text-3xl lg:text-5xl mt-4 text-cvblack">Galería de <span class="text-cvred">operaciones mineras</span></h2>
-      <p class="text-gray-600 mt-3">Nuestros equipos trabajando en socavón. Los videos cargan solo al hacer clic para que la web sea rápida.</p>
+  <div class="full-wrap">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 border-b border-gray-300 pb-6 reveal">
+      <div>
+        <span class="section-tag">En operación</span>
+        <h2 class="text-3xl lg:text-5xl mt-2 text-cvblack">Galería de <span class="text-cvred">operaciones mineras</span></h2>
+        <span class="block w-16 h-1 bg-cvred mt-4"></span>
+      </div>
+      <p class="text-gray-600 lg:max-w-md lg:text-right">Nuestros equipos trabajando en socavón. Los videos cargan solo al hacer clic para que la web sea rápida.</p>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-6 mt-12">
@@ -647,10 +654,11 @@ if (window.tailwind) tailwind.config = {
 
 <!-- ===================== 8. SUCURSALES + CONTACTO ===================== -->
 <section id="sucursales" class="slide bg-cvgray" data-title="Sucursales">
-  <div class="max-w-7xl mx-auto px-5 lg:px-6">
-    <div class="text-center max-w-3xl mx-auto reveal">
+  <div class="full-wrap">
+    <div class="border-b border-gray-300 pb-6 reveal">
       <span class="section-tag">Ubicación</span>
-      <h2 class="text-3xl lg:text-5xl mt-4 text-cvblack">2 sucursales, <span class="text-cvred">cobertura nacional</span></h2>
+      <h2 class="text-3xl lg:text-5xl mt-2 text-cvblack">2 sucursales, <span class="text-cvred">cobertura nacional</span></h2>
+      <span class="block w-16 h-1 bg-cvred mt-4"></span>
     </div>
 
     <div class="grid md:grid-cols-2 gap-6 mt-12">
@@ -684,7 +692,7 @@ if (window.tailwind) tailwind.config = {
          <a href="https://www.google.com/maps/place/COMBOYVID/@-15.979884946581594,-73.17359592327448,17z/data=!3m1!4b1!4m6!3m5!1s0x914019ffacc603cb:0x842cee7ec205719e!8m2!3d-15.979884946581594!4d-73.17359592327448" target="_blank" class="btn btn-blue px-5 py-3 text-xs">Cómo llegar</a>
         </div>
       </article>
-  <div id="contacto" class="grid lg:grid-cols-5 gap-6 mt-8">
+  <div id="contacto" class="md:col-span-2 grid lg:grid-cols-5 gap-6 mt-2">
   <div class="lg:col-span-3 rounded-2xl overflow-hidden shadow-md bg-white">
     <div class="flex border-b">
       <button onclick="document.getElementById('map-arequipa').style.display='block';document.getElementById('map-secocha').style.display='none';this.classList.add('bg-cvred');this.classList.remove('bg-cvblack');document.getElementById('btn-secocha').classList.add('bg-cvblack');document.getElementById('btn-secocha').classList.remove('bg-cvred');" class="flex-1 py-3 bg-cvred text-white font-bold text-xs">📍 AREQUIPA</button>
@@ -727,7 +735,7 @@ if (window.tailwind) tailwind.config = {
 <!-- ===================== 9. FOOTER (solo en la última slide) ===================== -->
 <footer class="bg-cvblack text-gray-300 mt-10 w-full">
   <div class="stripe"></div>
-  <div class="max-w-7xl mx-auto px-5 lg:px-6 py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+  <div class="full-wrap py-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
     <div>
       <div class="font-title text-2xl"><span style="color:#E53935">COMBOY</span> <span class="text-white">VID</span></div>
       <p class="text-xs tracking-[.25em] text-gray-400 mt-1">SOLUCIONES MINERAS</p>
@@ -779,7 +787,7 @@ if (window.tailwind) tailwind.config = {
     </div>
   </div>
   <div class="border-t border-white/10">
-    <div class="max-w-7xl mx-auto px-5 lg:px-6 py-6 flex flex-col md:flex-row gap-3 justify-between text-xs text-gray-500">
+    <div class="full-wrap py-6 flex flex-col md:flex-row gap-3 justify-between text-xs text-gray-500">
       <p>© <span id="year"></span>2 Area Comercial - Todos los derechos reservados. Marca, logotipo, fotografías y diseños protegidos.</p>
       <div class="flex flex-wrap gap-4">
         <button class="hover:text-white underline" data-modal="m-privacidad">Política de Privacidad</button>
