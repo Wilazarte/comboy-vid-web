@@ -235,7 +235,7 @@ const CONFIG = {
   FOTO_ELC4000_3:       "",
 
   FOTO_SANTO_TOMAS:     "",   // ✏️ foto del equipo trabajando en mina Santo Tomás, ej. "img/santo-tomas.jpg"
-  FOTO_PLAZA_SANTO_TOMAS: "img/plaza-santo-tomas.webp", // ✏️ foto real de la Plaza de Armas / templo de Santo Tomás, ej. "img/plaza-santo-tomas.jpg". Vacío = la sección se muestra solo con texto
+  FOTO_PLAZA_SANTO_TOMAS: "img/plaza-santo-tomas.webp?v=2", // ✏️ foto real de la Plaza de Armas / templo de Santo Tomás, ej. "img/plaza-santo-tomas.jpg". Vacío = la sección se muestra solo con texto
   CATALOGO_PDF:         "",   // ✏️ opcional: "img/catalogo-vid-comboy.pdf". Vacío = se pide por WhatsApp
 
   // ✏️ TESTIMONIOS: reemplace el texto y los datos por testimonios REALES de sus clientes
@@ -558,7 +558,7 @@ function pintarConfianza(){
   // Foto real de la Plaza de Armas: si no hay foto, la columna se oculta y el texto ocupa todo el ancho
   const plaza = $("#fotoPlaza");
   if(CONFIG.FOTO_PLAZA_SANTO_TOMAS){
-    plaza.insertAdjacentHTML("afterbegin", `<img src="${esc(CONFIG.FOTO_PLAZA_SANTO_TOMAS)}" alt="Templo colonial de Santo Tomás en la Plaza de Armas, Chumbivilcas, Cusco" width="1052" height="788" loading="lazy">`);
+    plaza.insertAdjacentHTML("afterbegin", `<img src="${esc(CONFIG.FOTO_PLAZA_SANTO_TOMAS)}" alt="Templo colonial de Santo Tomás en la Plaza de Armas, Chumbivilcas, Cusco" width="1065" height="799" loading="lazy">`);
     plaza.querySelector("img").addEventListener("error", () => { plaza.hidden = true; plaza.parentElement.classList.add("solo"); });
   } else {
     plaza.hidden = true;
