@@ -371,13 +371,13 @@ html{scroll-behavior:smooth}
   box-shadow:0 6px 18px rgba(37,99,235,.4);transition:filter .2s}
 #inicio .hero-btn-azul:hover{filter:brightness(1.1)}
 /* BARRA EXPOMAPE · cuenta regresiva sobre la portada */
-#countdown-expomape{position:absolute;left:3.36%;top:3.2%;z-index:5;max-width:93%;display:inline-flex;align-items:center;gap:.6em;
-  background:rgba(0,0,0,.75);border:1px solid #3b82f6;border-radius:12px;padding:.7em 1.2em;color:#fff;font-weight:700;
-  font-size:clamp(10px,1.05cqw,18px);line-height:1.35;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);text-decoration:none}
+#countdown-expomape{position:absolute;left:3.36%;bottom:47.95%;z-index:5;max-width:93%;display:inline-flex;align-items:center;gap:.6em;
+  background:rgba(0,0,0,.75);border:1px solid #3b82f6;border-radius:12px;padding:.3em 1em;color:#fff;font-weight:700;
+  font-size:.9cqw;line-height:1.15;border-radius:8px;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);text-decoration:none}
 #countdown-expomape:hover{border-color:#60a5fa}
 #countdown-expomape #timer{color:#38bdf8;white-space:nowrap}
-#inicio .hero-btn-expomape{box-shadow:inset 0 0 0 2px #60a5fa,0 6px 18px rgba(37,99,235,.4)}
-@media (max-width:640px){#countdown-expomape{top:2%;padding:.35em .7em;border-radius:6px;font-size:1.95cqw;white-space:nowrap;gap:.4em}#countdown-expomape .cd-largo{display:none}}
+#inicio .hero-btn-expomape{background:#E53935;box-shadow:0 6px 18px rgba(229,57,53,.4)}
+@media (max-width:640px){#countdown-expomape{bottom:47.6%;padding:.12em .6em;border-radius:4px;font-size:1.25cqw;line-height:1.1;white-space:nowrap;gap:.4em}#countdown-expomape .cd-largo,#countdown-expomape .cd-ico{display:none}}
 /* FONDOS INTERCALADOS · claro #E8EEF4 / blanco (sin tocar #inicio) */
 #nosotros.slide, #catalogo.slide, #sucursales.slide{background:#E8EEF4 !important}
 #equipos.slide, #galeria.slide, #contacto.slide{background:#FFFFFF !important}
@@ -489,8 +489,8 @@ html{scroll-behavior:smooth}
   <a href="expomape/" class="hero-btn-azul hero-btn-expomape absolute rounded-md" style="left:34.18%;top:52.62%;width:14.79%;height:5.86%">VER EXPOMAPE <span aria-hidden="true">→</span></a>
   <!-- BARRA EXPOMAPE CUENTA REGRESIVA (se oculta sola al terminar la feria, 19/10/2026) -->
   <a id="countdown-expomape" href="expomape/">
-    <span aria-hidden="true">📅</span>
-    <span>EXPOMAPE<span class="cd-largo"> - SANTO TOMÁS CHUMBIVILCAS</span> | FALTAN: <span id="timer">00 DÍAS 00 HORAS 00 MIN</span> | <span class="cd-largo">16 DE OCTUBRE - </span>STAND D-2</span>
+    <span class="cd-ico" aria-hidden="true">📅</span>
+    <span>EXPOMAPE<span class="cd-largo"> - SANTO TOMÁS CHUMBIVILCAS</span> | FALTAN: <span id="timer">00 DÍAS 00 HORAS 00 MIN</span> | <span class="cd-largo">16 AL 18 DE OCTUBRE - </span>STAND D-2</span>
   </a>
   <a href="#equipos" aria-label="Equipos" class="absolute rounded-lg" style="left:3.21%;top:82.55%;width:20.7%;height:14.62%"></a>
   <a href="#catalogo" aria-label="Repuestos" class="absolute rounded-lg" style="left:27.19%;top:82.55%;width:20.59%;height:14.62%"></a>
