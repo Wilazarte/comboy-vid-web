@@ -160,9 +160,10 @@
   /* ===== Santo Tomás, Chumbivilcas ===== */
   #santo-tomas{background:var(--plomo)}
   .st-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:32px;align-items:center}
+  .st-grid.solo{grid-template-columns:1fr}
   @media(max-width:900px){.st-grid{grid-template-columns:1fr}}
   .st-img{position:relative;aspect-ratio:16/10;border-radius:var(--radio);box-shadow:var(--sombra);overflow:hidden;background:#BFD3EA}
-  .st-img img,.st-img svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .st-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
   .st-img figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(0deg,rgba(15,23,42,.9),transparent);color:#fff;font-weight:700;font-size:.92rem}
   .st-txt{padding:28px}
   .st-txt h3{font-size:1.5rem;color:var(--logo);margin:.8rem 0 .6rem}
@@ -234,7 +235,7 @@ const CONFIG = {
   FOTO_ELC4000_3:       "",
 
   FOTO_SANTO_TOMAS:     "",   // ✏️ foto del equipo trabajando en mina Santo Tomás, ej. "img/santo-tomas.jpg"
-  FOTO_PLAZA_SANTO_TOMAS: "", // ✏️ foto real de la Plaza de Armas / templo de Santo Tomás, ej. "img/plaza-santo-tomas.jpg". Vacío = ilustración
+  FOTO_PLAZA_SANTO_TOMAS: "", // ✏️ foto real de la Plaza de Armas / templo de Santo Tomás, ej. "img/plaza-santo-tomas.jpg". Vacío = la sección se muestra solo con texto
   CATALOGO_PDF:         "",   // ✏️ opcional: "img/catalogo-vid-comboy.pdf". Vacío = se pide por WhatsApp
 
   // ✏️ TESTIMONIOS: reemplace el texto y los datos por testimonios REALES de sus clientes
@@ -428,40 +429,6 @@ const CONFIG = {
     </div>
     <div class="st-grid">
       <figure class="st-img" id="fotoPlaza">
-        <svg viewBox="0 0 800 500" role="img" aria-label="Ilustración de la Plaza de Armas y el templo colonial de Santo Tomás, Chumbivilcas">
-          <defs><linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#E0F2FE"/></linearGradient></defs>
-          <rect width="800" height="500" fill="url(#cielo)"/>
-          <circle cx="660" cy="90" r="38" fill="#FEF3C7"/>
-          <path d="M0 300 L90 190 L170 250 L260 150 L360 240 L450 170 L560 250 L650 160 L740 230 L800 200 L800 330 L0 330Z" fill="#64748B"/>
-          <path d="M240 172 L260 150 L282 170 L270 178 L258 168 L248 180Z M630 180 L650 160 L672 182 L660 186 L650 176 L640 188Z" fill="#F8FAFC"/>
-          <path d="M0 330 L120 270 L230 310 L340 260 L470 305 L600 265 L800 315 L800 380 L0 380Z" fill="#475569"/>
-          <rect x="0" y="372" width="800" height="128" fill="#A3B18A"/>
-          <rect x="0" y="420" width="800" height="80" fill="#CBD5E1"/>
-          <!-- templo -->
-          <rect x="250" y="250" width="300" height="170" fill="#F8FAFC"/>
-          <path d="M240 252 L400 190 L560 252Z" fill="#B91C1C"/>
-          <rect x="190" y="200" width="80" height="220" fill="#F1F5F9"/>
-          <rect x="530" y="200" width="80" height="220" fill="#F1F5F9"/>
-          <rect x="182" y="194" width="96" height="12" fill="#E2E8F0"/>
-          <rect x="522" y="194" width="96" height="12" fill="#E2E8F0"/>
-          <rect x="196" y="140" width="68" height="56" fill="#F8FAFC"/>
-          <rect x="536" y="140" width="68" height="56" fill="#F8FAFC"/>
-          <path d="M212 196 v-30 a18 18 0 0 1 36 0 v30Z M552 196 v-30 a18 18 0 0 1 36 0 v30Z" fill="#1E293B"/>
-          <path d="M192 142 Q230 96 268 142Z M532 142 Q570 96 608 142Z" fill="#B91C1C"/>
-          <path d="M230 112 v-26 M222 96 h16 M570 112 v-26 M562 96 h16" stroke="#0B2A5B" stroke-width="4"/>
-          <path d="M360 420 v-70 a40 40 0 0 1 80 0 v70Z" fill="#7C2D12"/>
-          <path d="M346 350 a54 54 0 0 1 108 0" fill="none" stroke="#CBD5E1" stroke-width="8"/>
-          <circle cx="400" cy="282" r="16" fill="#1E293B"/>
-          <path d="M400 266 v32 M384 282 h32" stroke="#F8FAFC" stroke-width="3"/>
-          <rect x="300" y="300" width="22" height="34" rx="11" fill="#1E293B"/>
-          <rect x="478" y="300" width="22" height="34" rx="11" fill="#1E293B"/>
-          <path d="M398 190 v-26 M390 174 h16" stroke="#0B2A5B" stroke-width="4"/>
-          <!-- plaza -->
-          <rect x="120" y="440" width="560" height="10" fill="#94A3B8"/>
-          <g fill="#3F6212"><circle cx="90" cy="400" r="34"/><circle cx="710" cy="400" r="34"/><circle cx="150" cy="418" r="22"/><circle cx="650" cy="418" r="22"/></g>
-          <g fill="#78350F"><rect x="86" y="420" width="8" height="40"/><rect x="706" y="420" width="8" height="40"/></g>
-          <rect x="392" y="446" width="16" height="30" fill="#64748B"/><rect x="376" y="474" width="48" height="10" fill="#475569"/>
-        </svg>
         <figcaption>Plaza de Armas y templo colonial de Santo Tomás · Chumbivilcas, Cusco</figcaption>
       </figure>
       <div class="card st-txt">
@@ -471,7 +438,7 @@ const CONFIG = {
         <ul class="st-datos">
           <li><b>Chumbivilcas</b>Provincia</li>
           <li><b>Cusco</b>Región</li>
-          <li><b>+3,600 m s. n. m.</b>Altitud aproximada</li>
+          <li><b>16 al 18 de octubre</b>EXPOMAPE 2026</li>
           <li><b>Stand D-2</b>VID COMBOY en la feria</li>
         </ul>
         <a class="btn" data-wa="Buenos días, COMBOY VID. Estaré en EXPOMAPE 2026 en Santo Tomás y deseo agendar una visita a su stand D-2." href="#">Agendar visita al stand D-2</a>
@@ -588,10 +555,14 @@ function pintarConfianza(){
   fig.insertAdjacentHTML("afterbegin", CONFIG.FOTO_SANTO_TOMAS
     ? `<img src="${esc(CONFIG.FOTO_SANTO_TOMAS)}" alt="Equipo VID COMBOY en mina Santo Tomás" loading="lazy">`
     : placeholder("FOTO_SANTO_TOMAS"));
+  // Foto real de la Plaza de Armas: si no hay foto, la columna se oculta y el texto ocupa todo el ancho
+  const plaza = $("#fotoPlaza");
   if(CONFIG.FOTO_PLAZA_SANTO_TOMAS){
-    const svg = document.querySelector("#fotoPlaza svg");
-    svg.insertAdjacentHTML("afterend", `<img src="${esc(CONFIG.FOTO_PLAZA_SANTO_TOMAS)}" alt="Plaza de Armas y templo de Santo Tomás, Chumbivilcas" loading="lazy">`);
-    svg.remove();
+    plaza.insertAdjacentHTML("afterbegin", `<img src="${esc(CONFIG.FOTO_PLAZA_SANTO_TOMAS)}" alt="Plaza de Armas y templo de Santo Tomás, Chumbivilcas" loading="lazy">`);
+    plaza.querySelector("img").addEventListener("error", () => { plaza.hidden = true; plaza.parentElement.classList.add("solo"); });
+  } else {
+    plaza.hidden = true;
+    plaza.parentElement.classList.add("solo");
   }
   const t = CONFIG.TESTIMONIOS.filter(x => x.publicar);
   $("#testimonios").innerHTML = t.length
