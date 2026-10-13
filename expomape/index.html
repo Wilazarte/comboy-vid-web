@@ -10,170 +10,190 @@
 <meta property="og:description" content="10% Descuento Feria + Diagnóstico Gratuito en su unidad.">
 <meta property="og:url" content="https://www.comboyvid.com/expomape/">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#0B0B0B">
+<meta name="theme-color" content="#1E293B">
 <link rel="icon" href="../public/images/logo-comboy-vid-oficial.webp">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
+  /* Paleta de la web principal comboyvid.com */
   :root{
-    --negro:#0B0B0B; --negro2:#161616; --gris:#232323; --linea:#333;
-    --amarillo:#FFC20E; --amarillo2:#E6A800; --blanco:#F5F5F5; --texto:#CFCFCF;
-    --wa:#25D366;
+    --navy:#1E293B; --navy2:#0F172A; --logo:#0B2A5B;
+    --plomo:#E2E8F0; --alt:#E8EEF5; --blanco:#FFFFFF;
+    --azul:#2563EB; --azul2:#1D4ED8; --rojo:#B91C1C; --rojo2:#991B1B;
+    --tinta:#0F172A; --texto:#334155; --suave:#64748B; --linea:#CBD5E1;
+    --sombra:0 4px 12px rgba(0,0,0,.08); --radio:12px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{font-family:Barlow,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;background:var(--negro);color:var(--texto);line-height:1.55;-webkit-font-smoothing:antialiased}
-  h1,h2,h3,.cond{font-family:"Barlow Condensed",Impact,"Arial Narrow",sans-serif;color:var(--blanco);text-transform:uppercase;letter-spacing:.02em;line-height:1.05}
+  body{font-family:"Libre Baskerville",Georgia,serif;background:var(--plomo);color:var(--texto);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.cond{font-family:"Libre Baskerville",Georgia,serif;font-weight:700;color:var(--tinta);line-height:1.2}
   a{color:inherit}
   img{max-width:100%;display:block}
   .wrap{width:min(1180px,100% - 32px);margin-inline:auto}
-  .hazard{height:10px;background:repeating-linear-gradient(-45deg,var(--amarillo) 0 18px,var(--negro) 18px 36px)}
-  .tag{display:inline-block;background:var(--amarillo);color:var(--negro);font:800 .85rem/1 "Barlow Condensed",sans-serif;letter-spacing:.12em;text-transform:uppercase;padding:.45rem .7rem}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font:700 1.1rem/1 "Barlow Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;padding:1rem 1.4rem;border:2px solid var(--amarillo);background:var(--amarillo);color:var(--negro);cursor:pointer;transition:background .15s,color .15s,transform .15s}
-  .btn:hover{background:var(--amarillo2);border-color:var(--amarillo2);transform:translateY(-1px)}
-  .btn.out{background:transparent;color:var(--amarillo)}
-  .btn.out:hover{background:var(--amarillo);color:var(--negro)}
+  .franja{height:6px;background:linear-gradient(90deg,var(--logo) 0 50%,var(--rojo) 50% 100%)}
+  .tag{display:inline-block;background:var(--rojo);color:#fff;font:700 .72rem/1 "Libre Baskerville",serif;letter-spacing:.1em;text-transform:uppercase;padding:.5rem .75rem;border-radius:6px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font:700 1rem/1.2 "Libre Baskerville",serif;text-decoration:none;padding:.95rem 1.4rem;border:2px solid var(--azul);background:var(--azul);color:#fff;border-radius:8px;cursor:pointer;transition:background .15s,transform .15s;text-align:center}
+  .btn:hover{background:var(--azul2);border-color:var(--azul2);transform:translateY(-1px)}
+  .btn.out{background:transparent;color:#fff;border-color:#fff}
+  .btn.out:hover{background:#fff;color:var(--navy)}
   .btn svg{width:22px;height:22px;flex:none}
   section{padding:64px 0}
   .sec-head{margin-bottom:32px}
-  .sec-head h2{font-size:clamp(2rem,4.5vw,3rem);margin-top:.6rem}
-  .sec-head p{max-width:720px;margin-top:.6rem}
+  .sec-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin-top:.8rem}
+  .sec-head h2 span{color:var(--rojo)}
+  .sec-head p{max-width:720px;margin-top:.7rem}
+  .card{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra)}
   [hidden]{display:none!important}
 
-  /* ===== Header ===== */
-  .top{position:sticky;top:0;z-index:50;background:rgba(11,11,11,.96);border-bottom:1px solid var(--linea);backdrop-filter:blur(6px)}
-  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:64px}
-  .logo{font:800 1.6rem/1 "Barlow Condensed",sans-serif;letter-spacing:.04em;text-decoration:none;color:var(--blanco)}
-  .logo b{color:var(--amarillo)}
-  .top nav{display:flex;gap:22px}
-  .top nav a{text-decoration:none;font:600 1rem/1 "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--texto)}
-  .top nav a:hover{color:var(--amarillo)}
-  .top .btn{padding:.65rem 1rem;font-size:1rem}
+  /* ===== Header (igual a la web) ===== */
+  .top{position:sticky;top:0;z-index:50;background:var(--navy);box-shadow:0 2px 10px rgba(0,0,0,.2)}
+  .top .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:68px}
+  .logo{background:var(--plomo);border-radius:8px;padding:.45rem .8rem;font:700 1.25rem/1 "Libre Baskerville",serif;text-decoration:none;color:var(--logo);white-space:nowrap}
+  .logo b{color:var(--rojo)}
+  .top nav{display:flex;gap:24px}
+  .top nav a{text-decoration:none;font-weight:700;font-size:.92rem;color:#fff}
+  .top nav a:hover{color:#BFDBFE}
+  .top .btn{padding:.6rem 1rem;font-size:.9rem}
   @media(max-width:860px){.top nav{display:none}}
 
   /* ===== Próximamente ===== */
-  #proximamente{min-height:100vh;display:flex;flex-direction:column}
-  #proximamente .centro{flex:1;display:flex;align-items:center;padding:56px 0;background:
-      linear-gradient(180deg,rgba(11,11,11,.82),rgba(11,11,11,.95)),url("../public/images/portada-expomape-hd.webp") center/cover no-repeat}
-  #proximamente h1{font-size:clamp(2.6rem,8vw,5.6rem);margin:1rem 0 .4rem}
-  #proximamente h1 span{color:var(--amarillo)}
-  #proximamente .lead{font-size:clamp(1.05rem,2.2vw,1.3rem);max-width:640px}
-  .faltan{margin-top:2rem;font:800 clamp(1.6rem,4.5vw,2.6rem)/1.1 "Barlow Condensed",sans-serif;color:var(--amarillo);text-transform:uppercase}
+  #proximamente{min-height:100vh;display:flex;flex-direction:column;background:var(--navy)}
+  #proximamente .centro{flex:1;display:flex;align-items:center;padding:56px 0;color:#E2E8F0;background:
+      linear-gradient(180deg,rgba(15,23,42,.86),rgba(30,41,59,.95)),url("../public/images/portada-expomape-hd.webp") center/cover no-repeat}
+  #proximamente .logo{display:inline-block;margin-bottom:1.4rem;font-size:1.5rem}
+  #proximamente h1{color:#fff;font-size:clamp(2.2rem,6.5vw,4.4rem);margin:1rem 0 .6rem}
+  #proximamente h1 span{color:#FCA5A5}
+  #proximamente .lead{font-size:clamp(1rem,2vw,1.15rem);max-width:640px}
+  .faltan{margin-top:2rem;font:700 clamp(1.3rem,3.6vw,2rem)/1.2 "Libre Baskerville",serif;color:#fff}
   .count{display:grid;grid-template-columns:repeat(4,minmax(0,120px));gap:12px;margin:1.4rem 0 2rem}
-  .count div{background:var(--negro2);border:1px solid var(--linea);border-top:4px solid var(--amarillo);padding:14px 8px;text-align:center}
-  .count b{display:block;font:800 clamp(2rem,6vw,3.2rem)/1 "Barlow Condensed",sans-serif;color:var(--blanco)}
-  .count small{font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
-  .datos-feria{display:flex;flex-wrap:wrap;gap:10px 28px;margin-bottom:2rem;color:var(--blanco)}
-  .datos-feria span::before{content:"■ ";color:var(--amarillo)}
+  .count div{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra);border-top:5px solid var(--rojo);padding:14px 6px;text-align:center}
+  .count b{display:block;font:700 clamp(1.8rem,5.5vw,2.8rem)/1 "Libre Baskerville",serif;color:var(--logo)}
+  .count small{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--suave)}
+  .datos-feria{display:flex;flex-wrap:wrap;gap:10px 28px;margin-bottom:2rem;color:#fff}
+  .datos-feria span::before{content:"■ ";color:#F87171}
 
   /* ===== Hero ===== */
-  .hero{position:relative;padding:0;background:var(--negro)}
-  .hero .bg{position:absolute;inset:0;background:url("../public/images/portada-expomape-hd.webp") center/cover no-repeat;opacity:.28}
-  .hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--negro) 15%,rgba(11,11,11,.4))}
-  .hero .wrap{position:relative;padding:80px 0 72px}
-  .hero h1{font-size:clamp(2.4rem,6.5vw,4.8rem);max-width:900px;margin:1rem 0}
-  .hero h1 span{color:var(--amarillo)}
-  .hero .sub{font:700 clamp(1.3rem,3vw,2rem)/1.2 "Barlow Condensed",sans-serif;color:var(--amarillo);text-transform:uppercase;max-width:760px}
-  .hero p.txt{max-width:640px;margin:1rem 0 2rem;font-size:1.1rem}
+  .hero{position:relative;padding:0;background:var(--navy);color:#E2E8F0}
+  .hero .bg{position:absolute;inset:0;background:url("../public/images/portada-expomape-hd.webp") center/cover no-repeat;opacity:.25}
+  .hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--navy) 20%,rgba(30,41,59,.45))}
+  .hero .wrap{position:relative;padding:72px 0 64px}
+  .hero h1{color:#fff;font-size:clamp(2rem,5.4vw,3.8rem);max-width:900px;margin:1rem 0}
+  .hero h1 span{color:#FCA5A5}
+  .hero .sub{font:700 clamp(1.1rem,2.4vw,1.5rem)/1.35 "Libre Baskerville",serif;color:#fff;max-width:760px;border-left:5px solid var(--rojo);padding-left:14px}
+  .hero p.txt{max-width:640px;margin:1.2rem 0 2rem;font-size:1.02rem}
   .hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
-  .beneficios{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--linea);border:1px solid var(--linea);margin-top:48px}
-  .beneficios div{background:var(--negro2);padding:20px}
-  .beneficios b{display:block;font:800 1.5rem/1.1 "Barlow Condensed",sans-serif;color:var(--blanco);text-transform:uppercase}
-  .beneficios b em{font-style:normal;color:var(--amarillo)}
+  .beneficios{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+  .beneficios div{background:var(--blanco);color:var(--texto);border-radius:var(--radio);box-shadow:var(--sombra);padding:20px;font-size:.92rem}
+  .beneficios b{display:block;font-size:1.15rem;color:var(--tinta);margin-bottom:.3rem}
+  .beneficios b em{font-style:normal;color:var(--rojo)}
   @media(max-width:760px){.beneficios{grid-template-columns:1fr}}
 
   /* ===== Productos ===== */
-  #equipos{background:var(--negro2)}
-  .prod{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;background:var(--negro);border:1px solid var(--linea);border-left:6px solid var(--amarillo);padding:24px;margin-bottom:28px}
+  #equipos{background:var(--alt)}
+  .prod{display:grid;grid-template-columns:1.15fr 1fr;gap:32px;background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra);padding:24px;margin-bottom:28px}
   .prod:nth-child(even){grid-template-columns:1fr 1.15fr}
   .prod:nth-child(even) .media{order:2}
   @media(max-width:900px){.prod,.prod:nth-child(even){grid-template-columns:1fr}.prod:nth-child(even) .media{order:0}}
-  .video{position:relative;aspect-ratio:16/9;background:#000;border:1px solid var(--linea);overflow:hidden}
+  .video{position:relative;aspect-ratio:16/9;background:var(--navy2);border-radius:10px;overflow:hidden}
   .video iframe,.video img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
   .video button{position:absolute;inset:0;width:100%;border:0;background:transparent;cursor:pointer}
-  .video .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:54px;background:var(--amarillo);display:grid;place-items:center;clip-path:polygon(8% 0,92% 0,100% 50%,92% 100%,8% 100%,0 50%)}
-  .video .play::after{content:"";border-left:20px solid var(--negro);border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
-  .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:12px;background:repeating-linear-gradient(-45deg,#151515 0 14px,#1b1b1b 14px 28px);color:#8a8a8a;font:600 .95rem/1.3 "Barlow Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase}
-  .ph code{display:block;color:var(--amarillo);font:700 1rem/1.4 ui-monospace,Consolas,monospace;text-transform:none;letter-spacing:0}
+  .video .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:72px;height:50px;border-radius:12px;background:var(--rojo);display:grid;place-items:center}
+  .video .play::after{content:"";border-left:20px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;margin-left:5px}
+  .ph{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:12px;background:repeating-linear-gradient(-45deg,#EEF2F7 0 14px,#E2E8F0 14px 28px);color:var(--suave);font:700 .8rem/1.4 "Libre Baskerville",serif;letter-spacing:.05em;text-transform:uppercase}
+  .ph code{display:block;color:var(--azul);font:700 .95rem/1.4 ui-monospace,Consolas,monospace;text-transform:none;letter-spacing:0}
   .fotos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px}
-  .foto{position:relative;aspect-ratio:4/3;background:#111;border:1px solid var(--linea);overflow:hidden}
+  .foto{position:relative;aspect-ratio:4/3;background:var(--plomo);border-radius:8px;overflow:hidden}
   .foto img{width:100%;height:100%;object-fit:cover;cursor:zoom-in}
-  .foto .ph{font-size:.75rem}
-  .foto .ph code{font-size:.75rem}
-  .info .modelo{font-size:clamp(2rem,4vw,2.8rem);margin:.5rem 0 .3rem}
-  .info .tipo{color:var(--amarillo);font:700 1.15rem/1.2 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.06em}
+  .foto .ph,.foto .ph code{font-size:.68rem}
+  .info .modelo{font-size:clamp(1.7rem,3.4vw,2.3rem);margin:.7rem 0 .3rem;color:var(--logo)}
+  .info .tipo{color:var(--rojo);font-weight:700;font-size:1rem}
   .specs{list-style:none;margin:1.1rem 0;border-top:1px solid var(--linea)}
-  .specs li{display:flex;justify-content:space-between;gap:16px;padding:.6rem 0;border-bottom:1px solid var(--linea)}
-  .specs li span:first-child{color:#9a9a9a}
-  .specs li span:last-child{color:var(--blanco);font-weight:600;text-align:right}
-  .info p{margin-bottom:1.2rem}
+  .specs li{display:flex;justify-content:space-between;gap:16px;padding:.6rem 0;border-bottom:1px solid var(--linea);font-size:.93rem}
+  .specs li span:first-child{color:var(--suave)}
+  .specs li span:last-child{color:var(--tinta);font-weight:700;text-align:right}
+  .info p{margin-bottom:1.2rem;font-size:.95rem}
   .info .btn{width:100%}
-  .info .btn.wa{background:var(--wa);border-color:var(--wa);color:#fff}
-  .info .btn.wa:hover{background:#1ebe5a;border-color:#1ebe5a}
 
   /* ===== Formulario ===== */
   .form-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:start}
   @media(max-width:900px){.form-grid{grid-template-columns:1fr}}
   .lista-check{list-style:none;margin-top:1.4rem}
-  .lista-check li{padding:.5rem 0 .5rem 2rem;position:relative;color:var(--blanco)}
-  .lista-check li::before{content:"";position:absolute;left:0;top:.75rem;width:16px;height:16px;background:var(--amarillo);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0,43% 62%)}
-  form{background:var(--negro2);border:1px solid var(--linea);border-top:6px solid var(--amarillo);padding:28px}
+  .lista-check li{padding:.45rem 0 .45rem 2rem;position:relative;color:var(--tinta)}
+  .lista-check li::before{content:"";position:absolute;left:0;top:.75rem;width:16px;height:16px;background:var(--rojo);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0,43% 62%)}
+  form{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra);border-top:6px solid var(--navy);padding:28px}
   .row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
   @media(max-width:600px){.row{grid-template-columns:1fr}}
   .campo{margin-bottom:16px}
-  label,.lbl{display:block;font:700 .95rem/1.2 "Barlow Condensed",sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--blanco);margin-bottom:6px}
-  input[type=text],input[type=tel],input[type=number],select{width:100%;background:var(--negro);border:1px solid #444;color:var(--blanco);font:500 1rem Barlow,sans-serif;padding:.85rem .9rem;border-radius:0}
-  input:focus,select:focus{outline:2px solid var(--amarillo);outline-offset:0;border-color:var(--amarillo)}
+  label,.lbl{display:block;font-weight:700;font-size:.85rem;color:var(--tinta);margin-bottom:6px}
+  input[type=text],input[type=tel],input[type=number],select{width:100%;background:#F8FAFC;border:1px solid var(--linea);color:var(--tinta);font:400 1rem "Libre Baskerville",serif;padding:.8rem .9rem;border-radius:8px}
+  input:focus,select:focus{outline:2px solid var(--azul);outline-offset:0;border-color:var(--azul)}
   .checks{display:grid;grid-template-columns:1fr 1fr;gap:8px}
   @media(max-width:600px){.checks{grid-template-columns:1fr}}
-  .checks label{display:flex;align-items:center;gap:10px;background:var(--negro);border:1px solid #444;padding:.75rem .8rem;margin:0;cursor:pointer;font-size:1rem}
-  .checks input{width:18px;height:18px;accent-color:var(--amarillo)}
-  .checks label:has(input:checked){border-color:var(--amarillo);color:var(--amarillo)}
-  .err{color:#ff6b6b;font-size:.9rem;margin-top:6px;min-height:1.2em}
+  .checks label{display:flex;align-items:center;gap:10px;background:#F8FAFC;border:1px solid var(--linea);border-radius:8px;padding:.75rem .8rem;margin:0;cursor:pointer;font-size:.92rem}
+  .checks input{width:18px;height:18px;accent-color:var(--azul)}
+  .checks label:has(input:checked){border-color:var(--azul);background:#EFF6FF;color:var(--azul2)}
+  .err{color:var(--rojo);font-size:.88rem;margin-top:6px;min-height:1.2em}
   form .btn{width:100%;margin-top:6px}
-  .nota{font-size:.85rem;color:#8a8a8a;margin-top:12px}
-  .ok{background:var(--negro2);border:1px solid var(--amarillo);border-top:6px solid var(--amarillo);padding:40px 28px;text-align:center}
-  .ok .ico{width:64px;height:64px;margin:0 auto 16px;background:var(--amarillo);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0,43% 62%)}
-  .ok h3{font-size:2rem;margin-bottom:.6rem}
+  .nota{font-size:.8rem;color:var(--suave);margin-top:12px}
+  .ok{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra);border-top:6px solid var(--azul);padding:40px 28px;text-align:center}
+  .ok .ico{width:64px;height:64px;margin:0 auto 16px;background:var(--azul);clip-path:polygon(14% 44%,0 65%,50% 100%,100% 16%,80% 0,43% 62%)}
+  .ok h3{font-size:1.7rem;margin-bottom:.6rem}
+  .ok a{color:var(--azul)}
 
   /* ===== Prueba social ===== */
-  #confianza{background:var(--negro2)}
+  #confianza{background:var(--alt)}
   .social{display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
   @media(max-width:900px){.social{grid-template-columns:1fr}}
-  .mina{position:relative;aspect-ratio:16/10;border:1px solid var(--linea);overflow:hidden;background:#111}
+  .mina{position:relative;aspect-ratio:16/10;border-radius:var(--radio);box-shadow:var(--sombra);overflow:hidden;background:var(--plomo)}
   .mina img{width:100%;height:100%;object-fit:cover}
-  .mina figcaption{position:absolute;left:0;bottom:0;right:0;padding:14px 16px;background:linear-gradient(0deg,rgba(0,0,0,.9),transparent);color:var(--blanco);font:700 1.1rem/1.2 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.05em}
-  .mina figcaption span{color:var(--amarillo)}
+  .mina figcaption{position:absolute;left:0;bottom:0;right:0;padding:16px;background:linear-gradient(0deg,rgba(15,23,42,.92),transparent);color:#fff;font-weight:700;font-size:.95rem}
+  .mina figcaption span{color:#FCA5A5}
   .testis{display:grid;gap:16px;align-content:start}
-  blockquote{background:var(--negro);border:1px solid var(--linea);border-left:6px solid var(--amarillo);padding:22px}
-  blockquote p{color:var(--blanco);font-size:1.08rem;font-style:italic}
-  blockquote p::before{content:"“";color:var(--amarillo);font:800 2.4rem/0 "Barlow Condensed",sans-serif;vertical-align:-.45em;margin-right:4px}
-  blockquote footer{margin-top:12px;font:700 1rem/1.3 "Barlow Condensed",sans-serif;text-transform:uppercase;letter-spacing:.05em}
-  blockquote footer small{display:block;color:#9a9a9a;font:500 .9rem Barlow,sans-serif;text-transform:none;letter-spacing:0}
+  blockquote{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra);border-left:6px solid var(--rojo);padding:22px}
+  blockquote p{color:var(--tinta);font-size:1rem;font-style:italic}
+  blockquote p::before{content:"“";color:var(--rojo);font:700 2.4rem/0 "Libre Baskerville",serif;vertical-align:-.45em;margin-right:4px}
+  blockquote footer{margin-top:12px;font-weight:700;color:var(--logo)}
+  blockquote footer small{display:block;color:var(--suave);font-weight:400;font-size:.85rem}
+
+  /* ===== Santo Tomás, Chumbivilcas ===== */
+  #santo-tomas{background:var(--plomo)}
+  .st-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:32px;align-items:center}
+  @media(max-width:900px){.st-grid{grid-template-columns:1fr}}
+  .st-img{position:relative;aspect-ratio:16/10;border-radius:var(--radio);box-shadow:var(--sombra);overflow:hidden;background:#BFD3EA}
+  .st-img img,.st-img svg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .st-img figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(0deg,rgba(15,23,42,.9),transparent);color:#fff;font-weight:700;font-size:.92rem}
+  .st-txt{padding:28px}
+  .st-txt h3{font-size:1.5rem;color:var(--logo);margin:.8rem 0 .6rem}
+  .st-txt p{font-size:.95rem;margin-bottom:1rem}
+  .st-datos{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:1.2rem 0 1.4rem}
+  .st-datos li{background:var(--alt);border-radius:8px;padding:10px 12px;font-size:.85rem}
+  .st-datos b{display:block;color:var(--rojo);font-size:1rem}
 
   /* ===== Footer QR ===== */
-  footer.pie{background:#000;padding:56px 0 28px}
+  footer.pie{background:var(--navy);color:#CBD5E1;padding:56px 0 28px}
   .pie-grid{display:grid;grid-template-columns:auto 1fr auto;gap:40px;align-items:center}
   @media(max-width:860px){.pie-grid{grid-template-columns:1fr;text-align:center}.pie-grid .qr{margin-inline:auto}}
-  .qr{background:#fff;padding:12px;border:6px solid var(--amarillo);width:220px}
+  .qr{background:#fff;padding:12px;border-radius:var(--radio);border:5px solid var(--rojo);width:220px}
   .qr img{width:100%;height:auto;image-rendering:pixelated}
-  .pie h2{font-size:clamp(1.8rem,4vw,2.6rem)}
-  .pie h2 span{color:var(--amarillo)}
-  .pie .url{font:700 1.2rem ui-monospace,Consolas,monospace;color:var(--amarillo);margin:.6rem 0 1rem;word-break:break-all}
-  .pie .contacto{display:grid;gap:6px;color:var(--texto)}
+  .pie h2{color:#fff;font-size:clamp(1.5rem,3.4vw,2.2rem)}
+  .pie h2 span{color:#FCA5A5}
+  .pie .url{font:700 1.1rem ui-monospace,Consolas,monospace;color:#BFDBFE;margin:.6rem 0 1rem;word-break:break-all}
+  .pie .contacto{display:grid;gap:6px;font-size:.92rem}
   .pie .contacto a{text-decoration:none}
-  .pie .contacto a:hover{color:var(--amarillo)}
-  .legal{border-top:1px solid var(--linea);margin-top:40px;padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:.85rem;color:#777}
+  .pie .contacto a:hover{color:#fff}
+  .pie .contacto .logo{justify-self:start;margin-bottom:6px}
+  @media(max-width:860px){.pie .contacto .logo{justify-self:center}}
+  .legal{border-top:1px solid #334155;margin-top:40px;padding-top:20px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;font-size:.78rem;color:#94A3B8}
 
-  /* ===== Botón WhatsApp flotante ===== */
-  .wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:60px;height:60px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+  /* ===== WhatsApp flotante (azul, igual a la web) ===== */
+  .wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:60px;height:60px;border-radius:50%;background:var(--azul);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.3)}
   .wa-float svg{width:32px;height:32px}
 
   /* ===== Visor de fotos ===== */
-  .visor{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.92);display:grid;place-items:center;padding:16px;cursor:zoom-out}
-  .visor img{max-height:90vh;max-width:min(1200px,100%);object-fit:contain;border:2px solid var(--amarillo)}
+  .visor{position:fixed;inset:0;z-index:80;background:rgba(15,23,42,.92);display:grid;place-items:center;padding:16px;cursor:zoom-out}
+  .visor img{max-height:90vh;max-width:min(1200px,100%);object-fit:contain;border-radius:8px}
 </style>
 </head>
 <body>
@@ -214,6 +234,7 @@ const CONFIG = {
   FOTO_ELC4000_3:       "",
 
   FOTO_SANTO_TOMAS:     "",   // ✏️ foto del equipo trabajando en mina Santo Tomás, ej. "img/santo-tomas.jpg"
+  FOTO_PLAZA_SANTO_TOMAS: "", // ✏️ foto real de la Plaza de Armas / templo de Santo Tomás, ej. "img/plaza-santo-tomas.jpg". Vacío = ilustración
   CATALOGO_PDF:         "",   // ✏️ opcional: "img/catalogo-vid-comboy.pdf". Vacío = se pide por WhatsApp
 
   // ✏️ TESTIMONIOS: reemplace el texto y los datos por testimonios REALES de sus clientes
@@ -231,9 +252,10 @@ const CONFIG = {
 
 <!-- ============================ PRÓXIMAMENTE ============================ -->
 <div id="proximamente">
-  <div class="hazard"></div>
+  <div class="franja"></div>
   <div class="centro">
     <div class="wrap">
+      <a class="logo" href="../">COMBOY <b>VID</b></a><br>
       <span class="tag">EXPOMAPE 2026 · Stand D-2</span>
       <h1>Próximamente<br><span>Stand D-2 EXPOMAPE</span></h1>
       <p class="lead">VID COMBOY presentará sus equipos de acarreo para minería subterránea. Esta página se activa el 16 de octubre de 2026 con videos, fichas técnicas y beneficios exclusivos de feria.</p>
@@ -245,6 +267,8 @@ const CONFIG = {
         <div><b id="cd-s">00</b><small>Seg</small></div>
       </div>
       <div class="datos-feria">
+        <span>16 al 18 de octubre</span>
+        <span>Santo Tomás, Chumbivilcas</span>
         <span>Stand D-2</span>
         <span>10% descuento feria</span>
         <span>Diagnóstico gratuito en su unidad</span>
@@ -255,7 +279,7 @@ const CONFIG = {
       </a>
     </div>
   </div>
-  <div class="hazard"></div>
+  <div class="franja"></div>
 </div>
 
 <!-- ============================ CONTENIDO (desde el 16/10) ============================ -->
@@ -263,11 +287,12 @@ const CONFIG = {
 
 <header class="top">
   <div class="wrap">
-    <a class="logo" href="../">VID <b>COMBOY</b></a>
+    <a class="logo" href="../">COMBOY <b>VID</b></a>
     <nav>
       <a href="#equipos">Equipos</a>
       <a href="#cotizar">Solicitar video</a>
       <a href="#confianza">Referencias</a>
+      <a href="#santo-tomas">Santo Tomás</a>
       <a href="#qr">Catálogo</a>
     </nav>
     <a class="btn" data-wa="Buenos días, VID COMBOY. Le escribo desde EXPOMAPE 2026 (stand D-2)." href="#">WhatsApp</a>
@@ -278,7 +303,7 @@ const CONFIG = {
 <section class="hero">
   <div class="bg" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="tag">EXPOMAPE 2026 · Stand D-2</span>
+    <span class="tag">EXPOMAPE 2026 · 16 al 18 de octubre · Santo Tomás, Chumbivilcas · Stand D-2</span>
     <h1>VID COMBOY · <span>Stand D-2</span> EXPOMAPE 2026</h1>
     <div class="sub">10% Descuento Feria + Diagnóstico Gratuito en su unidad</div>
     <p class="txt">Ingeniero, le presentamos cuatro equipos de acarreo diseñados para galerías de minería subterránea. Solicite el video de operación y la ficha técnica directamente a su WhatsApp.</p>
@@ -296,7 +321,7 @@ const CONFIG = {
     </div>
   </div>
 </section>
-<div class="hazard"></div>
+<div class="franja"></div>
 
 <!-- 2. PRODUCTOS (se generan desde la lista PRODUCTOS del script) -->
 <section id="equipos">
@@ -370,7 +395,7 @@ const CONFIG = {
         <div class="ico" aria-hidden="true"></div>
         <h3>Solicitud registrada</h3>
         <p>Gracias Ingeniero, en breve le enviamos el video a su WhatsApp.</p>
-        <p class="nota">Si WhatsApp no se abrió, <a href="#" id="waRetry" style="color:var(--amarillo)">presione aquí</a>.</p>
+        <p class="nota">Si WhatsApp no se abrió, <a href="#" id="waRetry">presione aquí</a>.</p>
       </div>
     </div>
   </div>
@@ -392,6 +417,69 @@ const CONFIG = {
   </div>
 </section>
 
+
+<!-- 4b. SANTO TOMÁS, CHUMBIVILCAS (sede de la feria) -->
+<section id="santo-tomas">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Sede de EXPOMAPE 2026</span>
+      <h2>Santo Tomás, <span>Chumbivilcas</span></h2>
+      <p>La 1ª Feria Minera EXPOMAPE 2026 se realiza del 16 al 18 de octubre en Santo Tomás, capital de la provincia de Chumbivilcas, Cusco. Lo esperamos en el stand D-2.</p>
+    </div>
+    <div class="st-grid">
+      <figure class="st-img" id="fotoPlaza">
+        <svg viewBox="0 0 800 500" role="img" aria-label="Ilustración de la Plaza de Armas y el templo colonial de Santo Tomás, Chumbivilcas">
+          <defs><linearGradient id="cielo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#93C5FD"/><stop offset="1" stop-color="#E0F2FE"/></linearGradient></defs>
+          <rect width="800" height="500" fill="url(#cielo)"/>
+          <circle cx="660" cy="90" r="38" fill="#FEF3C7"/>
+          <path d="M0 300 L90 190 L170 250 L260 150 L360 240 L450 170 L560 250 L650 160 L740 230 L800 200 L800 330 L0 330Z" fill="#64748B"/>
+          <path d="M240 172 L260 150 L282 170 L270 178 L258 168 L248 180Z M630 180 L650 160 L672 182 L660 186 L650 176 L640 188Z" fill="#F8FAFC"/>
+          <path d="M0 330 L120 270 L230 310 L340 260 L470 305 L600 265 L800 315 L800 380 L0 380Z" fill="#475569"/>
+          <rect x="0" y="372" width="800" height="128" fill="#A3B18A"/>
+          <rect x="0" y="420" width="800" height="80" fill="#CBD5E1"/>
+          <!-- templo -->
+          <rect x="250" y="250" width="300" height="170" fill="#F8FAFC"/>
+          <path d="M240 252 L400 190 L560 252Z" fill="#B91C1C"/>
+          <rect x="190" y="200" width="80" height="220" fill="#F1F5F9"/>
+          <rect x="530" y="200" width="80" height="220" fill="#F1F5F9"/>
+          <rect x="182" y="194" width="96" height="12" fill="#E2E8F0"/>
+          <rect x="522" y="194" width="96" height="12" fill="#E2E8F0"/>
+          <rect x="196" y="140" width="68" height="56" fill="#F8FAFC"/>
+          <rect x="536" y="140" width="68" height="56" fill="#F8FAFC"/>
+          <path d="M212 196 v-30 a18 18 0 0 1 36 0 v30Z M552 196 v-30 a18 18 0 0 1 36 0 v30Z" fill="#1E293B"/>
+          <path d="M192 142 Q230 96 268 142Z M532 142 Q570 96 608 142Z" fill="#B91C1C"/>
+          <path d="M230 112 v-26 M222 96 h16 M570 112 v-26 M562 96 h16" stroke="#0B2A5B" stroke-width="4"/>
+          <path d="M360 420 v-70 a40 40 0 0 1 80 0 v70Z" fill="#7C2D12"/>
+          <path d="M346 350 a54 54 0 0 1 108 0" fill="none" stroke="#CBD5E1" stroke-width="8"/>
+          <circle cx="400" cy="282" r="16" fill="#1E293B"/>
+          <path d="M400 266 v32 M384 282 h32" stroke="#F8FAFC" stroke-width="3"/>
+          <rect x="300" y="300" width="22" height="34" rx="11" fill="#1E293B"/>
+          <rect x="478" y="300" width="22" height="34" rx="11" fill="#1E293B"/>
+          <path d="M398 190 v-26 M390 174 h16" stroke="#0B2A5B" stroke-width="4"/>
+          <!-- plaza -->
+          <rect x="120" y="440" width="560" height="10" fill="#94A3B8"/>
+          <g fill="#3F6212"><circle cx="90" cy="400" r="34"/><circle cx="710" cy="400" r="34"/><circle cx="150" cy="418" r="22"/><circle cx="650" cy="418" r="22"/></g>
+          <g fill="#78350F"><rect x="86" y="420" width="8" height="40"/><rect x="706" y="420" width="8" height="40"/></g>
+          <rect x="392" y="446" width="16" height="30" fill="#64748B"/><rect x="376" y="474" width="48" height="10" fill="#475569"/>
+        </svg>
+        <figcaption>Plaza de Armas y templo colonial de Santo Tomás · Chumbivilcas, Cusco</figcaption>
+      </figure>
+      <div class="card st-txt">
+        <span class="tag">Lugar emblemático</span>
+        <h3>Plaza de Armas y Templo de Santo Tomás</h3>
+        <p>El corazón de la ciudad es su Plaza de Armas, presidida por el templo colonial de Santo Tomás. Es punto de encuentro de la provincia y escenario de sus celebraciones más conocidas, como el Takanakuy cada 25 de diciembre y las fiestas de los qorilazos chumbivilcanos.</p>
+        <ul class="st-datos">
+          <li><b>Chumbivilcas</b>Provincia</li>
+          <li><b>Cusco</b>Región</li>
+          <li><b>+3,600 m s. n. m.</b>Altitud aproximada</li>
+          <li><b>Stand D-2</b>VID COMBOY en la feria</li>
+        </ul>
+        <a class="btn" data-wa="Buenos días, COMBOY VID. Estaré en EXPOMAPE 2026 en Santo Tomás y deseo agendar una visita a su stand D-2." href="#">Agendar visita al stand D-2</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- 5. FOOTER CON QR -->
 <footer class="pie" id="qr">
   <div class="wrap">
@@ -403,15 +491,15 @@ const CONFIG = {
         <a class="btn" id="btnCatalogo" href="#">Descargar catálogo</a>
       </div>
       <div class="contacto">
-        <strong class="cond" style="font-size:1.3rem">VID COMBOY</strong>
+        <a class="logo" href="../">COMBOY <b>VID</b></a>
         <a data-wa="Buenos días, VID COMBOY. Le escribo desde su página de EXPOMAPE 2026." href="#">WhatsApp +51 983 148 798</a>
         <a href="mailto:areacomercial@comboyvid.com">areacomercial@comboyvid.com</a>
         <a href="../">www.comboyvid.com</a>
-        <span>EXPOMAPE 2026 · Stand D-2</span>
+        <span>EXPOMAPE 2026 · Stand D-2 · Santo Tomás, Chumbivilcas</span>
       </div>
     </div>
     <div class="legal">
-      <span>© 2026 VID COMBOY · Equipos y repuestos para minería · Perú</span>
+      <span>© 2026 COMBOY VID · Equipos y repuestos para minería · Perú</span>
       <span>Oferta de feria válida para solicitudes registradas durante EXPOMAPE 2026.</span>
     </div>
   </div>
@@ -500,6 +588,11 @@ function pintarConfianza(){
   fig.insertAdjacentHTML("afterbegin", CONFIG.FOTO_SANTO_TOMAS
     ? `<img src="${esc(CONFIG.FOTO_SANTO_TOMAS)}" alt="Equipo VID COMBOY en mina Santo Tomás" loading="lazy">`
     : placeholder("FOTO_SANTO_TOMAS"));
+  if(CONFIG.FOTO_PLAZA_SANTO_TOMAS){
+    const svg = document.querySelector("#fotoPlaza svg");
+    svg.insertAdjacentHTML("afterend", `<img src="${esc(CONFIG.FOTO_PLAZA_SANTO_TOMAS)}" alt="Plaza de Armas y templo de Santo Tomás, Chumbivilcas" loading="lazy">`);
+    svg.remove();
+  }
   const t = CONFIG.TESTIMONIOS.filter(x => x.publicar);
   $("#testimonios").innerHTML = t.length
     ? t.map(x => `<blockquote><p>${esc(x.texto)}</p><footer>${esc(x.nombre)}<small>${esc(x.cargo)} · ${esc(x.empresa)}</small></footer></blockquote>`).join("")
