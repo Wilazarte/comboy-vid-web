@@ -1908,11 +1908,11 @@ document.querySelectorAll('a[data-wa]').forEach(function(a){
 });
 </script>
 <script>
-// Cuenta regresiva EXPOMAPE: 16 de octubre de 2026, 09:00 hora Perú
+// Cuenta regresiva EXPOMAPE: 16 de octubre de 2026, 10:00 am hora Perú
 (function(){
   var bar=document.getElementById("countdown-expomape"), el=document.getElementById("timer");
   if(!bar||!el) return;
-  var target=new Date("2026-10-16T09:00:00-05:00").getTime(), fin=new Date("2026-10-19T00:00:00-05:00").getTime();
+  var target=new Date("2026-10-16T10:00:00-05:00").getTime(), fin=new Date("2026-10-19T00:00:00-05:00").getTime();
   function p(n){return String(n).padStart(2,"0");}
   function tick(){
     var now=Date.now(), diff=target-now;
