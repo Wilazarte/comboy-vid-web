@@ -193,6 +193,7 @@
   @media(max-width:900px){.social{grid-template-columns:1fr}}
   .mina{position:relative;aspect-ratio:16/10;border-radius:var(--radio);box-shadow:var(--sombra);overflow:hidden;background:var(--plomo)}
   .mina img{width:100%;height:100%;object-fit:cover}
+  .mina video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .mina figcaption{position:absolute;left:0;bottom:0;right:0;padding:16px;background:linear-gradient(0deg,rgba(15,23,42,.92),transparent);color:#fff;font-weight:700;font-size:.95rem}
   .mina figcaption span{color:#FCA5A5}
   .testis{display:grid;gap:16px;align-content:start}
@@ -280,7 +281,7 @@ const CONFIG = {
   FOTO_ELC4000_2:       "",
   FOTO_ELC4000_3:       "",
 
-  FOTO_SANTO_TOMAS:     "",   // ✏️ foto del equipo trabajando en mina Santo Tomás, ej. "img/santo-tomas.jpg"
+  VIDEO_PLANTA:         "img/web/planta-fabricacion.mp4",   // ✏️ video de la planta de fabricación (MP4, se reproduce solo), ej. "img/web/planta-fabricacion.mp4"
   FOTO_PLAZA_SANTO_TOMAS: "img/plaza-santo-tomas.webp?v=2", // ✏️ foto real de la Plaza de Armas / templo de Santo Tomás, ej. "img/plaza-santo-tomas.jpg". Vacío = la sección se muestra solo con texto
   CATALOGO_PDF:         "",   // ✏️ opcional: "img/catalogo-vid-comboy.pdf". Vacío = se pide por WhatsApp
 
@@ -340,8 +341,8 @@ const CONFIG = {
       <a href="#videos">Videos</a>
       <!-- <a href="#equipos">Equipos</a>  (oculto junto con la sección de equipos) -->
       <a href="#cotizar">Solicitar video</a>
-      <a href="#confianza">Referencias</a>
-      <a href="#santo-tomas">Santo Tomás</a>
+      <a href="#testimonios">Asesoría</a>
+      <a href="#confianza">Fabricante Peruano</a>
       <a href="#qr">Catálogo</a>
     </nav>
     <a class="btn" data-wa="Buenos días, VID COMBOY. Le escribo desde EXPOMAPE 2026 (stand D-2)." href="#">WhatsApp</a>
@@ -510,12 +511,12 @@ const CONFIG = {
 <section id="confianza">
   <div class="wrap">
     <div class="sec-head">
-      <span class="tag">Equipos en operación</span>
-      <h2>Trabajando en mina subterránea</h2>
+      <span class="tag">Hecho en el Perú</span>
+      <h2>Fabricante Peruano</h2>
     </div>
     <div class="social">
       <figure class="mina" id="fotoMina">
-        <figcaption>Equipo VID COMBOY en operación · <span>Mina Santo Tomás</span>, Chumbivilcas, Cusco</figcaption>
+        <figcaption>Planta de fabricación VID COMBOY - <span>Santo Tomás</span>, Chumbivilcas, Cusco</figcaption>
       </figure>
       <div class="testis" id="testimonios"></div>
     </div>
@@ -656,9 +657,9 @@ function pintarProductos(){
 /* ===== Prueba social ===== */
 function pintarConfianza(){
   const fig = $("#fotoMina");
-  fig.insertAdjacentHTML("afterbegin", CONFIG.FOTO_SANTO_TOMAS
-    ? `<img src="${esc(CONFIG.FOTO_SANTO_TOMAS)}" alt="Equipo VID COMBOY en mina Santo Tomás" loading="lazy">`
-    : placeholder("FOTO_SANTO_TOMAS"));
+  fig.insertAdjacentHTML("afterbegin", CONFIG.VIDEO_PLANTA
+    ? `<video src="${esc(CONFIG.VIDEO_PLANTA)}" poster="img/web/planta-fabricacion-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Planta de fabricación VID COMBOY"></video>`
+    : placeholder("VIDEO_PLANTA"));
   // Foto real de la Plaza de Armas: si no hay foto, la columna se oculta y el texto ocupa todo el ancho
   const plaza = $("#fotoPlaza");
   if(CONFIG.FOTO_PLAZA_SANTO_TOMAS){
@@ -671,8 +672,8 @@ function pintarConfianza(){
   const t = CONFIG.TESTIMONIOS.filter(x => x.publicar);
   $("#testimonios").innerHTML = t.length
     ? t.map(x => `<blockquote><p>${esc(x.texto)}</p><footer>${esc(x.nombre)}<small>${esc(x.cargo)} · ${esc(x.empresa)}</small></footer></blockquote>`).join("")
-    : `<blockquote><p>Solicite referencias de clientes y visitas técnicas a unidades donde operan nuestros equipos.</p><footer>VID COMBOY<small>Área comercial · +51 983 148 798</small></footer></blockquote>
-       <a class="btn" data-wa="Buenos días, VID COMBOY. Solicito referencias de clientes que operan sus equipos." href="#">Solicitar referencias</a>`;
+    : `<blockquote><p>Solicite asesoría para la elección de equipos. Te ayudamos a elegir el equipo adecuado según tu tipo de mina, producción y condiciones de trabajo.</p><footer>VID COMBOY<small>Área comercial · +51 983 148 798</small></footer></blockquote>
+       <a class="btn" data-wa="Hola COMBOY VID, quiero solicitar asesoría para elegir el equipo adecuado para mi operación minera." href="#">Solicitar asesoría</a>`;
 }
 
 /* ===== Formulario → WhatsApp ===== */
