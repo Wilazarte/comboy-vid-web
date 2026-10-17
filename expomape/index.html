@@ -40,6 +40,7 @@
   .btn.out:hover{background:#fff;color:var(--navy)}
   .btn svg{width:22px;height:22px;flex:none}
   section{padding:64px 0}
+  #registro{scroll-margin-top:72px}
   .sec-head{margin-bottom:32px}
   .sec-head h2{font-size:clamp(1.7rem,3.6vw,2.5rem);margin-top:.8rem}
   .sec-head h2 span{color:var(--rojo)}
@@ -340,7 +341,7 @@ const CONFIG = {
       <a href="#galeria">Galería</a>
       <a href="#videos">Videos</a>
       <!-- <a href="#equipos">Equipos</a>  (oculto junto con la sección de equipos) -->
-      <a href="#cotizar">Solicitar video</a>
+      <a href="#registro">Solicitar video</a>
       <a href="#testimonios">Asesoría</a>
       <a href="#confianza">Fabricante Peruano</a>
       <a href="#qr">Catálogo</a>
@@ -442,7 +443,8 @@ const CONFIG = {
 </section>
 
 <!-- 3. FORMULARIO -->
-<section id="cotizar">
+<!-- Ancla del QR del stand: https://comboyvid.com/expomape/#registro -->
+<section id="registro">
   <div class="wrap form-grid">
     <div class="sec-head">
       <span class="tag">Registro EXPOMAPE</span>
@@ -460,18 +462,18 @@ const CONFIG = {
       <form id="leadForm" novalidate>
         <div class="row">
           <div class="campo">
-            <label for="f-nombre">Nombre y apellido *</label>
-            <input type="text" id="f-nombre" name="nombre" autocomplete="name" required>
+            <label for="f-nombre">Nombre y apellido</label>
+            <input type="text" id="f-nombre" name="nombre" autocomplete="name">
           </div>
           <div class="campo">
-            <label for="f-unidad">Unidad minera *</label>
-            <input type="text" id="f-unidad" name="unidad" placeholder="Ej. U.M. Santo Tomás" required>
+            <label for="f-unidad">Unidad minera</label>
+            <input type="text" id="f-unidad" name="unidad" placeholder="Ej. U.M. Santo Tomás">
           </div>
         </div>
         <div class="row">
           <div class="campo">
-            <label for="f-cargo">Cargo *</label>
-            <input type="text" id="f-cargo" name="cargo" placeholder="Ej. Jefe de Mantenimiento" autocomplete="organization-title" required>
+            <label for="f-cargo">Cargo</label>
+            <input type="text" id="f-cargo" name="cargo" placeholder="Ej. Jefe de Mantenimiento" autocomplete="organization-title">
           </div>
           <div class="campo">
             <label for="f-wa">WhatsApp *</label>
@@ -684,9 +686,6 @@ function initFormulario(){
     const f = e.target, v = n => f.elements[n].value.trim();
     const equipos = [...f.querySelectorAll('input[name="equipo"]:checked')].map(c => c.value);
     const faltan = [];
-    if(!v("nombre")) faltan.push("nombre");
-    if(!v("unidad")) faltan.push("unidad minera");
-    if(!v("cargo")) faltan.push("cargo");
     if(v("whatsapp").replace(/\D/g,"").length < 9) faltan.push("WhatsApp válido");
     if(!equipos.length) faltan.push("al menos un equipo");
     if(faltan.length){ $("#formErr").textContent = "Por favor complete: " + faltan.join(", ") + "."; return; }
@@ -694,9 +693,9 @@ function initFormulario(){
 
     ultimoLead = [
       "Lead EXPOMAPE 2026 - Stand D-2",
-      "Nombre: " + v("nombre"),
-      "Unidad Minera: " + v("unidad"),
-      "Cargo: " + v("cargo"),
+      "Nombre: " + (v("nombre") || "-"),
+      "Unidad Minera: " + (v("unidad") || "-"),
+      "Cargo: " + (v("cargo") || "-"),
       "WhatsApp: " + v("whatsapp"),
       "Equipo de interés: " + equipos.join(", "),
       "Coches por guardia: " + (v("coches") || "-"),
@@ -760,7 +759,13 @@ function mostrarContenido(){
   document.querySelectorAll("a[data-wa]").forEach(a => { a.href = waLink(a.dataset.wa); a.target = "_blank"; a.rel = "noopener"; });
   $("#btnCatalogo").href = CONFIG.CATALOGO_PDF || waLink("Buenos días, VID COMBOY. Escaneé el QR de su stand D-2 en EXPOMAPE 2026. Solicito el catálogo y el video de sus equipos.");
   $("#btnCatalogo").target = "_blank";
-  if(location.hash){ const el = document.querySelector(location.hash); if(el) el.scrollIntoView(); }
+  if(location.hash){
+    // QR del stand (#registro): baja al formulario y vuelve a ajustar cuando terminan de cargar las fotos
+    const irAncla = () => { try { const el = document.querySelector(location.hash === "#cotizar" ? "#registro" : location.hash); if(el) el.scrollIntoView({behavior:"auto"}); } catch(_){} };
+    irAncla();
+    if(document.readyState !== "complete") window.addEventListener("load", irAncla, {once:true});
+    setTimeout(irAncla, 1200);
+  }
 }
 
 function actualizarCuenta(){
