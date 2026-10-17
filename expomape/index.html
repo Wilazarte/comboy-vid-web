@@ -197,6 +197,8 @@
   .mina video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .mina figcaption{position:absolute;left:0;bottom:0;right:0;padding:16px;background:linear-gradient(0deg,rgba(15,23,42,.92),transparent);color:#fff;font-weight:700;font-size:.95rem}
   .mina figcaption span{color:#FCA5A5}
+  /* con video: el pie va arriba para no tapar los controles (play, volumen) */
+  .mina.con-video figcaption{top:0;bottom:auto;background:linear-gradient(180deg,rgba(15,23,42,.92),transparent);pointer-events:none}
   .testis{display:grid;gap:16px;align-content:start}
   blockquote{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra);border-left:6px solid var(--rojo);padding:22px}
   blockquote p{color:var(--tinta);font-size:1rem;font-style:italic}
@@ -282,7 +284,7 @@ const CONFIG = {
   FOTO_ELC4000_2:       "",
   FOTO_ELC4000_3:       "",
 
-  VIDEO_PLANTA:         "img/web/planta-fabricacion.mp4",   // ✏️ video de la planta de fabricación (MP4, se reproduce solo), ej. "img/web/planta-fabricacion.mp4"
+  VIDEO_PLANTA:         "img/web/planta-fabricacion.mp4",   // ✏️ video de la planta de fabricación, Planta Central Arequipa (MP4 con sonido y controles), ej. "img/web/planta-fabricacion.mp4"
   FOTO_PLAZA_SANTO_TOMAS: "img/plaza-santo-tomas.webp?v=2", // ✏️ foto real de la Plaza de Armas / templo de Santo Tomás, ej. "img/plaza-santo-tomas.jpg". Vacío = la sección se muestra solo con texto
   CATALOGO_PDF:         "",   // ✏️ opcional: "img/catalogo-vid-comboy.pdf". Vacío = se pide por WhatsApp
 
@@ -518,7 +520,7 @@ const CONFIG = {
     </div>
     <div class="social">
       <figure class="mina" id="fotoMina">
-        <figcaption>Planta de fabricación VID COMBOY - <span>Santo Tomás</span>, Chumbivilcas, Cusco</figcaption>
+        <figcaption>Planta de fabricación VID COMBOY - <span>Planta Central Arequipa</span></figcaption>
       </figure>
       <div class="testis" id="testimonios"></div>
     </div>
@@ -659,8 +661,9 @@ function pintarProductos(){
 /* ===== Prueba social ===== */
 function pintarConfianza(){
   const fig = $("#fotoMina");
+  if(CONFIG.VIDEO_PLANTA) fig.classList.add("con-video");
   fig.insertAdjacentHTML("afterbegin", CONFIG.VIDEO_PLANTA
-    ? `<video src="${esc(CONFIG.VIDEO_PLANTA)}" poster="img/web/planta-fabricacion-poster.webp" autoplay muted loop playsinline preload="metadata" aria-label="Planta de fabricación VID COMBOY"></video>`
+    ? `<video src="${esc(CONFIG.VIDEO_PLANTA)}" poster="img/web/planta-fabricacion-poster.webp" controls playsinline preload="metadata" aria-label="Planta de fabricación VID COMBOY - Planta Central Arequipa"></video>`
     : placeholder("VIDEO_PLANTA"));
   // Foto real de la Plaza de Armas: si no hay foto, la columna se oculta y el texto ocupa todo el ancho
   const plaza = $("#fotoPlaza");
