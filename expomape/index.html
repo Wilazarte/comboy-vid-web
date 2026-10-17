@@ -22,7 +22,7 @@
     --navy:#1E293B; --navy2:#0F172A; --logo:#0B2A5B;
     --plomo:#E2E8F0; --alt:#E8EEF5; --blanco:#FFFFFF;
     --azul:#2563EB; --azul2:#1D4ED8; --rojo:#B91C1C; --rojo2:#991B1B;
-    --tinta:#0F172A; --texto:#334155; --suave:#64748B; --linea:#CBD5E1;
+    --oro:#C9A227; --tinta:#0F172A; --texto:#334155; --suave:#64748B; --linea:#CBD5E1;
     --sombra:0 4px 12px rgba(0,0,0,.08); --radio:12px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -74,21 +74,66 @@
   .datos-feria{display:flex;flex-wrap:wrap;gap:10px 28px;margin-bottom:2rem;color:#fff}
   .datos-feria span::before{content:"■ ";color:#F87171}
 
-  /* ===== Hero ===== */
-  .hero{position:relative;padding:0;background:var(--navy);color:#E2E8F0}
-  .hero .bg{position:absolute;inset:0;background:url("../public/images/portada-expomape-hd.webp") center/cover no-repeat;opacity:.25}
-  .hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--navy) 20%,rgba(30,41,59,.45))}
-  .hero .wrap{position:relative;padding:72px 0 64px}
-  .hero h1{color:#fff;font-size:clamp(2rem,5.4vw,3.8rem);max-width:900px;margin:1rem 0}
-  .hero h1 span{color:#FCA5A5}
-  .hero .sub{font:700 clamp(1.1rem,2.4vw,1.5rem)/1.35 "Libre Baskerville",serif;color:#fff;max-width:760px;border-left:5px solid var(--rojo);padding-left:14px}
-  .hero p.txt{max-width:640px;margin:1.2rem 0 2rem;font-size:1.02rem}
+  /* ===== Hero "¡Ya estamos en feria!" ===== */
+  .hero{position:relative;padding:0;background:var(--navy);color:#E2E8F0;overflow:hidden}
+  .hero .bg{position:absolute;inset:-20px;background:url("img/web/stand2.webp") center/cover no-repeat;filter:blur(14px);opacity:.28}
+  .hero .bg::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,var(--navy) 30%,rgba(30,41,59,.55))}
+  .hero .wrap{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:56px 0}
+  @media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:28px;padding:40px 0}}
+  .hero .vivo{display:inline-flex;align-items:center;gap:.5rem;background:var(--rojo);color:#fff;font-weight:700;font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;padding:.45rem .8rem;border-radius:6px}
+  .hero .vivo::before{content:"";width:9px;height:9px;border-radius:50%;background:#fff;animation:pulso 1.4s infinite}
+  @keyframes pulso{0%,100%{opacity:1}50%{opacity:.25}}
+  .hero h1{color:#fff;font-size:clamp(2.3rem,6vw,4.4rem);margin:1rem 0 .8rem}
+  .hero .sub{font:700 clamp(1.05rem,2.3vw,1.45rem)/1.35 "Libre Baskerville",serif;color:#fff;border-left:5px solid var(--oro);padding-left:14px;max-width:620px}
+  .hero p.txt{max-width:600px;margin:1.1rem 0 1.6rem;font-size:1rem}
   .hero .ctas{display:flex;flex-wrap:wrap;gap:12px}
-  .beneficios{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+  .logos{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:28px}
+  .logos img{height:46px;width:auto;border-radius:6px;border:1px solid rgba(255,255,255,.15)}
+  .logos span{font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:#94A3B8}
+  .hero-foto{justify-self:center;width:min(420px,100%)}
+  .hero-foto img{width:100%;height:auto}
+  .beneficios-band{background:var(--alt);padding:28px 0}
+  .beneficios{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   .beneficios div{background:var(--blanco);color:var(--texto);border-radius:var(--radio);box-shadow:var(--sombra);padding:20px;font-size:.92rem}
   .beneficios b{display:block;font-size:1.15rem;color:var(--tinta);margin-bottom:.3rem}
   .beneficios b em{font-style:normal;color:var(--rojo)}
   @media(max-width:760px){.beneficios{grid-template-columns:1fr}}
+
+  /* ===== Marco formal: borde negro fino + línea dorada + línea azul ===== */
+  .marco{position:relative;display:block;background:#000;border:1px solid #000;border-radius:4px;overflow:hidden;
+    box-shadow:0 0 0 2px var(--oro),0 0 0 3px #000,0 0 0 4px var(--azul),0 8px 22px rgba(0,0,0,.18)}
+  .marco img{display:block;width:100%;height:100%;object-fit:cover;cursor:zoom-in;transition:transform .5s}
+  .marco:hover img{transform:scale(1.03)}
+
+  /* ===== Galería 16 de octubre ===== */
+  #galeria{background:var(--plomo)}
+  .collage{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .collage .grande{grid-column:1/-1;aspect-ratio:16/9}
+  .collage .grande img{object-position:center 62%}
+  .collage .chica{aspect-ratio:3/4}
+  .collage figcaption,.mas figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;background:linear-gradient(0deg,rgba(0,0,0,.75),transparent);color:#fff;font-size:.82rem;font-weight:700;pointer-events:none}
+  @media(max-width:600px){.collage{gap:14px}.collage .grande{aspect-ratio:4/3}.collage .chica figcaption{display:none}}
+  .mas-tit{margin:44px 0 18px;font-size:1.15rem;color:var(--logo)}
+  .mas{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .mas .marco{aspect-ratio:4/3}
+  @media(max-width:600px){.mas{gap:12px}}
+
+  /* ===== Videos ===== */
+  #videos{background:var(--navy);color:#CBD5E1}
+  #videos .sec-head h2{color:#fff}
+  #videos .sec-head h2 span{color:#FCA5A5}
+  .player{display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:32px;align-items:start}
+  @media(max-width:860px){.player{grid-template-columns:1fr}}
+  .player .pantalla{aspect-ratio:9/16;max-height:78vh;margin-inline:auto;width:100%}
+  .player video{width:100%;height:100%;object-fit:contain;background:#000;display:block}
+  .player .ahora{color:#fff;font-weight:700;font-size:1.2rem;margin-bottom:6px}
+  .lista{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:14px}
+  .lista button{display:grid;grid-template-columns:72px 1fr;gap:12px;align-items:center;text-align:left;background:#0F172A;border:1px solid #334155;border-radius:10px;padding:8px;color:#E2E8F0;font:700 .88rem/1.3 "Libre Baskerville",serif;cursor:pointer}
+  .lista button img{width:72px;height:96px;object-fit:cover;border-radius:6px}
+  .lista button small{display:block;font-weight:400;color:#94A3B8;font-size:.75rem;margin-top:3px}
+  .lista button.activo{border-color:var(--oro);box-shadow:0 0 0 1px var(--oro)}
+  .lista button:hover{border-color:var(--azul)}
+  @media(max-width:480px){.lista{grid-template-columns:1fr}}
 
   /* ===== Productos ===== */
   #equipos{background:var(--alt)}
@@ -192,7 +237,8 @@
   .wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:60px;height:60px;border-radius:50%;background:var(--azul);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.3)}
   .wa-float svg{width:32px;height:32px}
 
-  /* ===== Visor de fotos ===== */
+  
+/* ===== Visor de fotos ===== */
   .visor{position:fixed;inset:0;z-index:80;background:rgba(15,23,42,.92);display:grid;place-items:center;padding:16px;cursor:zoom-out}
   .visor img{max-height:90vh;max-width:min(1200px,100%);object-fit:contain;border-radius:8px}
 </style>
@@ -215,7 +261,7 @@ const CONFIG = {
   FECHA_ACTIVACION: "2026-10-16T10:00:00-05:00",   // 16 oct 2026, 10:00 am hora Perú (inicio de la feria)
 
   VIDEO_Z20:            "",   // ✏️ link YouTube del Z20
-  FOTO_Z20_1:           "",   // ✏️ ej. "img/z20-1.jpg"
+  FOTO_Z20_1:           "img/web/cochemin.webp",   // coche minero (foto subida a img/)
   FOTO_Z20_2:           "",
   FOTO_Z20_3:           "",
 
@@ -290,6 +336,8 @@ const CONFIG = {
   <div class="wrap">
     <a class="logo" href="../">COMBOY <b>VID</b></a>
     <nav>
+      <a href="#galeria">Galería</a>
+      <a href="#videos">Videos</a>
       <a href="#equipos">Equipos</a>
       <a href="#cotizar">Solicitar video</a>
       <a href="#confianza">Referencias</a>
@@ -300,25 +348,79 @@ const CONFIG = {
   </div>
 </header>
 
-<!-- 1. HERO -->
-<section class="hero">
+<!-- 1. HERO: ¡YA ESTAMOS EN FERIA! -->
+<section class="hero" id="inicio">
   <div class="bg" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="tag">EXPOMAPE 2026 · 16 al 18 de octubre · Santo Tomás, Chumbivilcas · Stand D-2</span>
-    <h1>VID COMBOY · <span>Stand D-2</span> EXPOMAPE 2026</h1>
-    <div class="sub">10% Descuento Feria + Diagnóstico Gratuito en su unidad</div>
-    <p class="txt">Ingeniero, le presentamos cuatro equipos de acarreo diseñados para galerías de minería subterránea. Solicite el video de operación y la ficha técnica directamente a su WhatsApp.</p>
-    <div class="ctas">
-      <a class="btn" data-wa="Buenos días, VID COMBOY. Visité su stand D-2 en EXPOMAPE 2026 y deseo información sobre el 10% de descuento feria y el diagnóstico gratuito en mi unidad." href="#">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
-        Escribir por WhatsApp · +51 983 148 798
-      </a>
-      <a class="btn out" href="#equipos">Ver los 4 equipos</a>
+    <div>
+      <span class="vivo">En vivo · 16 al 18 de octubre</span>
+      <h1>¡YA ESTAMOS EN FERIA!</h1>
+      <div class="sub">COMBOY VID PRESENTE EN EXPOMAPE · STAND D-2</div>
+      <p class="txt">Lo esperamos en Santo Tomás, Chumbivilcas. Conozca en persona nuestros equipos de acarreo para minería subterránea, con 10% de descuento feria y diagnóstico gratuito en su unidad.</p>
+      <div class="ctas">
+        <a class="btn" data-wa="Buenos días, COMBOY VID. Estoy en EXPOMAPE 2026 y deseo visitar su stand D-2 / recibir información de sus equipos." href="#">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+          Escribir por WhatsApp · +51 983 148 798
+        </a>
+        <a class="btn out" href="#galeria">Ver fotos de la feria</a>
+      </div>
+      <div class="logos">
+        <img src="img/web/logo-expomape-2026.webp" width="500" height="150" alt="EXPOMAPE 2026, Feria Minera">
+        <img src="img/web/logo-comboy-vid.webp" width="440" height="144" alt="COMBOY VID">
+      </div>
     </div>
-    <div class="beneficios">
-      <div><b><em>10%</em> descuento</b>Precio especial para pedidos registrados durante la feria.</div>
-      <div><b>Diagnóstico <em>gratuito</em></b>Evaluación técnica de su flota y galerías en su propia unidad minera.</div>
-      <div><b>Video <em>a su WhatsApp</em></b>Reciba el video de operación y la ficha técnica del equipo de su interés.</div>
+    <figure class="hero-foto">
+      <span class="marco"><img src="img/web/principal.webp" width="1283" height="1600" fetchpriority="high" alt="Equipo COMBOY VID en EXPOMAPE 2026, stand D-2"></span>
+    </figure>
+  </div>
+</section>
+<div class="franja"></div>
+<div class="beneficios-band">
+  <div class="wrap beneficios">
+    <div><b><em>10%</em> descuento</b>Precio especial para pedidos registrados durante la feria.</div>
+    <div><b>Diagnóstico <em>gratuito</em></b>Evaluación técnica de su flota y galerías en su propia unidad minera.</div>
+    <div><b>Video <em>a su WhatsApp</em></b>Reciba el video de operación y la ficha técnica del equipo de su interés.</div>
+  </div>
+</div>
+
+<!-- 1b. GALERÍA DEL 16 DE OCTUBRE (collage: 1 grande + 3 pequeñas) -->
+<section id="galeria">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Galería · 16 de octubre</span>
+      <h2>Primer día en <span>EXPOMAPE 2026</span></h2>
+      <p>Nuestro stand D-2 en Santo Tomás, Chumbivilcas. Gracias a los ingenieros y clientes que nos visitaron.</p>
+    </div>
+    <div class="collage">
+      <figure class="marco grande"><img src="img/web/stand2.webp" width="1200" height="1600" loading="lazy" alt="Stand D-2 de COMBOY VID en EXPOMAPE 2026"><figcaption>Stand D-2 · COMBOY VID</figcaption></figure>
+      <figure class="marco chica"><img src="img/web/general1.webp" width="900" height="1200" loading="lazy" alt="Inauguración de EXPOMAPE 2026"><figcaption>Inauguración de la feria</figcaption></figure>
+      <figure class="marco chica"><img src="img/web/cliente2.webp" width="1200" height="1600" loading="lazy" alt="Visitantes junto al remolcador COMBOY VID"><figcaption>Visitas al stand</figcaption></figure>
+      <figure class="marco chica"><img src="img/web/cliente3.webp" width="1200" height="1600" loading="lazy" alt="Cliente junto al remolcador COMBOY VID"><figcaption>Clientes en D-2</figcaption></figure>
+    </div>
+    <h3 class="mas-tit">Más fotos del día</h3>
+    <div class="mas">
+      <figure class="marco"><img src="img/web/stand3.webp" width="1200" height="1600" loading="lazy" alt="Atención técnica en el stand D-2"></figure>
+      <figure class="marco"><img src="img/web/cliente1.webp" width="900" height="1200" loading="lazy" alt="Equipo COMBOY VID con visitantes"></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 1c. VIDEOS (archivos en img/web/, versión liviana 720p) -->
+<section id="videos">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="tag">Videos</span>
+      <h2>EXPOMAPE 2026 <span>en video</span></h2>
+      <p>Seleccione un video de la lista para reproducirlo.</p>
+    </div>
+    <div class="player">
+      <div class="marco pantalla"><video id="vidPrincipal" controls playsinline preload="none" poster="img/web/video1-poster.webp"><source src="img/web/video1.mp4" type="video/mp4">Su navegador no reproduce video.</video></div>
+      <div>
+        <div class="ahora" id="vidTitulo">Atención en el stand D-2</div>
+        <p>Si desea el video en alta calidad o la ficha técnica de un equipo, escríbanos por WhatsApp.</p>
+        <div class="lista" id="vidLista"></div>
+        <a class="btn" style="margin-top:20px" data-wa="Buenos días, COMBOY VID. Vi sus videos de EXPOMAPE 2026 y deseo más información." href="#">Pedir video por WhatsApp</a>
+      </div>
     </div>
   </div>
 </section>
@@ -606,9 +708,30 @@ function initFormulario(){
   $("#waRetry").addEventListener("click", e => { e.preventDefault(); location.href = waLink(ultimoLead); });
 }
 
+/* ===== Videos: lista y reproductor ===== */
+const VIDEOS = [
+  { src:"img/web/video1.mp4",     poster:"img/web/video1-poster.webp",     titulo:"Atención en el stand D-2",  nota:"16 de octubre" },
+  { src:"img/web/principal2.mp4", poster:"img/web/principal2-poster.webp", titulo:"Equipos en exhibición",     nota:"16 de octubre" },
+  { src:"img/web/expo1.mp4",      poster:"img/web/expo1-poster.webp",      titulo:"Recorrido por la feria",    nota:"16 de octubre" },
+  { src:"img/web/prueba1.mp4",    poster:"img/web/prueba1-poster.webp",    titulo:"Prueba de equipo en campo", nota:"16 de octubre" }
+];
+function initVideos(){
+  const v = $("#vidPrincipal"), lista = $("#vidLista");
+  lista.innerHTML = VIDEOS.map((x,i) => `<button type="button" data-i="${i}" class="${i===0?"activo":""}"><img src="${x.poster}" alt="" loading="lazy" width="72" height="96"><span>${esc(x.titulo)}<small>${esc(x.nota)}</small></span></button>`).join("");
+  lista.addEventListener("click", e => {
+    const b = e.target.closest("button"); if(!b) return;
+    const x = VIDEOS[+b.dataset.i];
+    lista.querySelectorAll("button").forEach(y => y.classList.toggle("activo", y === b));
+    v.poster = x.poster; v.src = x.src; $("#vidTitulo").textContent = x.titulo;
+    v.play().catch(()=>{});
+    if(window.innerWidth < 860) v.scrollIntoView({behavior:"smooth", block:"center"});
+  });
+}
+
+
 /* ===== Visor de fotos ===== */
 document.addEventListener("click", e => {
-  const img = e.target.closest(".foto img, .mina img");
+  const img = e.target.closest(".foto img, .mina img, .marco img");
   if(!img) return;
   const v = document.createElement("div");
   v.className = "visor";
@@ -617,7 +740,7 @@ document.addEventListener("click", e => {
   document.body.appendChild(v);
 });
 
-/* ===== Activación por fecha (16/10/2026 00:00 hora Perú) =====
+/* ===== Activación por fecha (16/10/2026 10:00 am hora Perú) =====
    Para revisar la página completa antes de la fecha: agregue ?preview=1 a la URL. */
 const ACTIVACION = new Date(CONFIG.FECHA_ACTIVACION);
 let contenidoListo = false;
@@ -630,6 +753,7 @@ function mostrarContenido(){
   pintarProductos();
   pintarConfianza();
   initFormulario();
+  initVideos();
   document.querySelectorAll("a[data-wa]").forEach(a => { a.href = waLink(a.dataset.wa); a.target = "_blank"; a.rel = "noopener"; });
   $("#btnCatalogo").href = CONFIG.CATALOGO_PDF || waLink("Buenos días, VID COMBOY. Escaneé el QR de su stand D-2 en EXPOMAPE 2026. Solicito el catálogo y el video de sus equipos.");
   $("#btnCatalogo").target = "_blank";
