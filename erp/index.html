@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>ERP | COMBOY VID</title>
+<style>
+  html,body{margin:0;height:100%;background:#0e1219;color:#fff;font-family:'Times New Roman',Times,serif}
+  .barra{display:flex;align-items:center;justify-content:space-between;gap:12px;height:44px;padding:0 16px;background:#1a212e;border-bottom:1px solid rgba(249,115,22,.35)}
+  .barra a{color:#f97316;text-decoration:none;font-size:14px}
+  .barra strong{letter-spacing:.08em}
+  iframe{display:block;width:100%;height:calc(100% - 45px);border:0;background:#0e1219}
+</style>
+</head>
+<body>
+<div class="barra">
+  <a href="/">← comboyvid.com</a>
+  <strong>ERP COMBOY VID</strong>
+  <a id="directo" href="#" target="_blank" rel="noopener">Abrir directo ↗</a>
+</div>
+<iframe id="erp" title="ERP COMBOY VID" allow="clipboard-write"></iframe>
+<script src="/erp/erp-config.js"></script>
+<script>
+  // comboyvid.com/erp/<ruta> abre <ERP>/<ruta> (ej. /erp/mundo-ventas -> módulo Ventas)
+  (function(){
+    var origen = (window.ERP_ORIGIN || "").replace(/\/$/, "");
+    var ruta = location.pathname.replace(/^\/erp\/?/, "/").replace(/index\.html$/, "").replace(/\/$/, "") || "/";
+    var url = origen + ruta + location.search;
+    document.getElementById("erp").src = url;
+    document.getElementById("directo").href = url;
+  })();
+</script>
+</body>
+</html>
