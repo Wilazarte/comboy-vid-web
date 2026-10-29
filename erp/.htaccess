@@ -1,0 +1,3 @@
+# El ERP es privado y vive en https://erp.comboyvid.com (siempre en su propia pestaña, con login).
+# comboyvid.com/erp y cualquier ruta debajo (/erp/mundo-ventas…) redirigen allí con 302.
+RedirectMatch 302 ^/erp/?(.*)$ https://erp.comboyvid.com/$1
