@@ -411,7 +411,7 @@ html{scroll-behavior:smooth}
 .erp-bar .erp-acciones{display:flex;gap:8px}
 .erp-wrap iframe{flex:1;width:100%;border:0;background:#fff}
 body.erp-abierto{overflow:hidden}
-/* ERP + STOCK EN LÍNEA · fondo #0e1219, tarjetas #1a212e, acento #f97316, títulos Times New Roman */
+/* ERP · fondo #0e1219, tarjetas #1a212e, acento #f97316, títulos Times New Roman */
 .cv-dark.slide{background:#0e1219 !important}
 .cv-tnr{font-family:'Times New Roman',Times,serif !important;font-weight:700 !important}
 .erp-nav{opacity:.7}.erp-nav:hover{opacity:1}
@@ -419,13 +419,7 @@ body.erp-abierto{overflow:hidden}
   font-family:'Times New Roman',Times,serif;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.35);opacity:.9;transition:opacity .2s,transform .2s}
 .erp-float:hover{opacity:1;transform:translateY(-2px)}
 .wa-float{bottom:84px !important}
-.rep-card{background:#1a212e;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 16px;color:#e2e8f0}
-#repBtn{background:#f97316 !important;color:#0e1219 !important}
-.rep-form{display:flex;gap:8px;max-width:42rem;margin-top:24px}
-.rep-grid{display:grid;gap:12px;margin-top:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
 .erp-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:16px}
-.cv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
-.rep-badge{white-space:nowrap;display:inline-block;border-radius:9999px;padding:2px 10px;font-size:12px;font-weight:700}
 </style>
 </head>
 
@@ -853,23 +847,6 @@ body.erp-abierto{overflow:hidden}
 
 </section>
 
-<!-- ===================== STOCK EN LÍNEA (#repuestos) · stock real del ERP ===================== -->
-<section id="repuestos" class="slide cv-dark" data-title="Stock en línea">
-  <div class="full-wrap">
-    <span class="section-tag" style="color:#f97316">Stock en línea</span>
-    <h2 class="cv-tnr text-3xl lg:text-4xl mt-2" style="color:#fff">Busca repuestos y equipos disponibles</h2>
-    <p style="color:#cbd5e1;margin-top:12px;max-width:42rem">Consulta directa al almacén de COMBOY VID: escribe un nombre, marca o código (ej. Yuchai, Remolcador, ECO-MINE 3000).</p>
-    <form id="repForm" class="rep-form" role="search">
-      <label for="repQ" class="cv-sr">Buscar repuesto</label>
-      <input id="repQ" type="search" minlength="2" maxlength="60" autocomplete="off" placeholder="Nombre, marca o código…"
-             style="flex:1;min-width:0;border-radius:8px;padding:12px 16px;outline:none;background:#1a212e;color:#fff;border:1px solid rgba(249,115,22,.4)">
-      <button type="submit" id="repBtn" style="border:0;border-radius:8px;padding:12px 20px;font-weight:700;cursor:pointer;background:#f97316;color:#0e1219">Buscar</button>
-    </form>
-    <p id="repInfo" style="font-size:14px;margin-top:16px;color:#94a3b8" aria-live="polite"></p>
-    <div id="repResultados" class="rep-grid"></div>
-  </div>
-</section>
-
 <!-- ===================== 7. CONTACTO / COTIZAR ===================== -->
 <section id="contacto" class="slide bg-white relative" data-title="Contacto">
   <div class="full-wrap relative grid lg:grid-cols-5 gap-10 items-start">
@@ -963,9 +940,9 @@ body.erp-abierto{overflow:hidden}
       <div>
         <span class="section-tag" style="color:#f97316">Acceso interno</span>
         <h2 class="cv-tnr text-3xl lg:text-4xl mt-2" style="color:#fff">ERP COMBOY VID</h2>
-        <p style="color:#94a3b8;font-size:14px;margin-top:4px">Solo personal autorizado: ingresa con tu usuario y contraseña.</p>
+        <p style="color:#94a3b8;font-size:14px;margin-top:4px">Acceso solo para personal autorizado, con usuario y contraseña.</p>
       </div>
-      <a href="/erp/" target="_blank" rel="noopener" style="border-radius:9999px;padding:8px 16px;font-size:14px;font-weight:700;text-decoration:none;background:#1a212e;color:#f97316;border:1px solid rgba(249,115,22,.5)">Abrir en pestaña nueva ↗</a>
+      <a href="/erp/login/" target="_blank" rel="noopener" style="border-radius:9999px;padding:8px 16px;font-size:14px;font-weight:700;text-decoration:none;background:#1a212e;color:#f97316;border:1px solid rgba(249,115,22,.5)">Abrir en pestaña nueva ↗</a>
     </div>
     <iframe id="erpFrame" title="ERP COMBOY VID" style="display:block;width:100%;border-radius:12px;height:100vh;height:100dvh;border:1px solid rgba(249,115,22,.25);background:#1a212e" allow="clipboard-write"></iframe>
   </div>
@@ -2021,45 +1998,14 @@ document.querySelectorAll('a[data-wa]').forEach(function(a){
 <script>
 (function(){
   var ERP = (window.ERP_ORIGIN || '').replace(/\/$/, '');
-  /* Iframe del ERP: se carga solo cuando el visitante llega a la sección */
+  /* Iframe del ERP: abre la pantalla de login (sin sesión el ERP no muestra datos); se carga al llegar a la sección */
   var frame = document.getElementById('erpFrame');
   if (frame && ERP){
-    var cargar = function(){ if (!frame.src) frame.src = ERP + '/'; };
+    var cargar = function(){ if (!frame.src) frame.src = ERP + '/login'; };
     if ('IntersectionObserver' in window){
       new IntersectionObserver(function(e, o){ if (e[0].isIntersecting){ cargar(); o.disconnect(); } }, {rootMargin:'300px'}).observe(frame);
     } else cargar();
   }
-  /* Buscador #repuestos: stock real del almacén (API del ERP, sin costos ni cantidades) */
-  var form = document.getElementById('repForm'), q = document.getElementById('repQ'),
-      info = document.getElementById('repInfo'), box = document.getElementById('repResultados');
-  if (!form) return;
-  var esc = function(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
-  var wa = function(t){ return (typeof waLink === 'function') ? waLink(t) : 'https://wa.me/?text=' + encodeURIComponent(t); };
-  form.addEventListener('submit', function(ev){
-    ev.preventDefault();
-    var texto = q.value.trim();
-    if (texto.length < 2){ info.textContent = 'Escribe al menos 2 letras.'; return; }
-    info.textContent = 'Buscando en almacén…'; box.innerHTML = '';
-    fetch(ERP + '/api/publico/repuestos?q=' + encodeURIComponent(texto))
-      .then(function(r){ return r.json(); })
-      .then(function(d){
-        var lista = (d && d.resultados) || [];
-        if (d && d.error){ info.textContent = 'El stock en línea no está disponible en este momento. Consúltanos por WhatsApp.'; return; }
-        info.textContent = lista.length ? lista.length + ' resultado(s) para "' + texto + '"' : 'Sin resultados para "' + texto + '". Consúltanos por WhatsApp: lo importamos o fabricamos.';
-        box.innerHTML = lista.map(function(r){
-          var ok = !!r.disponible;
-          return '<article class="rep-card">' +
-            '<div style="display:flex;align-items:flex-start;justify-content:space-between;gap:8px">' +
-              '<h3 class="cv-tnr" style="color:#fff;font-size:16px;margin:0">' + esc(r.nombre) + '</h3>' +
-              '<span class="rep-badge" style="' + (ok ? 'background:rgba(34,197,94,.15);color:#4ade80' : 'background:rgba(249,115,22,.15);color:#fb923c') + '">' + (ok ? 'Disponible' : 'A pedido') + '</span>' +
-            '</div>' +
-            '<p style="color:#94a3b8;font-size:12px;margin-top:4px">' + esc(r.tipo === 'EQUIPO' ? 'Equipo' : 'Repuesto') + (r.codigo ? ' · ' + esc(r.codigo) : '') + (r.sede ? ' · ' + esc(r.sede) : '') + '</p>' +
-            '<a style="display:inline-block;margin-top:12px;font-size:14px;font-weight:700;color:#f97316;text-decoration:none" target="_blank" rel="noopener" href="' + esc(wa('Hola COMBOY VID, quiero cotizar: ' + r.nombre + (r.codigo ? ' (' + r.codigo + ')' : ''))) + '">Cotizar por WhatsApp →</a>' +
-          '</article>';
-        }).join('');
-      })
-      .catch(function(){ info.textContent = 'El stock en línea no está disponible en este momento. Consúltanos por WhatsApp.'; });
-  });
 })();
 </script>
 </body>

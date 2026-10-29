@@ -22,10 +22,11 @@
 <iframe id="erp" title="ERP COMBOY VID" allow="clipboard-write"></iframe>
 <script src="/erp/erp-config.js"></script>
 <script>
-  // comboyvid.com/erp/<ruta> abre <ERP>/<ruta> (ej. /erp/mundo-ventas -> módulo Ventas)
+  // comboyvid.com/erp/<ruta> abre <ERP>/<ruta> (ej. /erp/mundo-ventas -> Ventas); /erp abre el login.
+  // El ERP exige sesión en el servidor: sin login cualquier ruta termina en su pantalla de ingreso.
   (function(){
     var origen = (window.ERP_ORIGIN || "").replace(/\/$/, "");
-    var ruta = location.pathname.replace(/^\/erp\/?/, "/").replace(/index\.html$/, "").replace(/\/$/, "") || "/";
+    var ruta = location.pathname.replace(/^\/erp\/?/, "/").replace(/index\.html$/, "").replace(/\/$/, "") || "/login";
     var url = origen + ruta + location.search;
     document.getElementById("erp").src = url;
     document.getElementById("directo").href = url;
