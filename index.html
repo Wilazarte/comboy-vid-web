@@ -399,6 +399,17 @@ html{scroll-behavior:smooth}
 .expo-portada img{transition:transform .4s}
 .expo-portada:hover img{transform:scale(1.02)}
 .expo-modal-box{max-width:min(92vw,640px)}
+/* BOTÓN ERP + CONTENEDOR IFRAME */
+.erp-btn{position:fixed;top:18px;right:18px;z-index:9000;display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid rgba(255,255,255,.35);border-radius:999px;background:rgba(15,23,42,.55);color:#fff;font-size:12px;letter-spacing:.08em;line-height:1;cursor:pointer;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:.75;transition:opacity .2s,background .2s}
+.erp-btn:hover,.erp-btn:focus-visible{opacity:1;background:#2563EB;outline:none}
+.erp-btn .erp-dot{color:#22C55E;font-size:10px}
+.erp-wrap{position:fixed;inset:0;z-index:9500;display:none;flex-direction:column;background:#E2E8F0}
+.erp-wrap.open{display:flex}
+.erp-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 16px;background:#1E293B;color:#fff;font-size:14px}
+.erp-bar a,.erp-bar button{color:#fff;background:#2563EB;border:0;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;text-decoration:none}
+.erp-bar .erp-acciones{display:flex;gap:8px}
+.erp-wrap iframe{flex:1;width:100%;border:0;background:#fff}
+body.erp-abierto{overflow:hidden}
 </style>
 </head>
 
@@ -1922,6 +1933,33 @@ document.querySelectorAll('a[data-wa]').forEach(function(a){
     el.textContent=p(d)+" DÍAS "+p(h)+" HORAS "+p(m)+" MIN";
   }
   tick(); setInterval(tick,1000);
+})();
+</script>
+<!-- BOTÓN ERP + CONTENEDOR IFRAME (la URL se cambia en ERP_URL, abajo) -->
+<button type="button" id="erp-btn" class="erp-btn" aria-controls="erp-wrap" hidden><span class="erp-dot">●</span> ERP</button>
+<div id="erp-wrap" class="erp-wrap" role="dialog" aria-modal="true" aria-label="ERP COMBOY VID">
+  <div class="erp-bar">
+    <span>● ERP COMBOY VID</span>
+    <span class="erp-acciones">
+      <a id="erp-nueva" href="#" target="_blank" rel="noopener">Abrir en pestaña nueva</a>
+      <button type="button" id="erp-cerrar">Cerrar ✕</button>
+    </span>
+  </div>
+  <iframe id="erp-frame" title="ERP COMBOY VID" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+</div>
+<script>
+(function(){
+  /* >>> PON AQUÍ LA URL DEL ERP (vacía = el botón no se muestra) <<< */
+  var ERP_URL = "";
+  var btn=document.getElementById('erp-btn'), wrap=document.getElementById('erp-wrap'),
+      frame=document.getElementById('erp-frame'), nueva=document.getElementById('erp-nueva');
+  if(!ERP_URL) return;
+  btn.hidden=false; nueva.href=ERP_URL;
+  function abrir(){ if(!frame.src) frame.src=ERP_URL; wrap.classList.add('open'); document.body.classList.add('erp-abierto'); }
+  function cerrar(){ wrap.classList.remove('open'); document.body.classList.remove('erp-abierto'); }
+  btn.addEventListener('click',abrir);
+  document.getElementById('erp-cerrar').addEventListener('click',cerrar);
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') cerrar(); });
 })();
 </script>
 </body>
