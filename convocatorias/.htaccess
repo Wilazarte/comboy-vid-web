@@ -1,0 +1,5 @@
+# Archivos de configuración privados
+<Files ".user.ini">
+  Require all denied
+</Files>
+Options -Indexes
