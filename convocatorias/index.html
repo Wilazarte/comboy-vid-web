@@ -493,9 +493,10 @@ function enviar(e){
       $("#exPuesto").textContent = v("puesto");
       f.hidden = true; $("#exito").hidden = false;
       $("#exito").scrollIntoView({behavior:"smooth", block:"center"});
-    } else fallo((r && r.error) || "No pudimos enviar tu postulación en este momento.");
+    } else fallo((r && r.error) || ("No pudimos enviar tu postulación en este momento (código " + xhr.status + ")."));
   };
-  xhr.onerror = xhr.ontimeout = () => fallo("Se perdió la conexión al enviar tu CV.");
+  xhr.onerror = () => fallo("Se perdió la conexión al enviar tu CV (código 0).");
+  xhr.ontimeout = () => fallo("El envío tardó demasiado. Revisa tu señal e intenta de nuevo.");
   xhr.send(new FormData(f));
 }
 
