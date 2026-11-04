@@ -1,0 +1,18 @@
+name: Exportar banco de empleos (cifrado)
+# Descarga el banco de empleos CIFRADO desde comboyvid.com para subirlo a Google Drive.
+# El archivo solo se puede abrir con la llave privada (no está en este repositorio).
+on:
+  workflow_dispatch:
+jobs:
+  exportar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar ZIP cifrado
+        run: |
+          curl -sS --fail -A "Mozilla/5.0 COMBOY-export" -o banco-cifrado.json "https://www.comboyvid.com/convocatorias/postular.php?exportar=1"
+          head -c 80 banco-cifrado.json; echo; ls -la banco-cifrado.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: banco-cifrado
+          path: banco-cifrado.json
+          retention-days: 1

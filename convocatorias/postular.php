@@ -18,8 +18,22 @@ $MAX_POR_HORA   = 6;                                // límite de envíos por IP
 $CIERRES = [
     'Asistente Administrativo(a)' => '2026-11-04 12:00',
 ];
-// Exportación del banco de empleos (para subir los CV a Google Drive): sha256 del token secreto
-$EXPORT_TOKEN_SHA256 = '62ddfaa85d3baf8764fdf06cd1c9cd3db3d05dc82d3704dec1f8630b3c5aa542';
+// Exportación del banco de empleos (para subir los CV a Google Drive).
+// El ZIP sale CIFRADO con esta llave pública: solo quien tiene la llave privada puede abrirlo.
+// Para cambiarla: generar un par nuevo (openssl genrsa / rsa -pubout) y pegar aquí la pública.
+$EXPORT_PUBKEY = <<<PEM
+-----BEGIN PUBLIC KEY-----
+MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAn2ASubGWMUqxfdPpSkkV
+pfVU/ma7Z9MsChTGU4aGCKBe0EsXXRkENVW6Be5exKT5ineUmJo0aYqfEilVqtd8
+KpzjqzI/X/bezFm3sMrs4F+Vp4+YUvuTA9akz3Gt8x+hqxQOA7xaArhH+KVEpbVE
+MSJNleH9s6eUExbKgJSozw6rq6MJeH9DOCPFW40HPqpB5vZ+9iLQzVyfcTVng9pl
+GDJJjKT+Y75QUBAwDHFU5jgkbQHMxdRem3WV618KO63TbyI5hIdENIp3BMqAU+TJ
+mAVADfg/7JwZvwDBb9MrD8u6Q74PL4EBepc/e3vhMyAjBF8vRTTsQO5OEULZVWKT
+GRJZAxZ2pvvPouyH8J55K2RXtf6Ofzew6ltZoRUSY5kP+3HiP3N3DUB/21SFsXtJ
+unjYkIGD+Zs0cWtg4lPYvLY3PlrGsK14j8K9OSX4XRqgUlAYGED1SNMhJTF2Ec+R
+11KMhKgGsKjtdEOVlsRryICbYtNTGNMQhV4aECl8btPDAgMBAAE=
+-----END PUBLIC KEY-----
+PEM;
 // ===================================================
 
 // Nunca mostrar avisos de PHP: romperían la respuesta JSON
@@ -103,10 +117,9 @@ function agregar_csv($ruta, $cabecera, $fila) {
 }
 $BANCO_CAB = ['Fecha registro', 'DNI', 'Nombres', 'Celular', 'Puesto postulado', 'Archivo CV', 'Origen'];
 
-// Exportar banco de empleos en ZIP (solo con el token secreto): postular.php?exportar=TOKEN
+// Exportar banco de empleos: postular.php?exportar=1 -> JSON con el ZIP cifrado (RSA + AES-256-CBC)
 if (isset($_GET['exportar'])) {
-    if (!hash_equals($EXPORT_TOKEN_SHA256, hash('sha256', (string)$_GET['exportar']))) { sleep(2); responder(false, 'No autorizado.', 403); }
-    if (!class_exists('ZipArchive')) responder(false, 'ZipArchive no disponible.', 500);
+    if (!class_exists('ZipArchive') || !function_exists('openssl_seal')) responder(false, 'ZipArchive/OpenSSL no disponible.', 500);
     $base = carpeta_base();
     if (!$base) responder(false, 'Sin carpeta.', 500);
     $tmp = tempnam(sys_get_temp_dir(), 'banco');
@@ -117,13 +130,12 @@ if (isset($_GET['exportar'])) {
         $a = basename($r['Archivo CV'] ?? '');
         if ($a !== '' && is_file("$base/$a")) $zip->addFile("$base/$a", 'cv/' . $a);
     }
+    $zip->addFromString('LEEME.txt', 'Exportado ' . date('c'));
     $zip->close();
-    while (ob_get_level() > 0) ob_end_clean();
-    header('Content-Type: application/zip');
-    header('Content-Disposition: attachment; filename="banco-de-empleos.zip"');
-    header('Content-Length: ' . filesize($tmp));
-    readfile($tmp); @unlink($tmp);
-    exit;
+    $plano = file_get_contents($tmp); @unlink($tmp);
+    $iv = random_bytes(16);
+    if (!openssl_seal($plano, $cifrado, $llaves, [openssl_pkey_get_public($EXPORT_PUBKEY)], 'aes-256-cbc', $iv)) responder(false, 'No se pudo cifrar.', 500);
+    responder(true, 'cifrado', 200, ['ek' => base64_encode($llaves[0]), 'iv' => base64_encode($iv), 'data' => base64_encode($cifrado)]);
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') responder(false, 'Método no permitido.', 405);
