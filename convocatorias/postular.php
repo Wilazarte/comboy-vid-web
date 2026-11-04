@@ -14,6 +14,12 @@ $CORREO_DESTINO = 'comboyvidaqp@gmail.com';        // RR.HH. (correo de la convo
 $CORREO_REMITE  = 'no-reply@comboyvid.com';         // debe ser del dominio para no caer en spam
 $MAX_BYTES      = 5 * 1024 * 1024;                  // 5 MB
 $MAX_POR_HORA   = 6;                                // límite de envíos por IP
+// Cierre de cada convocatoria (hora Perú). Después de esta hora ya no se aceptan postulaciones a ese puesto.
+$CIERRES = [
+    'Asistente Administrativo(a)' => '2026-11-04 12:00',
+];
+// Exportación del banco de empleos (para subir los CV a Google Drive): sha256 del token secreto
+$EXPORT_TOKEN_SHA256 = '62ddfaa85d3baf8764fdf06cd1c9cd3db3d05dc82d3704dec1f8630b3c5aa542';
 // ===================================================
 
 // Nunca mostrar avisos de PHP: romperían la respuesta JSON
@@ -66,6 +72,60 @@ function campo($n, $max = 200) {
 }
 function una_linea($v) { return trim(preg_replace('/[\r\n]+/', ' ', $v)); }
 
+function carpeta_base() {
+    $base = dirname(__DIR__, 2) . '/postulaciones-comboyvid';      // /home/USUARIO/postulaciones-comboyvid (fuera de public_html)
+    if (!puede_usar($base) || (!@is_dir($base) && !@mkdir($base, 0750, true))) {
+        $base = __DIR__ . '/postulaciones';                         // respaldo: carpeta protegida con .htaccess
+        if (!@is_dir($base)) @mkdir($base, 0755, true);
+    }
+    if (!@is_dir($base) || !@is_writable($base)) return null;
+    if (!file_exists($base . '/.htaccess')) @file_put_contents($base . '/.htaccess', "Require all denied\nDeny from all\n");
+    return $base;
+}
+function leer_csv($ruta) {
+    $filas = [];
+    if (!is_file($ruta) || !($fh = @fopen($ruta, 'r'))) return $filas;
+    $cab = fgetcsv($fh, 0, ';');
+    if ($cab) $cab[0] = preg_replace('/^\xEF\xBB\xBF/', '', $cab[0]);
+    while (($r = fgetcsv($fh, 0, ';')) !== false) if ($cab && count($r) === count($cab)) $filas[] = array_combine($cab, $r);
+    fclose($fh);
+    return $filas;
+}
+function agregar_csv($ruta, $cabecera, $fila) {
+    $nuevo = !file_exists($ruta);
+    if (!($fh = @fopen($ruta, 'a'))) return false;
+    flock($fh, LOCK_EX);
+    if ($nuevo) { fwrite($fh, "\xEF\xBB\xBF"); fputcsv($fh, $cabecera, ';'); }
+    // Evita que Excel ejecute fórmulas escritas por el postulante
+    fputcsv($fh, array_map(function ($v) { return preg_match('/^[=+\-@]/', (string)$v) ? "'" . $v : $v; }, $fila), ';');
+    flock($fh, LOCK_UN); fclose($fh);
+    return true;
+}
+$BANCO_CAB = ['Fecha registro', 'DNI', 'Nombres', 'Celular', 'Puesto postulado', 'Archivo CV', 'Origen'];
+
+// Exportar banco de empleos en ZIP (solo con el token secreto): postular.php?exportar=TOKEN
+if (isset($_GET['exportar'])) {
+    if (!hash_equals($EXPORT_TOKEN_SHA256, hash('sha256', (string)$_GET['exportar']))) { sleep(2); responder(false, 'No autorizado.', 403); }
+    if (!class_exists('ZipArchive')) responder(false, 'ZipArchive no disponible.', 500);
+    $base = carpeta_base();
+    if (!$base) responder(false, 'Sin carpeta.', 500);
+    $tmp = tempnam(sys_get_temp_dir(), 'banco');
+    $zip = new ZipArchive();
+    $zip->open($tmp, ZipArchive::OVERWRITE);
+    foreach (['banco.csv', 'postulaciones.csv'] as $c) if (is_file("$base/$c")) $zip->addFile("$base/$c", $c);
+    foreach (leer_csv("$base/banco.csv") as $r) {
+        $a = basename($r['Archivo CV'] ?? '');
+        if ($a !== '' && is_file("$base/$a")) $zip->addFile("$base/$a", 'cv/' . $a);
+    }
+    $zip->close();
+    while (ob_get_level() > 0) ob_end_clean();
+    header('Content-Type: application/zip');
+    header('Content-Disposition: attachment; filename="banco-de-empleos.zip"');
+    header('Content-Length: ' . filesize($tmp));
+    readfile($tmp); @unlink($tmp);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') responder(false, 'Método no permitido.', 405);
 
 // El formulario es grande: si PHP descartó el POST por tamaño, $_POST llega vacío
@@ -75,19 +135,35 @@ if (empty($_POST) && empty($_FILES)) responder(false, 'El archivo es demasiado g
 if (campo('empresa_web') !== '') responder(true, 'Recibido.');
 
 // ---------- Carpeta privada ----------
-$base = dirname(__DIR__, 2) . '/postulaciones-comboyvid';      // /home/USUARIO/postulaciones-comboyvid (fuera de public_html)
-if (!puede_usar($base) || (!@is_dir($base) && !@mkdir($base, 0750, true))) {
-    $base = __DIR__ . '/postulaciones';                         // respaldo: carpeta protegida con .htaccess
-    if (!@is_dir($base)) @mkdir($base, 0755, true);
-}
-if (!@is_dir($base) || !@is_writable($base)) responder(false, 'No se pudo guardar la postulación. Envíe su CV por WhatsApp.', 500);
-if (!file_exists($base . '/.htaccess')) @file_put_contents($base . '/.htaccess', "Require all denied\nDeny from all\n");
+$base = carpeta_base();
+if (!$base) responder(false, 'No se pudo guardar la postulación. Envíe su CV por WhatsApp.', 500);
 
 // ---------- Límite por IP ----------
 $ip = $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
 $rl = $base . '/.limite-' . md5($ip);
 $hits = array_filter(array_map('intval', @file($rl, FILE_IGNORE_NEW_LINES) ?: []), function ($t) { return $t > time() - 3600; });
 if (count($hits) >= $MAX_POR_HORA) responder(false, 'Demasiados envíos desde su conexión. Intente en una hora o use WhatsApp.', 429);
+
+$ahora = new DateTime('now', new DateTimeZone('America/Lima'));
+
+// ---------- Registro en el BANCO DE EMPLEOS (postulantes que ya enviaron su CV) ----------
+if (campo('accion') === 'banco') {
+    $dni = preg_replace('/\D/', '', campo('dni', 20));
+    $cel = preg_replace('/\D/', '', campo('celular', 20));
+    if (!preg_match('/^\d{8,12}$/', $dni) || strlen($cel) < 9) responder(false, 'Ingresa tu DNI / CE y el celular con el que postulaste.', 422);
+    if (campo('acepta') !== 'si') responder(false, 'Marca la autorización para conservar tu CV en el banco de empleos.', 422);
+    $hits[] = time(); @file_put_contents($rl, implode("\n", $hits));
+    $mias = array_values(array_filter(leer_csv("$base/postulaciones.csv"), function ($r) use ($dni) { return preg_replace('/\D/', '', $r['DNI'] ?? '') === $dni; }));
+    if (!$mias) responder(false, 'No encontramos una postulación con ese DNI. Si aún no enviaste tu CV, usa el formulario de abajo y elige "Banco de empleos".', 404);
+    $ult = end($mias);
+    if (substr(preg_replace('/\D/', '', $ult['Celular'] ?? ''), -9) !== substr($cel, -9)) responder(false, 'El celular no coincide con el de tu postulación. Escríbenos por WhatsApp para validarlo.', 422);
+    foreach (leer_csv("$base/banco.csv") as $r) if (preg_replace('/\D/', '', $r['DNI'] ?? '') === $dni) responder(true, 'Ya estabas registrado(a) en el banco de empleos.', 200, ['nombre' => $ult['Nombres']]);
+    agregar_csv("$base/banco.csv", $BANCO_CAB, [$ahora->format('Y-m-d H:i'), $dni, $ult['Nombres'], $ult['Celular'], $ult['Puesto'], $ult['Archivo CV'], 'Registro web']);
+    @mail($CORREO_DESTINO, '=?UTF-8?B?' . base64_encode('Banco de empleos: ' . $ult['Nombres']) . '?=',
+        "Se registró en el banco de empleos desde comboyvid.com/convocatorias\n\nNombres: {$ult['Nombres']}\nDNI: $dni\nCelular: {$ult['Celular']}\nPostuló a: {$ult['Puesto']}\nCV: {$ult['Archivo CV']}\nFecha: " . $ahora->format('d/m/Y H:i') . "\n",
+        "From: COMBOY VID Convocatorias <$CORREO_REMITE>\r\nContent-Type: text/plain; charset=UTF-8\r\n", '-f' . $CORREO_REMITE);
+    responder(true, 'Registro en el banco de empleos confirmado.', 200, ['nombre' => $ult['Nombres']]);
+}
 
 // ---------- Datos ----------
 $d = [
@@ -110,6 +186,8 @@ if (strlen(preg_replace('/\D/', '', $d['celular'])) < 9)   $err[] = 'celular vá
 if ($d['correo'] !== '' && !filter_var($d['correo'], FILTER_VALIDATE_EMAIL)) $err[] = 'correo válido';
 if (campo('acepta') !== 'si')                              $err[] = 'autorización de datos personales';
 if ($err) responder(false, 'Complete: ' . implode(', ', $err) . '.', 422);
+if (isset($CIERRES[$d['puesto']]) && $ahora > new DateTime($CIERRES[$d['puesto']], new DateTimeZone('America/Lima')))
+    responder(false, 'La convocatoria para ' . $d['puesto'] . ' cerró el ' . (new DateTime($CIERRES[$d['puesto']]))->format('d/m/Y \a \l\a\s g:i a') . '. Puedes dejar tu CV en el banco de empleos.', 410);
 
 // ---------- CV ----------
 if (!isset($_FILES['cv']) || $_FILES['cv']['error'] === UPLOAD_ERR_NO_FILE) responder(false, 'Adjunte su CV (PDF o Word).', 422);
@@ -159,6 +237,8 @@ if ($fh = @fopen($csv, 'a')) {
 }
 $hits[] = time();
 @file_put_contents($rl, implode("\n", $hits));
+// Quien postula al banco de empleos queda registrado ahí directamente
+if (stripos($d['puesto'], 'banco') === 0) agregar_csv("$base/banco.csv", $BANCO_CAB, [$fecha->format('Y-m-d H:i'), $d['dni'], $d['nombres'], $d['celular'], $d['puesto'], $nombreArchivo, 'Formulario web']);
 
 // ---------- Correo con el CV adjunto ----------
 $asunto = 'Postulación: ' . $d['puesto'] . ' - ' . $d['nombres'];

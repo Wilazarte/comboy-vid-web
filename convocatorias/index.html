@@ -140,6 +140,36 @@
   .exito h3{font-size:1.4rem}
   .exito p{margin-top:.5rem}
 
+  /* Resultados y banco de empleos */
+  #resultados{padding-top:0}
+  .res-grid{display:grid;grid-template-columns:1.3fr 1fr;gap:24px;margin-top:28px;align-items:start}
+  @media(max-width:900px){.res-grid{grid-template-columns:1fr}}
+  .crono{padding:28px}
+  .crono h3,.banco h3{font-size:1.15rem}
+  .crono ol{list-style:none;margin-top:16px;position:relative}
+  .crono ol::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--linea)}
+  .crono li{position:relative;padding:0 0 18px 38px}
+  .crono li::before{content:"";position:absolute;left:4px;top:4px;width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--linea)}
+  .crono li.hecho::before{background:var(--verde);border-color:var(--verde)}
+  .crono li.ahora::before{background:var(--azul);border-color:#BFDBFE;box-shadow:0 0 0 4px rgba(37,99,235,.18)}
+  .crono li.clave{background:#FEF2F2;border-radius:10px;padding:12px 12px 12px 38px;margin-bottom:12px}
+  .crono li.clave::before{left:4px;top:15px}
+  .crono .f{display:block;font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--suave)}
+  .crono .t{display:block;font-weight:700;color:var(--tinta);font-size:.95rem}
+  .crono .d{display:block;font-size:.82rem}
+  .selec{margin-top:18px;border:1px solid var(--linea);border-radius:10px;overflow:hidden}
+  .selec h4{background:var(--navy);color:#fff;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:.7rem 1rem}
+  .selec ol{list-style:none;margin:0}
+  .selec ol::before{display:none}
+  .selec li{padding:.75rem 1rem;border-top:1px solid var(--linea);display:flex;gap:.8rem;align-items:center;font-weight:700;color:var(--tinta)}
+  .selec li::before{display:none}
+  .selec li b{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--rojo);color:#fff;font-size:.8rem;flex:none}
+  .selec .pend{padding:1rem;font-size:.88rem;background:#F8FAFC}
+  .banco{padding:28px;border-top:5px solid var(--azul)}
+  .banco p{font-size:.9rem;margin-top:.6rem}
+  .banco .btn{width:100%;margin-top:16px}
+  .banco form{margin-top:16px}
+  .nota-15{margin-top:16px;background:#FFFBEB;border:1px solid #FDE68A;color:#92400E;border-radius:10px;padding:.9rem 1rem;font-size:.82rem}
   footer{background:var(--navy2);color:#94A3B8;padding:32px 0;font-size:.8rem}
   footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center}
   footer a{color:#E2E8F0;text-decoration:none}
@@ -156,7 +186,8 @@
       <span class="links">
         <a href="../">INICIO</a>
         <a href="#convocatorias">CONVOCATORIAS</a>
-        <a href="#postular">POSTULAR</a>
+        <a href="#resultados">RESULTADOS</a>
+        <a href="#postular">BANCO DE EMPLEOS</a>
       </span>
       <a class="btn" href="#postular">Enviar mi CV</a>
     </nav>
@@ -187,12 +218,42 @@
     </div>
   </section>
 
+  <section id="resultados">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">Resultados</span>
+        <h2>Cronograma y <span>resultados</span></h2>
+        <p id="resIntro">Solo <strong>3 postulantes</strong> pasarán a la entrevista personal. Aquí publicaremos sus nombres según el cronograma.</p>
+      </div>
+      <div class="res-grid">
+        <div class="card crono" id="crono"></div>
+        <aside class="card banco" id="banco">
+          <span class="tag" style="background:var(--azul)">Banco de empleos</span>
+          <h3 style="margin-top:.7rem">¿Quieres que te consideremos en futuras convocatorias?</h3>
+          <p>Si ya postulaste, regístrate en nuestro <strong>banco de empleos</strong>: conservaremos tu CV de forma segura y te llamaremos cuando se abra un puesto acorde a tu perfil.</p>
+          <button class="btn" type="button" id="btnBanco">Registrarme en el banco de empleos</button>
+          <form id="formBanco" novalidate hidden>
+            <div id="avisoBanco" class="aviso" hidden></div>
+            <div class="campo"><label for="bDni">DNI / CE con el que postulaste <i>*</i></label><input id="bDni" name="dni" inputmode="numeric" maxlength="12" required></div>
+            <div class="campo"><label for="bCel">Celular con el que postulaste <i>*</i></label><input id="bCel" name="celular" type="tel" inputmode="tel" maxlength="20" required></div>
+            <input type="hidden" name="accion" value="banco">
+            <div class="trampa" aria-hidden="true"><label>Empresa web<input name="empresa_web" tabindex="-1" autocomplete="off"></label></div>
+            <label class="check"><input type="checkbox" name="acepta" value="si" id="bAcepta"><span>Autorizo a COMBOY VID a conservar mi CV y mis datos en su banco de empleos para futuros procesos de selección (Ley N.° 29733).</span></label>
+            <button class="btn" type="submit" id="btnBancoEnviar" style="margin-top:0">Confirmar registro</button>
+          </form>
+          <div class="exito" id="bancoOk" hidden style="padding:20px 0 0"><div class="ico">✓</div><h3>¡Registro confirmado!</h3><p id="bancoOkTxt"></p></div>
+          <div class="nota-15" id="nota15"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
   <section id="postular">
     <div class="wrap">
       <div class="sec-head">
-        <span class="tag">Registro de postulantes</span>
-        <h2>Envía tu <span>postulación</span></h2>
-        <p>Completa tus datos y adjunta tu CV. Llega directo al Área de Recursos Humanos.</p>
+        <span class="tag" id="postTag">Registro de postulantes</span>
+        <h2 id="postTitulo">Envía tu <span>postulación</span></h2>
+        <p id="postIntro">Completa tus datos y adjunta tu CV. Llega directo al Área de Recursos Humanos.</p>
       </div>
 
       <div class="form-grid">
@@ -308,8 +369,8 @@
 <script>
 /* =====================================================================
    CONVOCATORIAS — para publicar una nueva, copie un bloque { ... } y
-   cambie los datos. "cierre" = último día (se cierra sola a las 23:59
-   hora Perú). Para ocultar una, ponga publicar:false.
+   cambie los datos. "cierre" = fecha y hora de cierre (hora Perú), ej. "2026-11-04T12:00".
+   Para ocultar una, ponga publicar:false.
    ===================================================================== */
 const CONVOCATORIAS = [
   {
@@ -317,7 +378,21 @@ const CONVOCATORIAS = [
     id: "asistente-administrativo",
     puesto: "Asistente Administrativo(a)",
     area: "Área de Recursos Humanos · Planta Paucarpata",
-    cierre: "2026-11-04",
+    cierre: "2026-11-04T12:00",            // cierre: 04/11/2026 a las 12:00 p.m. (hora Perú)
+    // Cronograma: [fecha y hora de inicio (Perú), "texto de la fecha", "etapa", "detalle", destacar]
+    cronograma: [
+      ["2026-11-04T12:00", "Miércoles 04/11 · 12:00 p.m.", "Cierre de postulaciones", "Ya no se reciben CV para este puesto."],
+      ["2026-11-04T12:01", "04/11 al 05/11", "Evaluación curricular", "RR.HH. revisa todos los CV recibidos."],
+      ["2026-11-06T18:00", "Viernes 06/11 · 6:00 p.m.", "Publicación de resultados", "Se publican en esta página los 3 postulantes que pasan a entrevista personal. También les avisamos por WhatsApp.", true],
+      ["2026-11-07T09:00", "Sábado 07/11 · 9:00 a.m.", "Entrevista personal y prueba práctica", "Solo los 3 seleccionados, en la planta de Paucarpata (Excel y documentos)."],
+      ["2026-11-09T09:00", "Lunes 09/11", "Verificación de referencias", "Se contactan las referencias laborales."],
+      ["2026-11-10T18:00", "Martes 10/11", "Resultado final", "Se comunica a la persona seleccionada."],
+      ["2026-11-11T08:00", "Miércoles 11/11", "Incorporación", "Inicio de labores en planta."]
+    ],
+    // Nombres de los 3 que pasan a entrevista. Se muestran cuando haya nombres y llegue la fecha de publicación.
+    seleccionados: [],
+    // Los CV de quienes NO se registren en el banco de empleos se eliminan hasta esta fecha (15 días después de los resultados)
+    eliminacionCV: "2026-11-21",
     pdf: "docs/convocatoria-asistente-administrativo.pdf",
     datos: [
       ["Modalidad", "Tiempo completo – Presencial"],
@@ -365,15 +440,17 @@ const CONVOCATORIAS = [
 ];
 const WA_RRHH = "51942304539";            // WhatsApp de Recursos Humanos (de la convocatoria)
 const CORREO_RRHH = "comboyvidaqp@gmail.com";
-const BANCO = "Banco de talentos (postulación espontánea)";
+const BANCO = "Banco de empleos (postulación espontánea)";
 const MAX_MB = 5;
 
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const wa = (msg, num = WA_RRHH) => "https://wa.me/" + num + "?text=" + encodeURIComponent(msg);
-const cierreDe = c => new Date(c.cierre + "T23:59:59-05:00");
+const fechaPeru = t => new Date(t.includes("T") ? t + (t.length === 16 ? ":00" : "") + "-05:00" : t + "T23:59:59-05:00");
+const cierreDe = c => fechaPeru(c.cierre);
 const abierta = c => new Date() <= cierreDe(c);
-const fechaLarga = c => cierreDe(c).toLocaleDateString("es-PE", {weekday:"long", day:"2-digit", month:"long", year:"numeric", timeZone:"America/Lima"});
+const fechaLarga = c => cierreDe(c).toLocaleString("es-PE", {weekday:"long", day:"2-digit", month:"long", year:"numeric", hour:"numeric", minute:"2-digit", hour12:true, timeZone:"America/Lima"});
+const diaCorto = t => fechaPeru(t).toLocaleDateString("es-PE", {weekday:"long", day:"2-digit", month:"long", timeZone:"America/Lima"});
 
 function render(){
   const visibles = CONVOCATORIAS.filter(c => c.publicar);
@@ -391,7 +468,7 @@ function render(){
             <h3>${esc(c.puesto)}</h3>
             <div class="meta">${esc(c.area)}</div>
           </div>
-          <div class="plazo ${ok ? "" : "cerrada"}">${ok ? (dias <= 1 ? "¡Último día para postular!" : "Quedan " + dias + " días") : "Plazo vencido"}<small>Válida hasta el ${esc(fechaLarga(c))}</small></div>
+          <div class="plazo ${ok ? "" : "cerrada"}">${ok ? (dias <= 1 ? "¡Último día para postular!" : "Quedan " + dias + " días") : "Postulaciones cerradas"}<small>${ok ? "Válida hasta el" : "Cerró el"} ${esc(fechaLarga(c))}</small></div>
         </div>
         <dl class="datos">${c.datos.map(d => `<div><dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd></div>`).join("")}</dl>
         <div class="conv-body">
@@ -411,16 +488,41 @@ function render(){
           <span>Solo se contactará a los postulantes que cumplan con el perfil.</span>
           <div class="acc">
             ${c.pdf ? `<a class="btn out" href="${esc(c.pdf)}" target="_blank" rel="noopener">Descargar convocatoria (PDF)</a>` : ""}
-            ${ok ? `<a class="btn" href="#postular" data-postular="${esc(c.puesto)}">Postular a este puesto</a>` : ""}
+            ${ok ? `<a class="btn" href="#postular" data-postular="${esc(c.puesto)}">Postular a este puesto</a>` : `<a class="btn" href="#resultados">Ver cronograma y resultados</a>`}
           </div>
         </div>
       </article>`;
     }).join("");
   }
   const abiertas = visibles.filter(abierta);
+  renderResultados(visibles);
+  if (!abiertas.length){
+    $("#postTag").textContent = "Banco de empleos";
+    $("#postTitulo").innerHTML = "Deja tu CV en nuestro <span>banco de empleos</span>";
+    $("#postIntro").textContent = "Las postulaciones a la convocatoria vigente ya cerraron. Si aún no nos enviaste tu CV, déjalo aquí y te llamaremos cuando se abra un puesto acorde a tu perfil.";
+  }
   $("#puesto").innerHTML = (abiertas.length > 1 ? `<option value="">Seleccione…</option>` : "")
     + abiertas.map(c => `<option>${esc(c.puesto)}</option>`).join("")
     + `<option>${BANCO}</option>`;
+}
+
+function renderResultados(visibles){
+  const c = visibles.find(x => x.cronograma) || null;
+  if (!c){ $("#resultados").hidden = true; return; }
+  const ahora = new Date(), t = c.cronograma;
+  let actual = -1; t.forEach((e, i) => { if (ahora >= fechaPeru(e[0])) actual = i; });
+  const pub = t.find(e => e[4]);
+  const publicado = c.seleccionados.length && (!pub || ahora >= fechaPeru(pub[0]));
+  $("#crono").innerHTML = `<h3>Cronograma · ${esc(c.puesto)}</h3>
+    <ol>${t.map((e, i) => `<li class="${i < actual ? "hecho" : i === actual ? "ahora" : ""} ${e[4] ? "clave" : ""}">
+      <span class="f">${esc(e[1])}</span><span class="t">${esc(e[2])}</span><span class="d">${esc(e[3])}</span></li>`).join("")}</ol>
+    <div class="selec"><h4>Pasan a entrevista personal</h4>
+      ${publicado
+        ? `<ol>${c.seleccionados.map((n, i) => `<li><b>${i + 1}</b>${esc(n)}</li>`).join("")}</ol>`
+        : `<div class="pend">Los nombres de los <strong>3 postulantes seleccionados</strong> se publicarán aquí el ${esc(pub ? pub[1].toLowerCase().replace(" · ", " a las ") : "día indicado.")} Los seleccionados también recibirán un mensaje por WhatsApp.</div>`}
+    </div>`;
+  const elim = c.eliminacionCV ? new Date(c.eliminacionCV + "T00:00:00-05:00").toLocaleDateString("es-PE", {day:"2-digit", month:"long", year:"numeric", timeZone:"America/Lima"}) : "";
+  $("#nota15").innerHTML = `<strong>Importante:</strong> los CV de los postulantes que no pasen a la entrevista y <strong>no se registren en el banco de empleos</strong> serán eliminados del archivo de la empresa en los próximos 15 días${elim ? ` (a más tardar el ${esc(elim)})` : ""}, conforme a la Ley de Protección de Datos Personales.`;
 }
 
 function waMsg(){
@@ -499,6 +601,25 @@ function enviar(e){
   xhr.ontimeout = () => fallo("El envío tardó demasiado. Revisa tu señal e intenta de nuevo.");
   xhr.send(new FormData(f));
 }
+
+/* ---------- Registro en el banco de empleos ---------- */
+$("#btnBanco").addEventListener("click", () => { $("#btnBanco").hidden = true; $("#formBanco").hidden = false; $("#bDni").focus(); });
+$("#formBanco").addEventListener("submit", async e => {
+  e.preventDefault();
+  const f = e.target, av = $("#avisoBanco"), btn = $("#btnBancoEnviar");
+  const mal = msg => { av.className = "aviso err"; av.innerHTML = msg; av.hidden = false; };
+  if (!/^\d{8,12}$/.test(f.dni.value.replace(/\D/g, ""))) return mal("Ingresa tu DNI / CE (8 a 12 dígitos).");
+  if (f.celular.value.replace(/\D/g, "").length < 9) return mal("Ingresa el celular con el que postulaste.");
+  if (!$("#bAcepta").checked) return mal("Marca la autorización para conservar tu CV.");
+  btn.disabled = true; btn.textContent = "Registrando…"; av.hidden = true;
+  let r = null, st = 0;
+  try { const res = await fetch("postular.php", {method:"POST", body:new FormData(f)}); st = res.status; r = await res.json(); } catch(_){}
+  btn.disabled = false; btn.textContent = "Confirmar registro";
+  if (r && r.ok){
+    f.hidden = true; $("#bancoOk").hidden = false;
+    $("#bancoOkTxt").textContent = (r.nombre ? r.nombre.split(" ")[0] + ", " : "") + "tu CV quedará en nuestro banco de empleos y te contactaremos cuando se abra un puesto acorde a tu perfil.";
+  } else mal(esc((r && r.error) || "No pudimos registrarte (código " + st + ").") + ` <a href="${wa("Hola COMBOY VID, quiero registrarme en el banco de empleos. Mi DNI es " + f.dni.value)}" target="_blank" rel="noopener"><strong>Hazlo por WhatsApp</strong></a>.`);
+});
 
 render();
 actualizarContacto();
