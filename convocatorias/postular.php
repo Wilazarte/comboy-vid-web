@@ -83,6 +83,20 @@ if (isset($_GET['configurar_drive'])) {
     file_put_contents("$base/drive-config.json", json_encode(['url' => $u, 'fecha' => date('c')]));
     responder(true, 'Google Drive configurado. Ahora abra postular.php?sincronizar=1 para subir los CV anteriores.');
 }
+// Probar la conexión con el script de Drive (sin subir nada): postular.php?probar_drive=1
+if (isset($_GET['probar_drive'])) {
+    $base = carpeta_base();
+    $url = $base ? drive_url($base) : '';
+    if ($url === '') responder(false, 'Google Drive aún no está configurado.', 409);
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true, CURLOPT_TIMEOUT => 20, CURLOPT_CONNECTTIMEOUT => 8]);
+    $r = curl_exec($ch);
+    $info = ['http' => curl_getinfo($ch, CURLINFO_RESPONSE_CODE), 'curl_error' => curl_error($ch), 'segundos' => round(curl_getinfo($ch, CURLINFO_TOTAL_TIME), 1),
+             'respuesta' => substr(trim(strip_tags((string)$r)), 0, 160)];
+    curl_close($ch);
+    $j = @json_decode((string)$r, true);
+    responder(is_array($j) && !empty($j['ok']), is_array($j) && !empty($j['ok']) ? 'Conexión con Drive OK' : 'El script de Drive no respondió bien', 200, $info);
+}
 // Subir a Drive los CV que aún no se subieron (de 10 en 10): postular.php?sincronizar=1
 if (isset($_GET['sincronizar'])) {
     $base = carpeta_base();
@@ -92,11 +106,11 @@ if (isset($_GET['sincronizar'])) {
     foreach (leer_csv("$base/postulaciones.csv") as $r) {
         $a = basename($r['Archivo CV'] ?? '');
         if ($a === '' || isset($ya[$a]) || !is_file("$base/$a")) continue;
-        if ($subidos + $fallas >= 10) { $pend++; continue; }
+        if ($subidos + $fallas >= 1) { $pend++; continue; }   // 1 por llamada para no pasar el límite de tiempo
         $ext = strtolower(pathinfo($a, PATHINFO_EXTENSION));
         if (enviar_a_drive($base, $a, nombre_cv($r['Nombres'] ?? '', $r['Puesto'] ?? '', $ext), $r['Puesto'] ?? '', descripcion_cv($r))) $subidos++; else $fallas++;
     }
-    responder(true, 'Sincronización', 200, ['subidos' => $subidos, 'fallas' => $fallas, 'pendientes' => $pend]);
+    responder(true, 'Sincronización', 200, ['subidos' => $subidos, 'fallas' => $fallas, 'pendientes' => $pend] + ($fallas ? ['detalle' => $GLOBALS['DRIVE_ULTIMO'] ?? null] : []));
 }
 
 if (isset($_GET['diag'])) {
@@ -173,11 +187,14 @@ function enviar_a_drive($base, $archivoLocal, $nombreDrive, $puesto, $descripcio
                            'data' => base64_encode(file_get_contents("$base/$archivoLocal"))], JSON_UNESCAPED_UNICODE);
     $ch = curl_init($url);
     curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $cuerpo, CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
-        CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true, CURLOPT_TIMEOUT => 60, CURLOPT_CONNECTTIMEOUT => 10]);
-    $r = curl_exec($ch); curl_close($ch);
+        CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true, CURLOPT_TIMEOUT => 25, CURLOPT_CONNECTTIMEOUT => 8]);
+    $r = curl_exec($ch);
+    $GLOBALS['DRIVE_ULTIMO'] = ['http' => curl_getinfo($ch, CURLINFO_RESPONSE_CODE), 'curl_error' => curl_error($ch), 'segundos' => round(curl_getinfo($ch, CURLINFO_TOTAL_TIME), 1),
+                                'respuesta' => substr(trim(strip_tags((string)$r)), 0, 160)];
+    curl_close($ch);
     $j = @json_decode((string)$r, true);
     if (is_array($j) && !empty($j['ok'])) { @file_put_contents("$base/drive-enviados.txt", $archivoLocal . "\n", FILE_APPEND | LOCK_EX); return true; }
-    error_log('COMBOY Drive: fallo al subir ' . $archivoLocal . ' -> ' . substr((string)$r, 0, 200));
+    error_log('COMBOY Drive: fallo al subir ' . $archivoLocal . ' -> ' . json_encode($GLOBALS['DRIVE_ULTIMO']));
     return false;
 }
 function descripcion_cv($r) {
