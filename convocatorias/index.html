@@ -170,6 +170,11 @@
   .banco .btn{width:100%;margin-top:16px}
   .banco form{margin-top:16px}
   .nota-15{margin-top:16px;background:#FFFBEB;border:1px solid #FDE68A;color:#92400E;border-radius:10px;padding:.9rem 1rem;font-size:.82rem}
+  .alerta-pago{display:flex;gap:14px;align-items:flex-start;background:#FEF2F2;border:2px solid #FCA5A5;border-radius:var(--radio);padding:18px 20px;margin-top:28px;color:#7F1D1D;font-size:.92rem}
+  .alerta-pago .ico{flex:none;width:36px;height:36px;border-radius:50%;background:var(--rojo);color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.1rem}
+  .alerta-pago strong{color:var(--rojo)}
+  .alerta-pago.mini{margin:14px 0 0;padding:12px 14px;font-size:.8rem;border-width:1px}
+  .alerta-pago.mini .ico{width:26px;height:26px;font-size:.85rem}
   footer{background:var(--navy2);color:#94A3B8;padding:32px 0;font-size:.8rem}
   footer .wrap{display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:space-between;align-items:center}
   footer a{color:#E2E8F0;text-decoration:none}
@@ -215,6 +220,7 @@
         <p>Revisa los requisitos y postula con tu CV actualizado (PDF o Word, con referencias laborales).</p>
       </div>
       <div id="lista"></div>
+      <div class="alerta-pago" role="note"><span class="ico">!</span><p><strong>COMBOY VID no solicita a los postulantes ningún tipo de pago, documentación, datos bancarios ni otros datos</strong> fuera de este formulario, en ninguna etapa del proceso de selección. Si alguien te pide dinero o información a nombre de la empresa, no la entregues y repórtalo al WhatsApp de RR.HH. 942 304 539.</p></div>
     </div>
   </section>
 
@@ -347,6 +353,7 @@
             <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
             WhatsApp RR.HH. 942 304 539</a>
           <a class="btn out" id="mailRRHH" href="mailto:comboyvidaqp@gmail.com">comboyvidaqp@gmail.com</a>
+          <div class="alerta-pago mini" role="note"><span class="ico">!</span><p>No cobramos ni pedimos pagos, documentos, datos bancarios u otros datos a los postulantes.</p></div>
           <p class="alt">COMBOY VID promueve la igualdad de oportunidades y no discrimina por sexo, edad, origen, religión, condición económica u otra índole.</p>
         </aside>
       </div>
@@ -385,9 +392,9 @@ const CONVOCATORIAS = [
       ["2026-11-04T12:01", "04/11 al 05/11", "Evaluación curricular", "RR.HH. revisa todos los CV recibidos."],
       ["2026-11-05T18:00", "Jueves 05/11 · 6:00 p.m.", "Publicación de resultados", "Se publican en esta página los 3 postulantes que pasan a entrevista personal. También les avisamos por WhatsApp.", true],
       ["2026-11-07T09:00", "Sábado 07/11 · 9:00 a.m.", "Entrevista personal y prueba práctica", "Solo los 3 seleccionados, en la planta de Paucarpata (Excel y documentos)."],
-      ["2026-11-09T09:00", "Lunes 09/11", "Verificación de referencias", "Se contactan las referencias laborales."],
-      ["2026-11-10T18:00", "Martes 10/11", "Resultado final", "Se comunica a la persona seleccionada."],
-      ["2026-11-11T08:00", "Miércoles 11/11", "Incorporación", "Inicio de labores en planta."]
+      ["2026-11-07T14:00", "Sábado 07/11 · tarde", "Verificación de referencias", "Se contactan las referencias laborales."],
+      ["2026-11-08T10:00", "Domingo 08/11", "Resultado final", "Se comunica por WhatsApp a la persona seleccionada."],
+      ["2026-11-09T08:00", "Lunes 09/11 · 8:00 a.m.", "Incorporación", "Inicio de labores en planta Paucarpata."]
     ],
     // Nombres de los 3 que pasan a entrevista. Se muestran cuando haya nombres y llegue la fecha de publicación.
     seleccionados: [],
