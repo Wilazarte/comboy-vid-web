@@ -100,6 +100,28 @@
   .conv-pie{padding:20px 28px;background:#F8FAFC;border-top:1px solid var(--linea);display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;font-size:.82rem;color:var(--suave)}
   .conv-pie .acc{display:flex;flex-wrap:wrap;gap:10px}
   .conv-pie .btn{padding:.7rem 1.1rem;font-size:.85rem}
+  .resumen{padding:18px 28px 0;font-size:.92rem}
+  .datos.mini{border-radius:10px;overflow:hidden}
+  @media(max-width:760px){
+    .datos{grid-template-columns:1fr}
+    .datos div{display:flex;justify-content:space-between;gap:12px;padding:10px 18px}
+    .datos dd{text-align:right}
+    .resumen{padding:14px 18px 0;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+    .conv-top{padding:18px}
+    .plazo{min-width:0;width:100%}
+  }
+  .conv-body[hidden]{display:none!important}
+  .conv-pie .ver-mas{border-color:var(--linea);color:var(--navy)}
+  .lista-conv{display:grid;gap:20px}
+  .conv{margin-top:0}
+  .conv-top{padding:22px 28px}
+  .ir-form{display:none}
+  @media(max-width:860px){
+    .ir-form{display:flex;position:fixed;left:16px;right:88px;bottom:18px;z-index:59;justify-content:center;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:opacity .2s,transform .2s}
+    .ir-form.oculto{opacity:0;transform:translateY(20px);pointer-events:none}
+    .conv-pie{flex-direction:column;align-items:stretch}
+    .conv-pie .acc{display:grid;grid-template-columns:auto 1fr}
+  }
 
   /* Formulario */
   #postular{background:var(--alt);scroll-margin-top:68px}
@@ -219,38 +241,8 @@
         <h2>Puestos <span>disponibles</span></h2>
         <p>Revisa los requisitos y postula con tu CV actualizado (PDF o Word, con referencias laborales).</p>
       </div>
-      <div id="lista"></div>
+      <div id="lista" class="lista-conv"></div>
       <div class="alerta-pago" role="note"><span class="ico">!</span><p><strong>COMBOY VID no solicita a los postulantes ningún tipo de pago, documentación, datos bancarios ni otros datos</strong> fuera de este formulario, en ninguna etapa del proceso de selección. Si alguien te pide dinero o información a nombre de la empresa, no la entregues y repórtalo al WhatsApp de RR.HH. 942 304 539.</p></div>
-    </div>
-  </section>
-
-  <section id="resultados">
-    <div class="wrap">
-      <div class="sec-head">
-        <span class="tag">Resultados</span>
-        <h2>Cronograma y <span>resultados</span></h2>
-        <p id="resIntro">Solo <strong>3 postulantes</strong> pasarán a la entrevista personal. Aquí publicaremos sus nombres según el cronograma.</p>
-      </div>
-      <div class="res-grid">
-        <div class="card crono" id="crono"></div>
-        <aside class="card banco" id="banco">
-          <span class="tag" style="background:var(--azul)">Banco de empleos</span>
-          <h3 style="margin-top:.7rem">¿Quieres que te consideremos en futuras convocatorias?</h3>
-          <p>Si ya postulaste, regístrate en nuestro <strong>banco de empleos</strong>: conservaremos tu CV de forma segura y te llamaremos cuando se abra un puesto acorde a tu perfil.</p>
-          <button class="btn" type="button" id="btnBanco">Registrarme en el banco de empleos</button>
-          <form id="formBanco" novalidate hidden>
-            <div id="avisoBanco" class="aviso" hidden></div>
-            <div class="campo"><label for="bDni">DNI / CE con el que postulaste <i>*</i></label><input id="bDni" name="dni" inputmode="numeric" maxlength="12" required></div>
-            <div class="campo"><label for="bCel">Celular con el que postulaste <i>*</i></label><input id="bCel" name="celular" type="tel" inputmode="tel" maxlength="20" required></div>
-            <input type="hidden" name="accion" value="banco">
-            <div class="trampa" aria-hidden="true"><label>Empresa web<input name="empresa_web" tabindex="-1" autocomplete="off"></label></div>
-            <label class="check"><input type="checkbox" name="acepta" value="si" id="bAcepta"><span>Autorizo a COMBOY VID a conservar mi CV y mis datos en su banco de empleos para futuros procesos de selección (Ley N.° 29733).</span></label>
-            <button class="btn" type="submit" id="btnBancoEnviar" style="margin-top:0">Confirmar registro</button>
-          </form>
-          <div class="exito" id="bancoOk" hidden style="padding:20px 0 0"><div class="ico">✓</div><h3>¡Registro confirmado!</h3><p id="bancoOkTxt"></p></div>
-          <div class="nota-15" id="nota15"></div>
-        </aside>
-      </div>
     </div>
   </section>
 
@@ -359,6 +351,36 @@
       </div>
     </div>
   </section>
+  <section id="resultados">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="tag">Resultados</span>
+        <h2>Cronograma y <span>resultados</span></h2>
+        <p id="resIntro">Solo <strong>3 postulantes</strong> pasarán a la entrevista personal. Aquí publicaremos sus nombres según el cronograma.</p>
+      </div>
+      <div class="res-grid">
+        <div class="card crono" id="crono"></div>
+        <aside class="card banco" id="banco">
+          <span class="tag" style="background:var(--azul)">Banco de empleos</span>
+          <h3 style="margin-top:.7rem">¿Quieres que te consideremos en futuras convocatorias?</h3>
+          <p>Si ya postulaste, regístrate en nuestro <strong>banco de empleos</strong>: conservaremos tu CV de forma segura y te llamaremos cuando se abra un puesto acorde a tu perfil.</p>
+          <button class="btn" type="button" id="btnBanco">Registrarme en el banco de empleos</button>
+          <form id="formBanco" novalidate hidden>
+            <div id="avisoBanco" class="aviso" hidden></div>
+            <div class="campo"><label for="bDni">DNI / CE con el que postulaste <i>*</i></label><input id="bDni" name="dni" inputmode="numeric" maxlength="12" required></div>
+            <div class="campo"><label for="bCel">Celular con el que postulaste <i>*</i></label><input id="bCel" name="celular" type="tel" inputmode="tel" maxlength="20" required></div>
+            <input type="hidden" name="accion" value="banco">
+            <div class="trampa" aria-hidden="true"><label>Empresa web<input name="empresa_web" tabindex="-1" autocomplete="off"></label></div>
+            <label class="check"><input type="checkbox" name="acepta" value="si" id="bAcepta"><span>Autorizo a COMBOY VID a conservar mi CV y mis datos en su banco de empleos para futuros procesos de selección (Ley N.° 29733).</span></label>
+            <button class="btn" type="submit" id="btnBancoEnviar" style="margin-top:0">Confirmar registro</button>
+          </form>
+          <div class="exito" id="bancoOk" hidden style="padding:20px 0 0"><div class="ico">✓</div><h3>¡Registro confirmado!</h3><p id="bancoOkTxt"></p></div>
+          <div class="nota-15" id="nota15"></div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -369,6 +391,7 @@
   </div>
 </footer>
 
+<a class="btn ir-form" id="irForm" href="#postular">Postular ahora</a>
 <a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="WhatsApp Recursos Humanos">
   <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
 </a>
@@ -380,6 +403,56 @@
    Para ocultar una, ponga publicar:false.
    ===================================================================== */
 const CONVOCATORIAS = [
+  {
+    publicar: true,
+    id: "administrador-tienda-secocha",
+    puesto: "Administrador(a) de tienda – Secocha",
+    area: "Área de Recursos Humanos · Tienda Sucursal Secocha (Camaná)",
+    cierre: "2026-11-09",                  // válida hasta el lunes 09/11/2026 (23:59 hora Perú)
+    pdf: "docs/convocatoria-administrador-tienda-secocha.pdf",
+    datos: [
+      ["Modalidad", "Tiempo completo – Presencial"],
+      ["Remuneración", "S/ 2,300.00 bruto mensual"],
+      ["Contrato", "Ingreso a planilla"],
+      ["Beneficio adicional", "Estadía cubierta"],
+      ["Lugar", "Sucursal Secocha (Camaná)"],
+      ["Vacantes", "01 (una)"]
+    ],
+    objetivo: "Dirigir la operación comercial y administrativa de la tienda de la Sucursal Secocha, asegurando el cumplimiento de las metas de venta, el abastecimiento oportuno de productos, la correcta distribución a clientes y el control de caja e inventarios, con procesos ordenados y sistematizados.",
+    funciones: [
+      "Gestión de ventas: atender y fidelizar a clientes mineros, cotizar, cerrar ventas y hacer seguimiento a pedidos y cobranzas.",
+      "Estrategias comerciales: proponer y ejecutar promociones, campañas y acciones para captar nuevos clientes y cumplir las metas de venta de la sucursal.",
+      "Gestión de compras: planificar el abastecimiento de la tienda, coordinar pedidos con la sede principal y proveedores, y verificar la mercadería recibida.",
+      "Sistematización de procesos de venta y distribución: implementar y mantener registros, formatos y sistemas (Excel/ERP) de ventas, despachos y entregas a mina.",
+      "Distribución: programar y coordinar despachos y fletes a los clientes, con guías de remisión y comprobantes en regla.",
+      "Controlar caja, inventarios y stock mínimo; realizar arqueos e inventarios periódicos.",
+      "Elaborar reportes semanales y mensuales de ventas, compras e indicadores para Gerencia.",
+      "Supervisar al personal de la tienda y velar por el orden, la limpieza y la buena atención."
+    ],
+    perfil: [
+      "Formación técnica o universitaria en Administración, Ingeniería Industrial, Marketing, Negocios o carreras afines.",
+      "Experiencia mínima de 1 año como administrador(a), jefe(a) de tienda, supervisor(a) de ventas o puestos similares.",
+      "Conocimiento de procesos de venta y estrategias comerciales.",
+      "Conocimiento en gestión de compras y control de inventarios.",
+      "Experiencia en sistematización de procesos de venta y distribución (Excel intermedio, sistemas de venta o ERP).",
+      "Disponibilidad para residir y trabajar en Secocha.",
+      "Deseable: experiencia en venta de repuestos, ferretería, equipos o insumos para minería; manejo de comprobantes electrónicos SUNAT."
+    ],
+    competencias: ["Liderazgo", "Orientación a resultados", "Negociación", "Organización y control", "Atención al cliente", "Proactividad", "Honestidad y confiabilidad", "Comunicación efectiva", "Pensamiento analítico"],
+    ofrecemos: [
+      "Sueldo bruto de S/ 2,300.00 mensuales.",
+      "Ingreso a planilla con los beneficios de ley.",
+      "Estadía cubierta en Secocha.",
+      "Estabilidad laboral y oportunidad de crecimiento en una empresa en expansión del sector minero-industrial.",
+      "Autonomía para proponer y aplicar mejoras comerciales en la sucursal."
+    ],
+    horarioCab: ["Concepto", "Detalle"],
+    horario: [
+      ["Horario", "Según el horario de atención de la sucursal"]
+    ],
+    lugar: "Tienda Sucursal Secocha – Calle Los Ángeles S/N, Secocha, Camaná, Arequipa.",
+    etapas: ["Evaluación curricular", "Entrevista personal", "Caso práctico comercial", "Verificación de referencias", "Incorporación"]
+  },
   {
     publicar: true,
     id: "mecanico-motos-cargueras",
@@ -515,9 +588,12 @@ function render(){
   if (!visibles.length){
     lista.innerHTML = `<div class="card" style="padding:28px">No hay convocatorias abiertas en este momento. Puedes dejar tu CV en nuestro <a href="#postular"><strong>banco de talentos</strong></a> y te llamaremos cuando se abra un puesto acorde a tu perfil.</div>`;
   } else {
-    lista.innerHTML = visibles.map(c => {
+    lista.innerHTML = [...visibles].sort((a, b) => abierta(b) - abierta(a)).map(c => {
       const ok = abierta(c);
       const dias = Math.ceil((cierreDe(c) - new Date()) / 864e5);
+      // Resumen: solo 3 datos clave; el resto va en "Ver más detalles"
+      const claveIdx = [0, 1, 4].filter(i => c.datos[i]);
+      const clave = claveIdx.map(i => c.datos[i]), resto = c.datos.filter((d, i) => !claveIdx.includes(i));
       return `<article class="card conv" id="conv-${esc(c.id)}">
         <div class="conv-top">
           <div>
@@ -527,9 +603,10 @@ function render(){
           </div>
           <div class="plazo ${ok ? "" : "cerrada"}">${ok ? (dias <= 1 ? "¡Último día para postular!" : "Quedan " + dias + " días") : "Postulaciones cerradas"}<small>${ok ? "Válida hasta el" : "Cerró el"} ${esc(fechaLarga(c))}</small></div>
         </div>
-        <dl class="datos">${c.datos.map(d => `<div><dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd></div>`).join("")}</dl>
-        <div class="conv-body">
-          <div class="full"><h4>Objetivo del puesto</h4><p>${esc(c.objetivo)}</p></div>
+        ${ok ? `<dl class="datos">${clave.map(d => `<div><dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd></div>`).join("")}</dl>
+        <p class="resumen">${esc(c.objetivo)}</p>` : ""}
+        <div class="conv-body" id="det-${esc(c.id)}" hidden>
+          <div class="full"><dl class="datos mini">${resto.map(d => `<div><dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd></div>`).join("")}</dl></div>
           <div><h4>Funciones principales</h4><ul>${c.funciones.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
           <div><h4>Perfil requerido</h4><ul>${c.perfil.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
           <div class="full"><h4>Competencias que valoramos</h4><div class="chips">${c.competencias.map(x => `<span>${esc(x)}</span>`).join("")}</div></div>
@@ -542,9 +619,9 @@ function render(){
           <div class="full"><h4>Etapas del proceso de selección</h4><div class="etapas">${c.etapas.map(x => `<div>${esc(x)}</div>`).join("")}</div></div>
         </div>
         <div class="conv-pie">
-          <span>Solo se contactará a los postulantes que cumplan con el perfil.</span>
+          <button class="btn out ver-mas" type="button" data-detalle="det-${esc(c.id)}" aria-expanded="false">Ver más detalles ▾</button>
           <div class="acc">
-            ${c.pdf ? `<a class="btn out" href="${esc(c.pdf)}" target="_blank" rel="noopener">Descargar convocatoria (PDF)</a>` : ""}
+            ${c.pdf ? `<a class="btn out" href="${esc(c.pdf)}" target="_blank" rel="noopener">PDF</a>` : ""}
             ${ok ? `<a class="btn" href="#postular" data-postular="${esc(c.puesto)}">Postular a este puesto</a>` : `<a class="btn" href="#resultados">Ver cronograma y resultados</a>`}
           </div>
         </div>
@@ -688,8 +765,18 @@ $("#cv").addEventListener("change", mostrarCV);
 $("#formPostular").addEventListener("submit", enviar);
 document.addEventListener("click", e => {
   const b = e.target.closest("[data-postular]");
-  if (b){ $("#puesto").value = b.dataset.postular; actualizarContacto(); }
+  if (b){ $("#puesto").value = b.dataset.postular; actualizarContacto(); setTimeout(() => $("#nombres").focus({preventScroll:true}), 600); }
+  const v = e.target.closest("[data-detalle]");
+  if (v){
+    const d = document.getElementById(v.dataset.detalle), abrir = d.hidden;
+    d.hidden = !abrir; v.setAttribute("aria-expanded", abrir);
+    v.textContent = abrir ? "Ocultar detalles ▴" : "Ver más detalles ▾";
+    if (!abrir) v.closest(".conv").scrollIntoView({behavior:"smooth", block:"start"});
+  }
 });
+if ("IntersectionObserver" in window){
+  new IntersectionObserver(es => es.forEach(x => $("#irForm").classList.toggle("oculto", x.isIntersecting)), {threshold:0.05}).observe($("#postular"));
+}
 $("#otra").addEventListener("click", e => {
   e.preventDefault();
   const f = $("#formPostular"); f.reset(); mostrarCV();

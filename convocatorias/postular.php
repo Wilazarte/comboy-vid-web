@@ -18,6 +18,7 @@ $MAX_POR_HORA   = 6;                                // límite de envíos por IP
 $CIERRES = [
     'Asistente Administrativo(a)' => '2026-11-04 12:00',
     'Mecánico de motos cargueras' => '2026-11-09 23:59',
+    'Administrador(a) de tienda – Secocha' => '2026-11-09 23:59',
 ];
 // Exportación del banco de empleos (para subir los CV a Google Drive).
 // El ZIP sale CIFRADO con esta llave pública: solo quien tiene la llave privada puede abrirlo.
