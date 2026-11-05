@@ -7,7 +7,7 @@
 <meta name="description" content="Convocatorias de trabajo en COMBOY VID, fabricante arequipeño de equipos para minería subterránea. Postula en línea y sube tu CV en PDF o Word.">
 <link rel="canonical" href="https://www.comboyvid.com/convocatorias/">
 <meta property="og:title" content="Trabaja con nosotros | COMBOY VID">
-<meta property="og:description" content="Convocatoria: Asistente Administrativo(a) en Paucarpata, Arequipa. Postula en línea con tu CV.">
+<meta property="og:description" content="Convocatoria: Mecánico de motos cargueras en Secocha (régimen 20x10). Postula en línea con tu CV.">
 <meta property="og:url" content="https://www.comboyvid.com/convocatorias/">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://www.comboyvid.com/public/images/logo-comboy-vid-oficial.png">
@@ -382,6 +382,56 @@
 const CONVOCATORIAS = [
   {
     publicar: true,
+    id: "mecanico-motos-cargueras",
+    puesto: "Mecánico de motos cargueras",
+    area: "Área de Recursos Humanos · Sucursal Secocha (Camaná)",
+    cierre: "2026-11-09",                  // válida hasta el lunes 09/11/2026 (23:59 hora Perú)
+    pdf: "docs/convocatoria-mecanico-motos-cargueras.pdf",
+    datos: [
+      ["Régimen", "Sistema atípico 20x10"],
+      ["Remuneración", "S/ 140.00 por día laborado"],
+      ["Contrato", "Planilla – régimen MYPE"],
+      ["Beneficio adicional", "Estadía cubierta"],
+      ["Lugar", "Sucursal Secocha (Camaná)"],
+      ["Vacantes", "01 (una)"]
+    ],
+    objetivo: "Mantener las motos cargueras en óptimas condiciones de operación, mediante el mantenimiento preventivo y correctivo en taller y en obra, reduciendo paradas no programadas y garantizando el trabajo seguro de los equipos.",
+    funciones: [
+      "Mantenimiento preventivo: cambio de aceite y filtros, engrase, revisión y regulación de frenos, embrague, transmisión, cadena, suspensión, llantas y sistema eléctrico, según el plan de mantenimiento.",
+      "Mantenimiento correctivo: diagnóstico y reparación de fallas de motor, caja, diferencial, sistema eléctrico y de carga, y reemplazo de piezas y repuestos.",
+      "Trabajo en taller y en obra: atender equipos en el taller de la sucursal y desplazarse a la obra o bocamina del cliente para reparaciones y servicios en campo.",
+      "Elaborar el reporte de cada servicio (trabajos realizados, repuestos usados, horas y estado del equipo).",
+      "Solicitar repuestos e insumos con anticipación y controlar las herramientas a su cargo.",
+      "Cumplir las normas de seguridad y salud en el trabajo, y usar correctamente el EPP.",
+      "Orientar a los operadores sobre el uso y cuidado básico de los equipos.",
+      "Otras funciones afines que le asigne su jefe inmediato."
+    ],
+    perfil: [
+      "Experiencia comprobada en mantenimiento y reparación de motos cargueras (mínimo 1 año).",
+      "Conocimiento de motores de combustión, transmisión, frenos y sistema eléctrico de motos y motocargas.",
+      "Manejo de herramientas de mecánica y, de preferencia, de instrumentos de diagnóstico (multímetro, etc.).",
+      "Disponibilidad para trabajar en régimen 20x10 en Secocha y para desplazarse a obra.",
+      "Deseable: estudios técnicos en mecánica automotriz o de motos; experiencia en minería; conocimientos básicos de soldadura; licencia de conducir."
+    ],
+    competencias: ["Responsabilidad y puntualidad", "Capacidad de diagnóstico", "Trabajo seguro", "Orden y limpieza en el taller", "Trabajo en equipo", "Trabajo bajo presión", "Honestidad", "Atención al cliente", "Orientación a resultados"],
+    ofrecemos: [
+      "Remuneración de S/ 140.00 por día laborado (aprox. S/ 2,800.00 por cada ciclo de 20 días).",
+      "Ingreso a planilla bajo el régimen laboral MYPE, con los beneficios que la ley establece para dicho régimen (seguro de salud, vacaciones pagadas y aporte a AFP u ONP, entre otros).",
+      "Estadía cubierta durante los días de trabajo en Secocha.",
+      "Sistema de trabajo 20x10: 20 días de trabajo por 10 días de descanso.",
+      "Estabilidad laboral en una empresa en crecimiento del sector minero-industrial."
+    ],
+    horarioTitulo: "Régimen y lugar de trabajo",
+    horarioCab: ["Concepto", "Detalle"],
+    horario: [
+      ["Régimen", "20 días de trabajo × 10 días de descanso"],
+      ["Jornada", "Según programación de turnos de la sucursal"]
+    ],
+    lugar: "Sucursal Secocha – Calle Los Ángeles S/N, Secocha, Camaná, Arequipa; y en obra (minas de clientes).",
+    etapas: ["Evaluación curricular", "Entrevista personal", "Prueba práctica en taller (diagnóstico y reparación)", "Verificación de referencias", "Incorporación"]
+  },
+  {
+    publicar: true,
     id: "asistente-administrativo",
     puesto: "Asistente Administrativo(a)",
     area: "Área de Recursos Humanos · Planta Paucarpata",
@@ -484,9 +534,9 @@ function render(){
           <div><h4>Perfil requerido</h4><ul>${c.perfil.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
           <div class="full"><h4>Competencias que valoramos</h4><div class="chips">${c.competencias.map(x => `<span>${esc(x)}</span>`).join("")}</div></div>
           <div><h4>Lo que ofrecemos</h4><ul>${c.ofrecemos.map(x => `<li>${esc(x)}</li>`).join("")}</ul></div>
-          <div><h4>Horario y lugar de trabajo</h4>
-            <table class="horario"><thead><tr><th>Día</th><th>Horario</th><th>Observación</th></tr></thead>
-            <tbody>${c.horario.map(h => `<tr><td>${esc(h[0])}</td><td>${esc(h[1])}</td><td>${esc(h[2])}</td></tr>`).join("")}</tbody></table>
+          <div><h4>${esc(c.horarioTitulo || "Horario y lugar de trabajo")}</h4>
+            <table class="horario"><thead><tr>${(c.horarioCab || ["Día", "Horario", "Observación"]).map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>
+            <tbody>${c.horario.map(h => `<tr>${h.map(x => `<td>${esc(x)}</td>`).join("")}</tr>`).join("")}</tbody></table>
             <p style="margin-top:.8rem;font-size:.85rem">${esc(c.lugar)}</p>
           </div>
           <div class="full"><h4>Etapas del proceso de selección</h4><div class="etapas">${c.etapas.map(x => `<div>${esc(x)}</div>`).join("")}</div></div>

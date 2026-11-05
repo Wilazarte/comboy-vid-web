@@ -17,6 +17,7 @@ $MAX_POR_HORA   = 6;                                // límite de envíos por IP
 // Cierre de cada convocatoria (hora Perú). Después de esta hora ya no se aceptan postulaciones a ese puesto.
 $CIERRES = [
     'Asistente Administrativo(a)' => '2026-11-04 12:00',
+    'Mecánico de motos cargueras' => '2026-11-09 23:59',
 ];
 // Exportación del banco de empleos (para subir los CV a Google Drive).
 // El ZIP sale CIFRADO con esta llave pública: solo quien tiene la llave privada puede abrirlo.
@@ -72,12 +73,39 @@ function puede_usar($ruta) {
 }
 
 // Diagnóstico sin datos sensibles: postular.php?diag=1
+// Configurar Google Drive una sola vez: postular.php?configurar_drive=https://script.google.com/macros/s/XXXX/exec
+if (isset($_GET['configurar_drive'])) {
+    $u = trim((string)$_GET['configurar_drive']);
+    if (!preg_match('#^https://script\.google\.com/macros/s/[A-Za-z0-9_-]{20,}/exec$#', $u)) responder(false, 'URL no válida. Debe ser https://script.google.com/macros/s/.../exec', 422);
+    $base = carpeta_base();
+    if (!$base) responder(false, 'Sin carpeta.', 500);
+    if (drive_url($base) !== '') responder(false, 'Google Drive ya está configurado. Para cambiarlo, borre drive-config.json en la carpeta privada del cPanel.', 409);
+    file_put_contents("$base/drive-config.json", json_encode(['url' => $u, 'fecha' => date('c')]));
+    responder(true, 'Google Drive configurado. Ahora abra postular.php?sincronizar=1 para subir los CV anteriores.');
+}
+// Subir a Drive los CV que aún no se subieron (de 10 en 10): postular.php?sincronizar=1
+if (isset($_GET['sincronizar'])) {
+    $base = carpeta_base();
+    if (!$base || drive_url($base) === '') responder(false, 'Google Drive aún no está configurado.', 409);
+    @set_time_limit(300);
+    $ya = drive_enviados($base); $subidos = 0; $fallas = 0; $pend = 0;
+    foreach (leer_csv("$base/postulaciones.csv") as $r) {
+        $a = basename($r['Archivo CV'] ?? '');
+        if ($a === '' || isset($ya[$a]) || !is_file("$base/$a")) continue;
+        if ($subidos + $fallas >= 10) { $pend++; continue; }
+        $ext = strtolower(pathinfo($a, PATHINFO_EXTENSION));
+        if (enviar_a_drive($base, $a, nombre_cv($r['Nombres'] ?? '', $r['Puesto'] ?? '', $ext), $r['Puesto'] ?? '', descripcion_cv($r))) $subidos++; else $fallas++;
+    }
+    responder(true, 'Sincronización', 200, ['subidos' => $subidos, 'fallas' => $fallas, 'pendientes' => $pend]);
+}
+
 if (isset($_GET['diag'])) {
     responder(true, 'diag', 200, ['php' => PHP_VERSION, 'sapi' => PHP_SAPI,
         'upload_max_filesize' => ini_get('upload_max_filesize'), 'post_max_size' => ini_get('post_max_size'),
         'file_uploads' => ini_get('file_uploads'), 'open_basedir' => ini_get('open_basedir') ? 'si' : 'no',
         'mail' => function_exists('mail'), 'finfo' => function_exists('finfo_open'), 'iconv' => function_exists('iconv'), 'mbstring' => function_exists('mb_substr'),
-        'carpeta_privada' => puede_usar(dirname(__DIR__, 2)) && is_writable(dirname(__DIR__, 2)), 'carpeta_respaldo' => is_writable(__DIR__ . '/postulaciones')]);
+        'carpeta_privada' => puede_usar(dirname(__DIR__, 2)) && is_writable(dirname(__DIR__, 2)), 'carpeta_respaldo' => is_writable(__DIR__ . '/postulaciones'), 'curl' => function_exists('curl_init'),
+        'drive' => ($b = carpeta_base()) && drive_url($b) !== '']);
 }
 function campo($n, $max = 200) {
     $v = isset($_POST[$n]) ? trim((string)$_POST[$n]) : '';
@@ -114,6 +142,47 @@ function agregar_csv($ruta, $cabecera, $fila) {
     fputcsv($fh, array_map(function ($v) { return preg_match('/^[=+\-@]/', (string)$v) ? "'" . $v : $v; }, $fila), ';');
     flock($fh, LOCK_UN); fclose($fh);
     return true;
+}
+// ---------- Nombre del archivo: "NOMBRE - PUESTO.ext" ----------
+function nombre_cv($nombres, $puesto, $ext) {
+    $limpia = function ($t, $max) {
+        $t = preg_replace('/[\\\\\/:*?"<>|\x00-\x1F]+/u', ' ', (string)$t);
+        $t = trim(preg_replace('/\s+/u', ' ', $t));
+        $t = function_exists('mb_strtoupper') ? mb_strtoupper($t, 'UTF-8') : strtoupper($t);
+        return function_exists('mb_substr') ? mb_substr($t, 0, $max, 'UTF-8') : substr($t, 0, $max);
+    };
+    $p = stripos((string)$puesto, 'banco') === 0 ? 'BANCO DE EMPLEOS' : $limpia($puesto, 60);
+    return ($limpia($nombres, 70) ?: 'POSTULANTE') . ' - ' . $p . '.' . strtolower($ext);
+}
+function tipo_mime($ext) {
+    return $ext === 'pdf' ? 'application/pdf' : ($ext === 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/msword');
+}
+
+// ---------- Google Drive (Apps Script de la cuenta de COMBOY VID) ----------
+// La URL del script se guarda FUERA del repositorio, en la carpeta privada: drive-config.json
+function drive_url($base) {
+    $j = @json_decode((string)@file_get_contents("$base/drive-config.json"), true);
+    return is_array($j) && !empty($j['url']) ? $j['url'] : '';
+}
+function drive_enviados($base) { return array_flip(array_filter(array_map('trim', @file("$base/drive-enviados.txt") ?: []))); }
+function enviar_a_drive($base, $archivoLocal, $nombreDrive, $puesto, $descripcion) {
+    $url = drive_url($base);
+    if ($url === '' || !function_exists('curl_init') || !is_file("$base/$archivoLocal")) return false;
+    $ext = strtolower(pathinfo($nombreDrive, PATHINFO_EXTENSION));
+    $cuerpo = json_encode(['archivo' => $nombreDrive, 'puesto' => $puesto, 'mime' => tipo_mime($ext), 'descripcion' => $descripcion,
+                           'data' => base64_encode(file_get_contents("$base/$archivoLocal"))], JSON_UNESCAPED_UNICODE);
+    $ch = curl_init($url);
+    curl_setopt_array($ch, [CURLOPT_POST => true, CURLOPT_POSTFIELDS => $cuerpo, CURLOPT_HTTPHEADER => ['Content-Type: application/json'],
+        CURLOPT_RETURNTRANSFER => true, CURLOPT_FOLLOWLOCATION => true, CURLOPT_TIMEOUT => 60, CURLOPT_CONNECTTIMEOUT => 10]);
+    $r = curl_exec($ch); curl_close($ch);
+    $j = @json_decode((string)$r, true);
+    if (is_array($j) && !empty($j['ok'])) { @file_put_contents("$base/drive-enviados.txt", $archivoLocal . "\n", FILE_APPEND | LOCK_EX); return true; }
+    error_log('COMBOY Drive: fallo al subir ' . $archivoLocal . ' -> ' . substr((string)$r, 0, 200));
+    return false;
+}
+function descripcion_cv($r) {
+    return "Postulación web comboyvid.com\nPuesto: " . ($r['Puesto'] ?? '') . "\nNombres: " . ($r['Nombres'] ?? '') . "\nDNI: " . ($r['DNI'] ?? '') .
+           "\nCelular: " . ($r['Celular'] ?? '') . "\nCorreo: " . ($r['Correo'] ?? '') . "\nFecha: " . ($r['Fecha'] ?? '');
 }
 $BANCO_CAB = ['Fecha registro', 'DNI', 'Nombres', 'Celular', 'Puesto postulado', 'Archivo CV', 'Origen'];
 
@@ -231,7 +300,10 @@ $slug = function ($s) {
     return trim(preg_replace('/[^A-Za-z0-9]+/', '-', $s), '-') ?: 'postulante';
 };
 $fecha = (new DateTime('now', new DateTimeZone('America/Lima')));
-$nombreArchivo = $fecha->format('Ymd-His') . '_' . substr($slug($d['puesto']), 0, 30) . '_' . substr($slug($d['nombres']), 0, 40) . '_' . bin2hex(random_bytes(3)) . '.' . $ext;
+// Se guarda como "NOMBRE - PUESTO.ext"; si ya existe (otra postulación), se agrega (2), (3)...
+$nombreBonito = nombre_cv($d['nombres'], $d['puesto'], $ext);
+$nombreArchivo = $nombreBonito;
+for ($n = 2; file_exists("$base/$nombreArchivo"); $n++) $nombreArchivo = substr($nombreBonito, 0, -strlen($ext) - 1) . " ($n).$ext";
 $destino = $base . '/' . $nombreArchivo;
 if (!move_uploaded_file($f['tmp_name'], $destino)) responder(false, 'No se pudo guardar el CV. Envíelo por WhatsApp.', 500);
 @chmod($destino, 0640);
@@ -266,12 +338,15 @@ $cabeceras  = "From: COMBOY VID Convocatorias <$CORREO_REMITE>\r\n";
 if ($d['correo'] !== '') $cabeceras .= "Reply-To: " . str_replace(["\r", "\n", '<', '>', '"'], '', $d['nombres']) . " <{$d['correo']}>\r\n";
 $cabeceras .= "MIME-Version: 1.0\r\nContent-Type: multipart/mixed; boundary=\"$limite\"\r\n";
 $tipoAdj = $ext === 'pdf' ? 'application/pdf' : ($ext === 'docx' ? 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' : 'application/msword');
-$adjNombre = 'CV_' . substr($slug($d['nombres']), 0, 50) . '.' . $ext;
+$adjNombre = $nombreBonito;
 $msg  = "--$limite\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($cuerpo)) . "\r\n";
-$msg .= "--$limite\r\nContent-Type: $tipoAdj; name=\"$adjNombre\"\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename=\"$adjNombre\"\r\n\r\n" . chunk_split(base64_encode(file_get_contents($destino))) . "\r\n--$limite--";
+$msg .= "--$limite\r\nContent-Type: $tipoAdj; name=\"=?UTF-8?B?" . base64_encode($adjNombre) . "?=\"\r\nContent-Transfer-Encoding: base64\r\nContent-Disposition: attachment; filename*=UTF-8''" . rawurlencode($adjNombre) . "\r\n\r\n" . chunk_split(base64_encode(file_get_contents($destino))) . "\r\n--$limite--";
 
 $enviado = @mail($CORREO_DESTINO, '=?UTF-8?B?' . base64_encode($asunto) . '?=', $msg, $cabeceras, '-f' . $CORREO_REMITE);
 if (!$enviado) error_log('COMBOY postular.php: mail() falló para ' . $nombreArchivo);
+
+// Copia a Google Drive (si está configurado). Si falla, se reintenta con ?sincronizar=1
+enviar_a_drive($base, $nombreArchivo, $nombreBonito, $d['puesto'], descripcion_cv(['Puesto' => $d['puesto'], 'Nombres' => $d['nombres'], 'DNI' => $d['dni'], 'Celular' => $d['celular'], 'Correo' => $d['correo'], 'Fecha' => $fecha->format('Y-m-d H:i')]));
 
 // El CV ya quedó guardado aunque falle el correo
 responder(true, 'Postulación recibida.');
