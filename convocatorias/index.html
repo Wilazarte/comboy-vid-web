@@ -168,6 +168,24 @@
   @media(max-width:900px){.res-grid{grid-template-columns:1fr}}
   .crono{padding:28px}
   .crono h3,.banco h3{font-size:1.15rem}
+  .resultado-oficial{background:#fff;border:1px solid var(--linea);border-top:5px solid var(--verde);border-radius:10px;padding:18px 20px;font-size:.88rem;margin-bottom:22px}
+  .resultado-oficial .ct{display:block;color:var(--verde);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-align:center}
+  .resultado-oficial .ca{display:block;color:var(--tinta);font-weight:700;text-align:center;margin:.3rem 0 .8rem;font-size:.95rem}
+  .resultado-oficial p{margin-top:.7rem;text-align:justify}
+  .resultado-oficial .cf{display:block;margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--linea);font-size:.78rem;color:var(--suave);text-align:right;font-style:italic}
+  .tabla-res{overflow-x:auto;margin-top:.9rem;border:1px solid var(--linea);border-radius:8px}
+  .tabla-res table{width:100%;border-collapse:collapse;font-size:.85rem}
+  .tabla-res th{background:var(--navy);color:#fff;text-align:left;padding:.6rem .7rem;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+  .tabla-res th:first-child,.tabla-res td:first-child{width:36px;white-space:nowrap}
+  .tabla-res td{padding:.65rem .7rem;border-top:1px solid var(--linea);vertical-align:top}
+  .tabla-res tr:nth-child(even) td{background:#F8FAFC}
+  .res-datos{display:grid;grid-template-columns:1fr 2fr;gap:10px;margin-top:.9rem}
+  .res-datos div{background:var(--alt);border-radius:8px;padding:.6rem .8rem}
+  .res-datos dt{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--suave)}
+  .res-datos dd{font-weight:700;color:var(--tinta)}
+  @media(max-width:600px){.res-datos{grid-template-columns:1fr}}
+  .aviso-res{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:12px 16px;margin-bottom:20px;text-decoration:none;color:var(--tinta);font-size:.9rem}
+  .aviso-res:hover{background:#DCFCE7}
   .comunicado{background:#fff;border:1px solid var(--linea);border-top:5px solid var(--navy);color:var(--texto);border-radius:10px;padding:18px 20px;font-size:.88rem;margin-bottom:22px;text-align:justify}
   .comunicado .ct{display:block;color:var(--navy);font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;text-align:center}
   .comunicado .ca{display:block;color:var(--tinta);font-weight:700;text-align:center;margin:.3rem 0 .8rem;font-size:.95rem}
@@ -525,7 +543,18 @@ const CONVOCATORIAS = [
       ["2026-11-09T08:00", "Lunes 09/11 · 8:00 a.m.", "Incorporación", "Inicio de labores en planta Paucarpata."]
     ],
     // Nombres de los 3 que pasan a entrevista. Se muestran cuando haya nombres y llegue la fecha de publicación.
-    seleccionados: [],
+    // Postulantes aptos para entrevista: nombre, DNI (se muestra parcialmente) y horario
+    seleccionados: [
+      { nombre: "ALELY COAGUILA OLANDA", dni: "71380298", hora: "9:00 a.m. – 10:00 a.m." },
+      { nombre: "MARIBEL PATATINCO VILCA", dni: "73523581", hora: "10:00 a.m. – 11:00 a.m." },
+      { nombre: "JILL VALERY OSORIO CALLENOVA", dni: "73864101", hora: "11:00 a.m. – 12:00 p.m." }
+    ],
+    entrevista: {
+      fecha: "Sábado 07 de noviembre de 2026",
+      lugar: "Planta principal de COMBOY VID – Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa",
+      indicaciones: "Se solicita a los postulantes presentarse con 10 minutos de anticipación a su horario. La entrevista personal y la prueba práctica (Excel y documentos) tienen una duración aproximada de una hora por candidato. La inasistencia o tardanza injustificada será considerada como desistimiento del proceso."
+    },
+    firmaResultados: "Arequipa, 06 de noviembre de 2026 · Área de Recursos Humanos y Administración – COMBOY VID",
     // Los CV de quienes NO se registren en el banco de empleos se eliminan hasta esta fecha (15 días después de los resultados)
     eliminacionCV: "2026-11-21",
     // Aviso que se muestra arriba del cronograma (dejar "" para ocultarlo)
@@ -666,11 +695,25 @@ function renderResultados(visibles){
   $("#crono").innerHTML = (c.avisoCronograma && !publicado ? `<div class="comunicado"><strong class="ct">${esc(c.avisoCronograma.titulo)}</strong><span class="ca">${esc(c.avisoCronograma.asunto)}</span>${c.avisoCronograma.parrafos.map(x => `<p>${esc(x)}</p>`).join("")}<span class="cf">${esc(c.avisoCronograma.firma)}</span></div>` : "") + `<h3>Cronograma · ${esc(c.puesto)}</h3>
     <ol>${t.map((e, i) => `<li class="${i < actual ? "hecho" : i === actual ? "ahora" : ""} ${e[4] ? "clave" : ""}">
       <span class="f">${esc(e[1])}</span><span class="t">${esc(e[2])}</span><span class="d">${esc(e[3])}</span></li>`).join("")}</ol>
-    <div class="selec"><h4>Pasan a entrevista personal</h4>
-      ${publicado
-        ? `<ol>${c.seleccionados.map((n, i) => `<li><b>${i + 1}</b>${esc(n)}</li>`).join("")}</ol>`
-        : `<div class="pend">Los nombres de los <strong>3 postulantes seleccionados</strong> se publicarán aquí el ${esc(pub ? pub[1].toLowerCase().replace(" · ", " a las ") : "día indicado.")} Los seleccionados también recibirán un mensaje por WhatsApp.</div>`}
-    </div>`;
+    ${publicado ? "" : `<div class="selec"><h4>Pasan a entrevista personal</h4>
+      ${`<div class="pend">Los nombres de los <strong>3 postulantes seleccionados</strong> se publicarán aquí el ${esc(pub ? pub[1].toLowerCase().replace(" · ", " a las ") : "día indicado.")} Los seleccionados también recibirán un mensaje por WhatsApp.</div>`}
+    </div>`}`;
+  if (publicado){
+    const e = c.entrevista || {};
+    const dniParcial = d => String(d || "").replace(/^(\d{2})\d+(\d{2})$/, (m, a, b) => a + "****" + b);
+    $("#crono").insertAdjacentHTML("afterbegin", `<div class="resultado-oficial" id="resultado-${esc(c.id)}">
+      <strong class="ct">Resultados de la evaluación curricular</strong>
+      <span class="ca">${esc(c.puesto)} · Postulantes aptos para entrevista personal</span>
+      <p>Concluida la evaluación curricular, el Área de Recursos Humanos y Administración de COMBOY VID comunica la relación de postulantes <strong>aptos para la entrevista personal presencial</strong>, con su horario asignado:</p>
+      <div class="tabla-res"><table><thead><tr><th>N.°</th><th>Apellidos y nombres</th><th>DNI</th><th>Horario</th></tr></thead>
+      <tbody>${c.seleccionados.map((x, i) => `<tr><td>${i + 1}</td><td><strong>${esc(x.nombre || x)}</strong></td><td>${esc(dniParcial(x.dni))}</td><td>${esc(x.hora || "")}</td></tr>`).join("")}</tbody></table></div>
+      ${e.fecha ? `<dl class="res-datos"><div><dt>Fecha</dt><dd>${esc(e.fecha)}</dd></div><div><dt>Lugar</dt><dd>${esc(e.lugar)}</dd></div></dl>` : ""}
+      ${e.indicaciones ? `<p>${esc(e.indicaciones)}</p>` : ""}
+      <p>Agradecemos a todos los postulantes por su interés en formar parte de nuestra organización. Quienes no figuran en esta relación pueden registrarse en nuestro banco de empleos para futuras convocatorias.</p>
+      <span class="cf">${esc(c.firmaResultados || "Área de Recursos Humanos y Administración – COMBOY VID")}</span>
+    </div>`);
+    if (!$("#avisoRes")) $("#lista").insertAdjacentHTML("beforebegin", `<a class="aviso-res" id="avisoRes" href="#resultados"><span class="tag verde">Resultados publicados</span> <strong>${esc(c.puesto)}</strong>: ver postulantes aptos y horarios de entrevista →</a>`);
+  }
   const elim = c.eliminacionCV ? new Date(c.eliminacionCV + "T00:00:00-05:00").toLocaleDateString("es-PE", {day:"2-digit", month:"long", year:"numeric", timeZone:"America/Lima"}) : "";
   $("#nota15").innerHTML = `<strong>Importante:</strong> los CV de los postulantes que no pasen a la entrevista y <strong>no se registren en el banco de empleos</strong> serán eliminados del archivo de la empresa en los próximos 15 días${elim ? ` (a más tardar el ${esc(elim)})` : ""}, conforme a la Ley de Protección de Datos Personales.`;
 }
