@@ -183,6 +183,7 @@
   .res-datos div{background:var(--alt);border-radius:8px;padding:.6rem .8rem}
   .res-datos dt{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--suave)}
   .res-datos dd{font-weight:700;color:var(--tinta)}
+  .res-datos .btn.mapa{margin-top:.5rem;padding:.55rem .9rem;font-size:.8rem}
   @media(max-width:600px){.res-datos{grid-template-columns:1fr}}
   .aviso-res{display:flex;flex-wrap:wrap;gap:8px;align-items:center;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:12px 16px;margin-bottom:20px;text-decoration:none;color:var(--tinta);font-size:.9rem}
   .aviso-res:hover{background:#DCFCE7}
@@ -552,6 +553,7 @@ const CONVOCATORIAS = [
     entrevista: {
       fecha: "Sábado 07 de noviembre de 2026",
       lugar: "Planta principal de COMBOY VID – Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa",
+      mapa: "https://maps.app.goo.gl/mb6EYSeRt8oqpW9b6",
       indicaciones: "Se solicita a los postulantes presentarse con 10 minutos de anticipación a su horario. La entrevista personal y la prueba práctica (Excel y documentos) tienen una duración aproximada de una hora por candidato. La inasistencia o tardanza injustificada será considerada como desistimiento del proceso."
     },
     firmaResultados: "Arequipa, 06 de noviembre de 2026 · Área de Recursos Humanos y Administración – COMBOY VID",
@@ -610,6 +612,7 @@ const CONVOCATORIAS = [
       ["Sábados", "8:00 a.m. – 1:00 p.m.", "Jornada corrida"]
     ],
     lugar: "Planta principal de COMBOY VID – Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa.",
+    mapa: "https://maps.app.goo.gl/mb6EYSeRt8oqpW9b6",
     etapas: ["Evaluación curricular", "Entrevista personal", "Prueba práctica (Excel y documentos)", "Verificación de referencias", "Incorporación"]
   }
 ];
@@ -659,7 +662,7 @@ function render(){
           <div><h4>${esc(c.horarioTitulo || "Horario y lugar de trabajo")}</h4>
             <table class="horario"><thead><tr>${(c.horarioCab || ["Día", "Horario", "Observación"]).map(h => `<th>${esc(h)}</th>`).join("")}</tr></thead>
             <tbody>${c.horario.map(h => `<tr>${h.map(x => `<td>${esc(x)}</td>`).join("")}</tr>`).join("")}</tbody></table>
-            <p style="margin-top:.8rem;font-size:.85rem">${esc(c.lugar)}</p>
+            <p style="margin-top:.8rem;font-size:.85rem">${esc(c.lugar)}${c.mapa ? ` <a href="${esc(c.mapa)}" target="_blank" rel="noopener"><strong>Ver en Google Maps</strong></a>` : ""}</p>
           </div>
           <div class="full"><h4>Etapas del proceso de selección</h4><div class="etapas">${c.etapas.map(x => `<div>${esc(x)}</div>`).join("")}</div></div>
         </div>
@@ -707,7 +710,7 @@ function renderResultados(visibles){
       <p>Concluida la evaluación curricular, el Área de Recursos Humanos y Administración de COMBOY VID comunica la relación de postulantes <strong>aptos para la entrevista personal presencial</strong>, con su horario asignado:</p>
       <div class="tabla-res"><table><thead><tr><th>N.°</th><th>Apellidos y nombres</th><th>DNI</th><th>Horario</th></tr></thead>
       <tbody>${c.seleccionados.map((x, i) => `<tr><td>${i + 1}</td><td><strong>${esc(x.nombre || x)}</strong></td><td>${esc(dniParcial(x.dni))}</td><td>${esc(x.hora || "")}</td></tr>`).join("")}</tbody></table></div>
-      ${e.fecha ? `<dl class="res-datos"><div><dt>Fecha</dt><dd>${esc(e.fecha)}</dd></div><div><dt>Lugar</dt><dd>${esc(e.lugar)}</dd></div></dl>` : ""}
+      ${e.fecha ? `<dl class="res-datos"><div><dt>Fecha</dt><dd>${esc(e.fecha)}</dd></div><div><dt>Lugar</dt><dd>${esc(e.lugar)}${e.mapa ? `<br><a class="btn mapa" href="${esc(e.mapa)}" target="_blank" rel="noopener">📍 Ver ubicación en Google Maps</a>` : ""}</dd></div></dl>` : ""}
       ${e.indicaciones ? `<p>${esc(e.indicaciones)}</p>` : ""}
       <p>Agradecemos a todos los postulantes por su interés en formar parte de nuestra organización. Quienes no figuran en esta relación pueden registrarse en nuestro banco de empleos para futuras convocatorias.</p>
       <span class="cf">${esc(c.firmaResultados || "Área de Recursos Humanos y Administración – COMBOY VID")}</span>
