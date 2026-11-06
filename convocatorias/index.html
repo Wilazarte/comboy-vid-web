@@ -168,6 +168,7 @@
   @media(max-width:900px){.res-grid{grid-template-columns:1fr}}
   .crono{padding:28px}
   .crono h3,.banco h3{font-size:1.15rem}
+  .comunicado{background:#EFF6FF;border:1px solid #BFDBFE;border-left:5px solid var(--azul);color:var(--navy);border-radius:10px;padding:14px 16px;font-size:.88rem;margin-bottom:18px}
   .crono ol{list-style:none;margin-top:16px;position:relative}
   .crono ol::before{content:"";position:absolute;left:11px;top:6px;bottom:6px;width:2px;background:var(--linea)}
   .crono li{position:relative;padding:0 0 18px 38px}
@@ -512,8 +513,8 @@ const CONVOCATORIAS = [
     // Cronograma: [fecha y hora de inicio (Perú), "texto de la fecha", "etapa", "detalle", destacar]
     cronograma: [
       ["2026-11-04T12:00", "Miércoles 04/11 · 12:00 p.m.", "Cierre de postulaciones", "Ya no se reciben CV para este puesto."],
-      ["2026-11-04T12:01", "04/11 al 05/11", "Evaluación curricular", "RR.HH. revisa todos los CV recibidos."],
-      ["2026-11-05T18:00", "Jueves 05/11 · 6:00 p.m.", "Publicación de resultados", "Se publican en esta página los 3 postulantes que pasan a entrevista personal. También les avisamos por WhatsApp.", true],
+      ["2026-11-04T12:01", "04/11 al 06/11", "Evaluación curricular", "RR.HH. revisa todos los CV recibidos."],
+      ["2026-11-06T10:00", "Viernes 06/11 · 10:00 a.m.", "Publicación de resultados (reprogramada)", "Se publican en esta página los 3 postulantes que pasan a entrevista personal. También les avisamos por WhatsApp.", true],
       ["2026-11-07T09:00", "Sábado 07/11 · 9:00 a.m.", "Entrevista personal y prueba práctica", "Solo los 3 seleccionados, en la planta de Paucarpata (Excel y documentos)."],
       ["2026-11-07T14:00", "Sábado 07/11 · tarde", "Verificación de referencias", "Se contactan las referencias laborales."],
       ["2026-11-08T10:00", "Domingo 08/11", "Resultado final", "Se comunica por WhatsApp a la persona seleccionada."],
@@ -522,7 +523,9 @@ const CONVOCATORIAS = [
     // Nombres de los 3 que pasan a entrevista. Se muestran cuando haya nombres y llegue la fecha de publicación.
     seleccionados: [],
     // Los CV de quienes NO se registren en el banco de empleos se eliminan hasta esta fecha (15 días después de los resultados)
-    eliminacionCV: "2026-11-20",
+    eliminacionCV: "2026-11-21",
+    // Aviso que se muestra arriba del cronograma (dejar "" para ocultarlo)
+    avisoCronograma: "Comunicado: debido a la gran cantidad de postulantes, aún no se termina de revisar todos los CV recibidos. Por ello, la publicación de resultados se reprograma para el viernes 06 de noviembre a las 10:00 a.m. El Área de Recursos Humanos y Administración de COMBOY VID agradece su comprensión y paciencia.",
     pdf: "docs/convocatoria-asistente-administrativo.pdf",
     datos: [
       ["Modalidad", "Tiempo completo – Presencial"],
@@ -647,7 +650,7 @@ function renderResultados(visibles){
   let actual = -1; t.forEach((e, i) => { if (ahora >= fechaPeru(e[0])) actual = i; });
   const pub = t.find(e => e[4]);
   const publicado = c.seleccionados.length && (!pub || ahora >= fechaPeru(pub[0]));
-  $("#crono").innerHTML = `<h3>Cronograma · ${esc(c.puesto)}</h3>
+  $("#crono").innerHTML = (c.avisoCronograma && !publicado ? `<div class="comunicado">${esc(c.avisoCronograma)}</div>` : "") + `<h3>Cronograma · ${esc(c.puesto)}</h3>
     <ol>${t.map((e, i) => `<li class="${i < actual ? "hecho" : i === actual ? "ahora" : ""} ${e[4] ? "clave" : ""}">
       <span class="f">${esc(e[1])}</span><span class="t">${esc(e[2])}</span><span class="d">${esc(e[3])}</span></li>`).join("")}</ol>
     <div class="selec"><h4>Pasan a entrevista personal</h4>
