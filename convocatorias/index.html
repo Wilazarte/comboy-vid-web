@@ -173,6 +173,12 @@
   .resultado-oficial .ca{display:block;color:var(--tinta);font-weight:700;text-align:center;margin:.3rem 0 .8rem;font-size:.95rem}
   .resultado-oficial p{margin-top:.7rem;text-align:justify}
   .resultado-oficial .cf{display:block;margin-top:.9rem;padding-top:.7rem;border-top:1px solid var(--linea);font-size:.78rem;color:var(--suave);text-align:right;font-style:italic}
+  .resultado-oficial.final{border-top-color:var(--azul)}
+  .resultado-oficial.final .ct{color:var(--azul)}
+  .ganador{display:flex;gap:14px;align-items:center;background:#F0FDF4;border:1px solid #BBF7D0;border-radius:10px;padding:14px 16px;margin-top:.9rem}
+  .ganador span{flex:none;width:40px;height:40px;border-radius:50%;background:var(--verde);color:#fff;display:grid;place-items:center;font-weight:700;font-size:1.2rem}
+  .ganador strong{display:block;color:var(--tinta);font-size:1.05rem}
+  .ganador small{color:var(--suave)}
   .tabla-res{overflow-x:auto;margin-top:.9rem;border:1px solid var(--linea);border-radius:8px}
   .tabla-res table{width:100%;border-collapse:collapse;font-size:.85rem}
   .tabla-res th{background:var(--navy);color:#fff;text-align:left;padding:.6rem .7rem;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
@@ -557,6 +563,14 @@ const CONVOCATORIAS = [
       indicaciones: "Se solicita a los postulantes presentarse con 10 minutos de anticipación a su horario. La entrevista personal y la prueba práctica (Excel y documentos) tienen una duración aproximada de una hora por candidato. La inasistencia o tardanza injustificada será considerada como desistimiento del proceso."
     },
     firmaResultados: "Arequipa, 06 de noviembre de 2026 · Área de Recursos Humanos y Administración – COMBOY VID",
+    // Resultado final del proceso (se muestra apenas tenga nombre)
+    resultadoFinal: {
+      nombre: "ALELY COAGUILA OLANDA",
+      dni: "71380298",
+      inicio: "Lunes 09 de noviembre de 2026, 8:00 a.m.",
+      detalle: "La primera semana corresponde al periodo de inducción en los procesos y sistemas internos de la empresa.",
+      firma: "Arequipa, 07 de noviembre de 2026 · Área de Recursos Humanos y Administración – COMBOY VID"
+    },
     // Los CV de quienes NO se registren en el banco de empleos se eliminan hasta esta fecha (15 días después de los resultados)
     eliminacionCV: "2026-11-21",
     // Aviso que se muestra arriba del cronograma (dejar "" para ocultarlo)
@@ -701,9 +715,10 @@ function renderResultados(visibles){
     ${publicado ? "" : `<div class="selec"><h4>Pasan a entrevista personal</h4>
       ${`<div class="pend">Los nombres de los <strong>3 postulantes seleccionados</strong> se publicarán aquí el ${esc(pub ? pub[1].toLowerCase().replace(" · ", " a las ") : "día indicado.")} Los seleccionados también recibirán un mensaje por WhatsApp.</div>`}
     </div>`}`;
+  const dniParcial = d => String(d || "").replace(/^(\d{2})\d+(\d{2})$/, (m, a, b) => a + "****" + b);
+  const rf = c.resultadoFinal && c.resultadoFinal.nombre ? c.resultadoFinal : null;
   if (publicado){
     const e = c.entrevista || {};
-    const dniParcial = d => String(d || "").replace(/^(\d{2})\d+(\d{2})$/, (m, a, b) => a + "****" + b);
     $("#crono").insertAdjacentHTML("afterbegin", `<div class="resultado-oficial" id="resultado-${esc(c.id)}">
       <strong class="ct">Resultados de la evaluación curricular</strong>
       <span class="ca">${esc(c.puesto)} · Postulantes aptos para entrevista personal</span>
@@ -715,7 +730,19 @@ function renderResultados(visibles){
       <p>Agradecemos a todos los postulantes por su interés en formar parte de nuestra organización. Quienes no figuran en esta relación pueden registrarse en nuestro banco de empleos para futuras convocatorias.</p>
       <span class="cf">${esc(c.firmaResultados || "Área de Recursos Humanos y Administración – COMBOY VID")}</span>
     </div>`);
-    if (!$("#avisoRes")) $("#lista").insertAdjacentHTML("beforebegin", `<a class="aviso-res" id="avisoRes" href="#resultados"><span class="tag verde">Resultados publicados</span> <strong>${esc(c.puesto)}</strong>: ver postulantes aptos y horarios de entrevista →</a>`);
+    if (rf) $("#crono").insertAdjacentHTML("afterbegin", `<div class="resultado-oficial final">
+      <strong class="ct">Resultado final del proceso de selección</strong>
+      <span class="ca">${esc(c.puesto)}</span>
+      <p>Culminadas las etapas de entrevista personal, prueba práctica y verificación de referencias, el Área de Recursos Humanos y Administración de COMBOY VID comunica que la postulante seleccionada para ocupar el puesto es:</p>
+      <div class="ganador"><span>✓</span><div><strong>${esc(rf.nombre)}</strong><small>DNI ${esc(dniParcial(rf.dni))}</small></div></div>
+      <dl class="res-datos"><div><dt>Inicio de labores</dt><dd>${esc(rf.inicio)}</dd></div><div><dt>Lugar</dt><dd>${esc(e.lugar || c.lugar)}</dd></div></dl>
+      <p>${esc(rf.detalle)}</p>
+      <p>Expresamos nuestro sincero agradecimiento a todos los postulantes por su participación y por la confianza depositada en COMBOY VID. Invitamos a quienes deseen ser considerados en futuras oportunidades a registrarse en nuestro banco de empleos.</p>
+      <span class="cf">${esc(rf.firma)}</span>
+    </div>`);
+    if (!$("#avisoRes")) $("#lista").insertAdjacentHTML("beforebegin", rf
+      ? `<a class="aviso-res" id="avisoRes" href="#resultados"><span class="tag verde">Resultado final</span> <strong>${esc(c.puesto)}</strong>: ver postulante seleccionada →</a>`
+      : `<a class="aviso-res" id="avisoRes" href="#resultados"><span class="tag verde">Resultados publicados</span> <strong>${esc(c.puesto)}</strong>: ver postulantes aptos y horarios de entrevista →</a>`);
   }
   const elim = c.eliminacionCV ? new Date(c.eliminacionCV + "T00:00:00-05:00").toLocaleDateString("es-PE", {day:"2-digit", month:"long", year:"numeric", timeZone:"America/Lima"}) : "";
   $("#nota15").innerHTML = `<strong>Importante:</strong> los CV de los postulantes que no pasen a la entrevista y <strong>no se registren en el banco de empleos</strong> serán eliminados del archivo de la empresa en los próximos 15 días${elim ? ` (a más tardar el ${esc(elim)})` : ""}, conforme a la Ley de Protección de Datos Personales.`;
