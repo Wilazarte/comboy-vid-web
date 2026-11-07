@@ -7,6 +7,7 @@
  * 3) Registra la postulación en postulaciones.csv (se abre con Excel).
  * 4) Envía el CV por correo a RR.HH.
  * Responde siempre JSON: {ok:true} o {ok:false, error:"..."}.
+ * Seguridad (07/11/2026): funciones de administración protegidas con admin-clave.txt, sin exportación.
  */
 
 // ================== CONFIGURACIÓN ==================
@@ -20,22 +21,6 @@ $CIERRES = [
     'Mecánico de motos cargueras' => '2026-11-09 23:59',
     'Administrador(a) de tienda – Secocha' => '2026-11-09 23:59',
 ];
-// Exportación del banco de empleos (para subir los CV a Google Drive).
-// El ZIP sale CIFRADO con esta llave pública: solo quien tiene la llave privada puede abrirlo.
-// Para cambiarla: generar un par nuevo (openssl genrsa / rsa -pubout) y pegar aquí la pública.
-$EXPORT_PUBKEY = <<<PEM
------BEGIN PUBLIC KEY-----
-MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAn2ASubGWMUqxfdPpSkkV
-pfVU/ma7Z9MsChTGU4aGCKBe0EsXXRkENVW6Be5exKT5ineUmJo0aYqfEilVqtd8
-KpzjqzI/X/bezFm3sMrs4F+Vp4+YUvuTA9akz3Gt8x+hqxQOA7xaArhH+KVEpbVE
-MSJNleH9s6eUExbKgJSozw6rq6MJeH9DOCPFW40HPqpB5vZ+9iLQzVyfcTVng9pl
-GDJJjKT+Y75QUBAwDHFU5jgkbQHMxdRem3WV618KO63TbyI5hIdENIp3BMqAU+TJ
-mAVADfg/7JwZvwDBb9MrD8u6Q74PL4EBepc/e3vhMyAjBF8vRTTsQO5OEULZVWKT
-GRJZAxZ2pvvPouyH8J55K2RXtf6Ofzew6ltZoRUSY5kP+3HiP3N3DUB/21SFsXtJ
-unjYkIGD+Zs0cWtg4lPYvLY3PlrGsK14j8K9OSX4XRqgUlAYGED1SNMhJTF2Ec+R
-11KMhKgGsKjtdEOVlsRryICbYtNTGNMQhV4aECl8btPDAgMBAAE=
------END PUBLIC KEY-----
-PEM;
 // ===================================================
 
 // Nunca mostrar avisos de PHP: romperían la respuesta JSON
@@ -73,6 +58,18 @@ function puede_usar($ruta) {
     return false;
 }
 
+// ---------- Funciones de administración (protegidas) ----------
+// ?diag, ?probar_drive, ?configurar_drive y ?sincronizar SOLO funcionan si existe el archivo
+// admin-clave.txt en la carpeta privada (/home/USUARIO/postulaciones-comboyvid/) y se agrega &clave=ESA_CLAVE.
+// Sin ese archivo están desactivadas para todo el mundo. La clave NUNCA va en este repositorio (es público).
+function admin_ok() {
+    $b = carpeta_base();
+    $k = $b ? trim((string)@file_get_contents("$b/admin-clave.txt")) : '';
+    return strlen($k) >= 16 && hash_equals($k, (string)($_GET['clave'] ?? ''));
+}
+if (array_intersect(['diag', 'probar_drive', 'configurar_drive', 'sincronizar', 'exportar'], array_keys($_GET)) && !admin_ok()) {
+    responder(false, 'No disponible.', 404);
+}
 // Diagnóstico sin datos sensibles: postular.php?diag=1
 // Configurar Google Drive una sola vez: postular.php?configurar_drive=https://script.google.com/macros/s/XXXX/exec
 if (isset($_GET['configurar_drive'])) {
@@ -154,7 +151,7 @@ function agregar_csv($ruta, $cabecera, $fila) {
     flock($fh, LOCK_EX);
     if ($nuevo) { fwrite($fh, "\xEF\xBB\xBF"); fputcsv($fh, $cabecera, ';'); }
     // Evita que Excel ejecute fórmulas escritas por el postulante
-    fputcsv($fh, array_map(function ($v) { return preg_match('/^[=+\-@]/', (string)$v) ? "'" . $v : $v; }, $fila), ';');
+    fputcsv($fh, array_map(function ($v) { return preg_match('/^[=+\-@\t\r]/', (string)$v) ? "'" . $v : $v; }, $fila), ';');
     flock($fh, LOCK_UN); fclose($fh);
     return true;
 }
@@ -204,28 +201,10 @@ function descripcion_cv($r) {
 }
 $BANCO_CAB = ['Fecha registro', 'DNI', 'Nombres', 'Celular', 'Puesto postulado', 'Archivo CV', 'Origen'];
 
-// Exportar banco de empleos: postular.php?exportar=1 -> JSON con el ZIP cifrado (RSA + AES-256-CBC)
-if (isset($_GET['exportar'])) {
-    if (!class_exists('ZipArchive') || !function_exists('openssl_seal')) responder(false, 'ZipArchive/OpenSSL no disponible.', 500);
-    $base = carpeta_base();
-    if (!$base) responder(false, 'Sin carpeta.', 500);
-    $tmp = tempnam(sys_get_temp_dir(), 'banco');
-    $zip = new ZipArchive();
-    $zip->open($tmp, ZipArchive::OVERWRITE);
-    foreach (['banco.csv', 'postulaciones.csv'] as $c) if (is_file("$base/$c")) $zip->addFile("$base/$c", $c);
-    foreach (leer_csv("$base/banco.csv") as $r) {
-        $a = basename($r['Archivo CV'] ?? '');
-        if ($a !== '' && is_file("$base/$a")) $zip->addFile("$base/$a", 'cv/' . $a);
-    }
-    $zip->addFromString('LEEME.txt', 'Exportado ' . date('c'));
-    $zip->close();
-    $plano = file_get_contents($tmp); @unlink($tmp);
-    $iv = random_bytes(16);
-    if (!openssl_seal($plano, $cifrado, $llaves, [openssl_pkey_get_public($EXPORT_PUBKEY)], 'aes-256-cbc', $iv)) responder(false, 'No se pudo cifrar.', 500);
-    responder(true, 'cifrado', 200, ['ek' => base64_encode($llaves[0]), 'iv' => base64_encode($iv), 'data' => base64_encode($cifrado)]);
-}
+// (La exportación ?exportar=1 se eliminó en la auditoría de seguridad del 07/11/2026.)
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') responder(false, 'Método no permitido.', 405);
+if ((int)($_SERVER['CONTENT_LENGTH'] ?? 0) > 8 * 1024 * 1024) responder(false, 'El envío supera 8 MB. Comprima el CV o envíelo por WhatsApp.', 413);
 
 // El formulario es grande: si PHP descartó el POST por tamaño, $_POST llega vacío
 if (empty($_POST) && empty($_FILES)) responder(false, 'El archivo es demasiado grande para el servidor (máx. ' . ini_get('post_max_size') . '). Comprímalo o envíelo por WhatsApp.', 413);
@@ -253,9 +232,10 @@ if (campo('accion') === 'banco') {
     if (campo('acepta') !== 'si') responder(false, 'Marca la autorización para conservar tu CV en el banco de empleos.', 422);
     $hits[] = time(); @file_put_contents($rl, implode("\n", $hits));
     $mias = array_values(array_filter(leer_csv("$base/postulaciones.csv"), function ($r) use ($dni) { return preg_replace('/\D/', '', $r['DNI'] ?? '') === $dni; }));
-    if (!$mias) responder(false, 'No encontramos una postulación con ese DNI. Si aún no enviaste tu CV, usa el formulario de abajo y elige "Banco de empleos".', 404);
-    $ult = end($mias);
-    if (substr(preg_replace('/\D/', '', $ult['Celular'] ?? ''), -9) !== substr($cel, -9)) responder(false, 'El celular no coincide con el de tu postulación. Escríbenos por WhatsApp para validarlo.', 422);
+    $ult = $mias ? end($mias) : null;
+    // Mismo mensaje si el DNI no existe o si el celular no coincide: así nadie puede averiguar quién postuló
+    if (!$ult || substr(preg_replace('/\D/', '', $ult['Celular'] ?? ''), -9) !== substr($cel, -9))
+        responder(false, 'No encontramos una postulación con ese DNI y celular. Si aún no enviaste tu CV, usa el formulario de abajo y elige "Banco de empleos", o escríbenos por WhatsApp.', 404);
     foreach (leer_csv("$base/banco.csv") as $r) if (preg_replace('/\D/', '', $r['DNI'] ?? '') === $dni) responder(true, 'Ya estabas registrado(a) en el banco de empleos.', 200, ['nombre' => $ult['Nombres']]);
     agregar_csv("$base/banco.csv", $BANCO_CAB, [$ahora->format('Y-m-d H:i'), $dni, $ult['Nombres'], $ult['Celular'], $ult['Puesto'], $ult['Archivo CV'], 'Registro web']);
     @mail($CORREO_DESTINO, '=?UTF-8?B?' . base64_encode('Banco de empleos: ' . $ult['Nombres']) . '?=',
@@ -333,7 +313,7 @@ if ($fh = @fopen($csv, 'a')) {
     if ($nuevo) { fwrite($fh, "\xEF\xBB\xBF"); fputcsv($fh, ['Fecha', 'Puesto', 'Nombres', 'DNI', 'Celular', 'Correo', 'Ciudad', 'Formación', 'Experiencia', 'Disponibilidad', 'Mensaje', 'Archivo CV', 'IP'], ';'); }
     $fila = [$fecha->format('Y-m-d H:i'), $d['puesto'], $d['nombres'], $d['dni'], $d['celular'], $d['correo'], $d['ciudad'], $d['formacion'], $d['experiencia'], $d['disponibilidad'], una_linea($d['mensaje']), $nombreArchivo, $ip];
     // Evita que Excel ejecute fórmulas escritas por el postulante
-    $fila = array_map(function ($v) { return preg_match('/^[=+\-@]/', $v) ? "'" . $v : $v; }, $fila);
+    $fila = array_map(function ($v) { return preg_match('/^[=+\-@\t\r]/', $v) ? "'" . $v : $v; }, $fila);
     fputcsv($fh, $fila, ';');
     flock($fh, LOCK_UN); fclose($fh);
 }
