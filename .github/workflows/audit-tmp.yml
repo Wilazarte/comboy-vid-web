@@ -6,30 +6,14 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
-      - name: Chequeos pasivos (solo GET/HEAD, sin cuerpos sensibles)
+      - name: Probar si el FTP acepta conexion cifrada (FTPS), sin listar ni subir nada
+        env:
+          S: ${{ secrets.FTP_SERVER }}
+          U: ${{ secrets.FTP_USERNAME }}
+          P: ${{ secrets.FTP_PASSWORD }}
         run: |
-          A="Mozilla/5.0 (auditoria COMBOY VID)"
-          for h in comboyvid.com www.comboyvid.com erp.comboyvid.com; do
-            echo "======== CABECERAS https://$h/"; curl -sS -I -A "$A" -m 20 "https://$h/" | grep -v -i '^set-cookie' ; 
-            echo "-- set-cookie (solo nombres/flags):"; curl -sS -I -A "$A" -m 20 "https://$h/" | grep -i '^set-cookie' | sed -E 's/=[^;]*/=***/'
-            echo "======== HTTP -> https http://$h/"; curl -sS -o /dev/null -w '%{http_code} -> %{redirect_url}\n' -A "$A" -m 20 "http://$h/"
+          sudo apt-get -qq install -y lftp >/dev/null 2>&1
+          for v in yes no; do
+            if timeout 40 lftp -u "$U","$P" -e "set ftp:ssl-force true; set ftp:ssl-protect-data true; set ssl:verify-certificate $v; set net:max-retries 1; set net:timeout 15; pwd; bye" "ftp://$S" >/dev/null 2>/tmp/e; then echo "FTPS OK (verificar certificado=$v)"; else echo "FTPS FALLA (verificar certificado=$v): $(head -c 200 /tmp/e)"; fi
           done
-          echo "======== TLS"; echo | openssl s_client -connect comboyvid.com:443 -servername comboyvid.com 2>/dev/null | openssl x509 -noout -issuer -subject -dates -ext subjectAltName
-          for v in tls1 tls1_1; do echo | timeout 10 openssl s_client -$v -connect comboyvid.com:443 -servername comboyvid.com >/dev/null 2>&1 && echo "$v ACEPTADO" || echo "$v rechazado"; done
-          echo "======== DNS correo"; sudo apt-get -qq install -y dnsutils >/dev/null 2>&1
-          dig +short TXT comboyvid.com; echo "-- dmarc"; dig +short TXT _dmarc.comboyvid.com; echo "-- default._domainkey"; dig +short TXT default._domainkey.comboyvid.com | cut -c1-60; echo "-- MX"; dig +short MX comboyvid.com; echo "-- CAA"; dig +short CAA comboyvid.com
-          echo "======== RUTAS (codigo / tipo / tamano / listado?)"
-          B=https://www.comboyvid.com
-          for p in / /robots.txt /.well-known/security.txt /.git/HEAD /.git/config /.github/workflows/deploy.yml /.ftp-deploy-sync-state.json /.env /.htaccess /.user.ini /error_log /php.ini /phpinfo.php /info.php \
-                   /convocatorias/ /convocatorias/.user.ini /convocatorias/.htaccess /convocatorias/error_log /convocatorias/docs/ /convocatorias/postulaciones/ \
-                   /convocatorias/postulaciones/postulaciones.csv /convocatorias/postulaciones/banco.csv /convocatorias/postulaciones/drive-config.json /convocatorias/postulaciones/drive-enviados.txt /convocatorias/postulaciones/.htaccess \
-                   /convocatorias/postular.php /expomape/ /expomape/img/ /expomape/img/web/ /public/ /public/images/ /erp/ /cgi-bin/ /images/ /img/ /backup/ /old/ /wp-login.php /cpanel /webmail /postulaciones-comboyvid/; do
-            out=$(curl -sS -A "$A" -m 20 -o /tmp/b -w '%{http_code} %{content_type} %{size_download}' "$B$p")
-            lst=$(grep -qi '<title>Index of' /tmp/b && echo "LISTADO-DE-DIRECTORIO($(grep -o 'href="[^"?]*"' /tmp/b | wc -l) entradas)" || echo "")
-            echo "$p => $out $lst"
-          done
-          echo "======== postular.php?diag=1"; curl -sS -A "$A" -m 20 "$B/convocatorias/postular.php?diag=1"; echo
-          echo "======== GET postular.php"; curl -sS -i -A "$A" -m 20 "$B/convocatorias/postular.php" | head -20
-          echo "======== CORS postular.php"; curl -sS -I -A "$A" -H "Origin: https://evil.example" -m 20 "$B/convocatorias/postular.php" | grep -i 'access-control' || echo "sin CORS"
-          echo "======== 404 pagina"; curl -sS -A "$A" -m 20 "$B/no-existe-xyz-123" | head -c 400; echo
-          echo "======== Server/X-Powered-By de PHP"; curl -sS -I -A "$A" -m 20 "$B/convocatorias/postular.php?diag=1" | grep -iE 'server|x-powered|php'
+          echo | timeout 15 openssl s_client -starttls ftp -connect "$S:21" 2>/dev/null | openssl x509 -noout -subject -issuer -enddate 2>/dev/null || echo "sin certificado STARTTLS"
