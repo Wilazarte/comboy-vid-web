@@ -1,0 +1,3 @@
+# Seguridad (auditoría 07/11/2026): no mostrar la lista de archivos de las carpetas
+# (antes /expomape/img/ y /expomape/img/web/ mostraban todos los archivos subidos).
+Options -Indexes

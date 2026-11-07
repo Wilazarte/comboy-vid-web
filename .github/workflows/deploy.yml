@@ -3,16 +3,25 @@ on:
   push:
     branches:
       - main
+# Seguridad (auditoría 07/11/2026): permisos mínimos y un solo deploy a la vez
+permissions:
+  contents: read
+concurrency:
+  group: deploy-cpanel
+  cancel-in-progress: false
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: Deploy via FTP
+      - name: Deploy via FTPS (cifrado)
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
+          # Antes era FTP sin cifrar: la contraseña viajaba en texto plano. Probado: el hosting acepta FTPS con certificado válido.
+          protocol: ftps
+          security: strict
           server-dir: /public_html/
