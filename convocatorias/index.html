@@ -33,7 +33,7 @@
   [hidden]{display:none!important}
   .card{background:var(--blanco);border-radius:var(--radio);box-shadow:var(--sombra)}
   .tag{display:inline-block;background:var(--rojo);color:#fff;font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;padding:.45rem .7rem;border-radius:6px}
-  .tag.verde{background:var(--verde)} .tag.gris{background:var(--suave)}
+  .tag.verde{background:var(--verde)} .tag.gris{background:var(--suave)} .tag.azul{background:var(--navy)}
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;font:700 .95rem/1.2 "Libre Baskerville",serif;text-decoration:none;padding:.9rem 1.3rem;border:2px solid var(--azul);background:var(--azul);color:#fff;border-radius:8px;cursor:pointer;transition:background .15s,transform .15s;text-align:center}
   .btn:hover{background:var(--azul2);border-color:var(--azul2);transform:translateY(-1px)}
   .btn.out{background:#fff;color:var(--azul)}
@@ -564,6 +564,7 @@ const CONVOCATORIAS = [
     },
     firmaResultados: "Arequipa, 06 de noviembre de 2026 · Área de Recursos Humanos y Administración – COMBOY VID",
     // Resultado final del proceso (se muestra apenas tenga nombre)
+    finalizado: true,                      // proceso de selección concluido
     resultadoFinal: {
       nombre: "ALELY COAGUILA OLANDA",
       dni: "71380298",
@@ -659,11 +660,11 @@ function render(){
       return `<article class="card conv" id="conv-${esc(c.id)}">
         <div class="conv-top">
           <div>
-            <span class="tag ${ok ? "verde" : "gris"}">${ok ? "Convocatoria abierta" : "Convocatoria cerrada"}</span>
+            <span class="tag ${ok ? "verde" : c.finalizado ? "azul" : "gris"}">${ok ? "Convocatoria abierta" : c.finalizado ? "Proceso finalizado" : "Convocatoria cerrada"}</span>
             <h3>${esc(c.puesto)}</h3>
             <div class="meta">${esc(c.area)}</div>
           </div>
-          <div class="plazo ${ok ? "" : "cerrada"}">${ok ? (dias <= 1 ? "¡Último día para postular!" : "Quedan " + dias + " días") : "Postulaciones cerradas"}<small>${ok ? "Válida hasta el" : "Cerró el"} ${esc(fechaLarga(c))}</small></div>
+          <div class="plazo ${ok ? "" : "cerrada"}">${ok ? (dias <= 1 ? "¡Último día para postular!" : "Quedan " + dias + " días") : c.finalizado ? "Proceso de selección concluido" : "Postulaciones cerradas"}<small>${ok ? "Válida hasta el" : "Cerró el"} ${esc(fechaLarga(c))}</small></div>
         </div>
         ${ok ? `<dl class="datos">${clave.map(d => `<div><dt>${esc(d[0])}</dt><dd>${esc(d[1])}</dd></div>`).join("")}</dl>
         <p class="resumen">${esc(c.objetivo)}</p>` : ""}
@@ -684,7 +685,7 @@ function render(){
           <button class="btn out ver-mas" type="button" data-detalle="det-${esc(c.id)}" aria-expanded="false">Ver más detalles ▾</button>
           <div class="acc">
             ${c.pdf ? `<a class="btn out" href="${esc(c.pdf)}" target="_blank" rel="noopener">PDF</a>` : ""}
-            ${ok ? `<a class="btn" href="#postular" data-postular="${esc(c.puesto)}">Postular a este puesto</a>` : `<a class="btn" href="#resultados">Ver cronograma y resultados</a>`}
+            ${ok ? `<a class="btn" href="#postular" data-postular="${esc(c.puesto)}">Postular a este puesto</a>` : `<a class="btn" href="#resultados">${c.finalizado ? "Ver resultado final" : "Ver cronograma y resultados"}</a>`}
           </div>
         </div>
       </article>`;
@@ -707,6 +708,7 @@ function renderResultados(visibles){
   if (!c){ $("#resultados").hidden = true; return; }
   const ahora = new Date(), t = c.cronograma;
   let actual = -1; t.forEach((e, i) => { if (ahora >= fechaPeru(e[0])) actual = i; });
+  if (c.finalizado) actual = t.length;   // todas las etapas en verde
   const pub = t.find(e => e[4]);
   const publicado = c.seleccionados.length && (!pub || ahora >= fechaPeru(pub[0]));
   $("#crono").innerHTML = (c.avisoCronograma && !publicado ? `<div class="comunicado"><strong class="ct">${esc(c.avisoCronograma.titulo)}</strong><span class="ca">${esc(c.avisoCronograma.asunto)}</span>${c.avisoCronograma.parrafos.map(x => `<p>${esc(x)}</p>`).join("")}<span class="cf">${esc(c.avisoCronograma.firma)}</span></div>` : "") + `<h3>Cronograma · ${esc(c.puesto)}</h3>
