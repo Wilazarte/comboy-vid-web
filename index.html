@@ -418,9 +418,11 @@ body{overflow-x:clip}
 .cv-fs #fsBtn .fs-on{display:none}.cv-fs #fsBtn .fs-off{display:inline}
 #fsLogo{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:100000;background:#000;flex-direction:column;align-items:center;justify-content:center;cursor:none}
 .cv-fs #fsLogo,#fsLogo.on{display:flex}
-#fsLogo img{display:block;width:65vw;max-width:1100px;height:auto}
-#fsLogo p{color:#fff;font-family:'Libre Baskerville',Georgia,serif;font-weight:400;letter-spacing:.6em;font-size:16px;margin:2.5rem 0 0;padding-left:.6em;text-align:center}
-@media (max-width:767px){#fsLogo img{width:90vw}#fsLogo p{font-size:11px}}
+/* Logo grande y con más brillo para exteriores (pantalla LED) */
+#fsLogo img{display:block;width:96vw;max-width:none;height:auto;-webkit-filter:brightness(1.45) contrast(1.2) saturate(1.45);filter:brightness(1.45) contrast(1.2) saturate(1.45)}
+#fsLogo p{color:#fff;font-family:'Libre Baskerville',Georgia,serif;font-weight:700;letter-spacing:.45em;font-size:4.2vw;margin:3vh 0 0;padding-left:.45em;text-align:center;white-space:nowrap;text-shadow:0 0 12px rgba(255,255,255,.55)}
+@media (min-aspect-ratio:1/1){#fsLogo img{width:auto;height:58vh}#fsLogo p{font-size:4.2vh}}
+
 #fsBtn:hover{color:#93c5fd}
 </style>
 <!-- Red de seguridad para navegadores antiguos (pantallas Android): si algún script falla,
