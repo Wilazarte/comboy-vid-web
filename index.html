@@ -416,6 +416,11 @@ body{overflow-x:clip}
 /* BOTÓN PANTALLA COMPLETA (header) */
 #fsBtn .fs-off{display:none}
 .cv-fs #fsBtn .fs-on{display:none}.cv-fs #fsBtn .fs-off{display:inline}
+#fsLogo{display:none;position:fixed;top:0;right:0;bottom:0;left:0;z-index:100000;background:#000;flex-direction:column;align-items:center;justify-content:center;cursor:none}
+.cv-fs #fsLogo,#fsLogo.on{display:flex}
+#fsLogo img{display:block;width:65vw;max-width:1100px;height:auto}
+#fsLogo p{color:#fff;font-family:'Libre Baskerville',Georgia,serif;font-weight:400;letter-spacing:.6em;font-size:16px;margin:2.5rem 0 0;padding-left:.6em;text-align:center}
+@media (max-width:767px){#fsLogo img{width:90vw}#fsLogo p{font-size:11px}}
 #fsBtn:hover{color:#93c5fd}
 </style>
 <!-- Red de seguridad para navegadores antiguos (pantallas Android): si algún script falla,
@@ -429,6 +434,14 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
 </head>
 
 <body>
+<!-- PANTALLA COMPLETA: solo el logo (se abre con el botón ⛶ del header o con ?pantalla=1). Doble toque o Esc para salir -->
+<div id="fsLogo" aria-hidden="true">
+  <picture>
+    <source srcset="public/images/logo-comboy-vid-oficial.webp" type="image/webp">
+    <img src="public/images/logo-comboy-vid-oficial.png" alt="COMBOY VID" width="1100" height="360">
+  </picture>
+  <p>SOLUCIONES MINERAS</p>
+</div>
 
 <!-- ===================== LOADER ===================== -->
 <!-- LOADER COMBOY VID -->
@@ -1974,24 +1987,28 @@ document.querySelectorAll('a[data-wa]').forEach(function(a){
   tick(); setInterval(tick,1000);
 })();
 </script>
-<!-- PANTALLA COMPLETA: botón del header y modo pantalla publicitaria (?pantalla=1: el primer toque pone pantalla completa) -->
+<!-- PANTALLA COMPLETA: el botón ⛶ y ?pantalla=1 muestran solo el logo a pantalla completa -->
 <script>
 (function(){
-  var d=document, h=d.documentElement, b=d.getElementById('fsBtn');
-  var req=h.requestFullscreen||h.webkitRequestFullscreen||h.webkitRequestFullScreen||h.mozRequestFullScreen||h.msRequestFullscreen;
+  var d=document, h=d.documentElement, b=d.getElementById('fsBtn'), ov=d.getElementById('fsLogo');
+  if(!b||!ov)return;
+  var req=ov.requestFullscreen||ov.webkitRequestFullscreen||ov.webkitRequestFullScreen||ov.mozRequestFullScreen||ov.msRequestFullscreen;
   var exit=d.exitFullscreen||d.webkitExitFullscreen||d.webkitCancelFullScreen||d.mozCancelFullScreen||d.msExitFullscreen;
   function activo(){return !!(d.fullscreenElement||d.webkitFullscreenElement||d.mozFullScreenElement||d.msFullscreenElement);}
-  function marcar(){var on=activo();if(on){if(h.className.indexOf('cv-fs')<0)h.className+=' cv-fs';}else{h.className=h.className.replace(/\s?cv-fs/g,'');}
-    if(b){b.setAttribute('aria-label',on?'Salir de pantalla completa':'Pantalla completa');b.title=b.getAttribute('aria-label');}}
-  function entrar(){try{var r=req.call(h);if(r&&r['catch'])r['catch'](function(){});}catch(e){}}
-  function alternar(){if(activo()){try{exit.call(d);}catch(e){}}else{entrar();}}
-  if(!req||!b)return;
+  function abrir(){ov.className='on';ov.setAttribute('aria-hidden','false');
+    if(req&&!activo()){try{var r=req.call(ov);if(r&&r['catch'])r['catch'](function(){});}catch(e){}}}
+  function cerrar(){ov.className='';ov.setAttribute('aria-hidden','true');if(activo()&&exit){try{exit.call(d);}catch(e){}}}
+  function cambio(){if(!activo())cerrar();}
   b.style.display='';
-  b.addEventListener('click',alternar);
-  ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){d.addEventListener(ev,marcar);});
+  b.addEventListener('click',abrir);
+  ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){d.addEventListener(ev,cambio);});
+  ov.addEventListener('dblclick',cerrar);
+  var ult=0;ov.addEventListener('touchend',function(){var t=Date.now();if(t-ult<400)cerrar();ult=t;});
+  d.addEventListener('keydown',function(e){if((e.key==='Escape'||e.keyCode===27)&&ov.className==='on')cerrar();});
   if(/[?&]pantalla=1/.test(location.search)){
-    var primer=function(){if(!activo())entrar();};
-    d.addEventListener('click',primer,true);d.addEventListener('touchend',primer,true);
+    abrir();
+    var primer=function(){if(req&&!activo()){try{var r=req.call(ov);if(r&&r['catch'])r['catch'](function(){});}catch(e){}}};
+    ov.addEventListener('click',primer);ov.addEventListener('touchend',primer);
   }
 })();
 </script>
