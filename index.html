@@ -92,7 +92,7 @@
   a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #FFD400;outline-offset:2px}
 
   /* ---------- Loader ---------- */
-  #loader{position:fixed;inset:0;background:var(--black);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
+  #loader{position:fixed;top:0;right:0;bottom:0;left:0;background:var(--black);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s,visibility .5s}
   #loader.hide{opacity:0;visibility:hidden}
   .loader-bar{width:180px;height:4px;background:#333;border-radius:4px;overflow:hidden;margin-top:18px}
   .loader-bar span{display:block;height:100%;width:40%;background:var(--red);animation:load 1s infinite ease-in-out}
@@ -110,7 +110,7 @@
   .nav-link:hover::after,.nav-link.active::after{width:100%}
 
   /* ---------- Botones ---------- */
-  :where(.btn){display:inline-flex}
+  .btn{display:inline-flex}
   .btn{align-items:center;justify-content:center;gap:.5rem;font-family:'Montserrat';font-weight:800;letter-spacing:.04em;text-transform:uppercase;border-radius:10px;transition:transform .2s, box-shadow .2s, background .2s;cursor:pointer}
   .btn:hover{transform:translateY(-3px)}
   .btn-red{background:var(--red);color:#fff;box-shadow:0 8px 22px rgba(160,0,0,.35)}
@@ -123,11 +123,11 @@
 
   /* ---------- Hero ---------- */
   .hero{background:#0b0b0b}
-  .hero-bg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;filter:blur(8px) brightness(.55) saturate(1.1);transform:scale(1.08);animation:zoom 18s ease-in-out infinite alternate}
+  .hero-bg{position:absolute;top:0;right:0;bottom:0;left:0;z-index:0;background-size:cover;background-position:center;filter:blur(8px) brightness(.55) saturate(1.1);transform:scale(1.08);animation:zoom 18s ease-in-out infinite alternate}
   @keyframes zoom{to{transform:scale(1.15)}}
   @keyframes float{0%,100%{translate:0 0}50%{translate:0 -12px}}
-  .hero::before{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(100deg,rgba(10,10,10,.95) 0%,rgba(10,10,10,.7) 45%,rgba(10,10,10,.35) 100%)}
-  .hero::after{content:'';position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 75% 55%,rgba(255,200,80,.18),transparent 45%)}
+  .hero::before{content:'';position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;background:linear-gradient(100deg,rgba(10,10,10,.95) 0%,rgba(10,10,10,.7) 45%,rgba(10,10,10,.35) 100%)}
+  .hero::after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;z-index:1;background:radial-gradient(circle at 75% 55%,rgba(255,200,80,.18),transparent 45%)}
   .hero-content{position:relative;z-index:2}
   .stripe{height:6px;background:repeating-linear-gradient(-45deg,#FFD400 0 14px,#141414 14px 28px)}
 
@@ -170,12 +170,12 @@
 
   /* ---------- WhatsApp flotante ---------- */
   .wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:62px;height:62px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 25px rgba(160,0,0,.5)}
-  .wa-float::before,.wa-float::after{content:'';position:absolute;inset:0;border-radius:50%;background:var(--red);z-index:-1;animation:pulse 2s infinite}
+  .wa-float::before,.wa-float::after{content:'';position:absolute;top:0;right:0;bottom:0;left:0;border-radius:50%;background:var(--red);z-index:-1;animation:pulse 2s infinite}
   .wa-float::after{animation-delay:1s}
   @keyframes pulse{0%{transform:scale(1);opacity:.7}100%{transform:scale(1.8);opacity:0}}
 
   /* ---------- Modales legales ---------- */
-  .modal{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.7)}
+  .modal{position:fixed;top:0;right:0;bottom:0;left:0;z-index:80;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(0,0,0,.7)}
   .modal.open{display:flex}
   .modal-box{background:#fff;max-width:860px;width:100%;max-height:88vh;overflow:auto;border-radius:16px;border-top:8px solid var(--red)}
   .legal h3{font-size:1.05rem;color:var(--blue);margin:1.3rem 0 .4rem}
@@ -194,7 +194,7 @@
   .yt-facade{position:relative;cursor:pointer;background:#000;aspect-ratio:16/9;border-radius:14px;overflow:hidden}
   .yt-facade img{width:100%;height:100%;object-fit:cover;opacity:.7;transition:opacity .3s}
   .yt-facade:hover img{opacity:.9}
-  .yt-play{position:absolute;inset:0;margin:auto;width:78px;height:78px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(160,0,0,.3)}
+  .yt-play{position:absolute;top:0;right:0;bottom:0;left:0;margin:auto;width:78px;height:78px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(160,0,0,.3)}
 
   @media (prefers-reduced-motion: reduce){
     *{animation:none!important;transition:none!important}
@@ -203,7 +203,7 @@
   }
   /* LOADER COMBOY VID - FIX DEFINITIVO */
 #loader{
-  position:fixed; inset:0; z-index:9999;
+  position:fixed; top:0;right:0;bottom:0;left:0; z-index:9999;
   background:#0a0a0a; display:flex;
   align-items:center; justify-content:center;
   transition: opacity .6s ease, visibility .6s;
@@ -371,6 +371,9 @@ html{scroll-behavior:smooth}
 #countdown-expomape #timer{color:#38bdf8;white-space:nowrap}
 #inicio .hero-btn-expomape{background:#E53935;box-shadow:0 6px 18px rgba(229,57,53,.4)}
 @media (max-width:640px){#countdown-expomape{bottom:19.2%;padding:.35em .8em;border-radius:6px;font-size:1.9vw;font-size:1.9cqw;line-height:1.2;gap:.4em}#countdown-expomape .cd-largo{display:none}}
+/* PANTALLAS ANDROID ANTIGUAS: si el JS no llega a ocultar el preloader, se oculta solo a los 4 s */
+#loader{animation:cvLoaderFailsafe .01s linear 4s forwards}
+@keyframes cvLoaderFailsafe{to{opacity:0;visibility:hidden;pointer-events:none}}
 /* RESPONSIVE · respaldo para navegadores antiguos (sin aspect-ratio) y sin scroll horizontal */
 @supports not (aspect-ratio:1/1){#inicio{height:0;padding-top:58.676%}}
 body{overflow-x:clip}
@@ -394,7 +397,7 @@ body{overflow-x:clip}
 .expo-portada{position:relative;display:block;width:100%;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#000;cursor:zoom-in;padding:0;border:0;box-shadow:var(--erp-shadow)}
 .expo-portada img{transition:transform .4s}
 .expo-portada:hover img{transform:scale(1.02)}
-.expo-modal-box{max-width:min(92vw,640px)}
+.expo-modal-box{max-width:640px;max-width:min(92vw,640px)}
 /* ERP · fondo #0e1219, tarjetas #1a212e, acento #f97316, títulos Times New Roman */
 .cv-dark.slide{background:#0e1219 !important}
 .cv-tnr{font-family:'Times New Roman',Times,serif !important;font-weight:700 !important}
@@ -406,9 +409,19 @@ body{overflow-x:clip}
 .erp-card{max-width:42rem;margin:0 auto;text-align:center;background:#1a212e;border:1px solid rgba(249,115,22,.25);border-radius:16px;padding:40px 24px}
 .erp-abrir{display:inline-block;margin-top:24px;padding:16px 32px;border-radius:9999px;background:#f97316;color:#0e1219;font-family:'Times New Roman',Times,serif;font-weight:700;font-size:18px;text-decoration:none;transition:transform .2s,box-shadow .2s}
 .erp-abrir:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(249,115,22,.35)}
+/* Respaldo sin aspect-ratio (Android antiguo): la portada EXPOMAPE mantiene 16:9 */
+@supports not (aspect-ratio:1/1){.expo-portada{height:0;padding-top:56.25% !important}.expo-portada picture,.expo-portada img{position:absolute;top:0;left:0;width:100%;height:100%}.yt-facade{height:0;padding-top:56.25%}.yt-facade img{position:absolute;top:0;left:0}}
+/* Navegadores antiguos sin "gap" en flex (Chrome < 84): separación con márgenes */
+@supports not (inset:0){#mainbar>div>*+*{margin-left:1rem}nav[aria-label="Menú principal"]>a+a{margin-left:1.5rem}#mobileMenu>div>*+*{margin-top:.75rem}#inicio .hero-btn-azul span{margin-left:.5em}}
 </style>
+<!-- Red de seguridad para navegadores antiguos (pantallas Android): si algún script falla,
+     se muestra todo el contenido y se oculta el preloader en vez de quedar la página en blanco. -->
+<script>
+window.onerror=function(){var h=document.documentElement;if(h.className.indexOf('cv-js-error')<0)h.className+=' cv-js-error';};
+</script>
+<style>.cv-js-error .reveal,.cv-js-error .zoom{opacity:1!important;transform:none!important}.cv-js-error #loader{display:none!important}</style>
 <!-- Tailwind compilado (regenerar si se agregan clases nuevas: ver comentario en public/css/tailwind.css) -->
-<link rel="stylesheet" href="public/css/tailwind.css?v=20261110">
+<link rel="stylesheet" href="public/css/tailwind.css?v=20261110b">
 </head>
 
 <body>
@@ -718,7 +731,7 @@ body{overflow-x:clip}
         try {
           const r = await fetch('https://www.tikwm.com/api/user/posts?unique_id=comboyvidsecocha&count=12');
           const j = await r.json();
-          const ids = (j.data?.videos || []).map(v => String(v.video_id)).filter(id => /^\d{10,}$/.test(id));
+          const ids = ((j.data && j.data.videos) || []).map(v => String(v.video_id)).filter(id => /^\d{10,}$/.test(id));
           if (ids.length >= 3) allVideos = ids;
         } catch(e){}
         renderTikToks();
@@ -1448,10 +1461,10 @@ const PRECIOS = {
 };
 
 const PRODUCTS = [
-  ...EQUIPOS.map(p => ({...p, cat:'Equipos', kind:'equipo'})),
+  ...EQUIPOS.map(p => Object.assign({}, p, {cat:'Equipos', kind:'equipo'})),
   ...REPUESTOS.map(([code, name, cat]) => ({
     id: code, code, name, cat, kind:'repuesto',
-    price: PRECIOS[code] ?? null,
+    price: (PRECIOS[code] !== undefined && PRECIOS[code] !== null) ? PRECIOS[code] : null,
     img: 'img/repuestos/' + code + '.webp',
     desc: 'Repuesto para moto carguero y remolcador minero.'
   }))
@@ -1897,7 +1910,7 @@ $('#leadForm').addEventListener('submit', async e => {
   let sent = false;
   try{
     const r = await fetch(CONFIG.formsubmitAjax, { method:'POST', headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body: JSON.stringify({ ...lead, _subject:'Nueva cotización web - Comboy Vid', _template:'table' }) });
+      body: JSON.stringify(Object.assign({}, lead, { _subject:'Nueva cotización web - Comboy Vid', _template:'table' })) });
     sent = r.ok;
   }catch(ex){ sent = false; }
   if (!sent){
