@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Libro de Reclamaciones | COMBOY VID</title>
+<meta name="description" content="Libro de Reclamaciones virtual de COMBOY VID (INVERSIONES GLOBAL COMPANY ROUSVID S.A.C., RUC 20613238566), conforme al Código de Protección y Defensa del Consumidor, Ley 29571.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://www.comboyvid.com/libro-de-reclamaciones/">
+<meta name="theme-color" content="#1E293B">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23A00000'/%3E%3Ctext x='32' y='43' font-family='Arial Black,Arial' font-size='28' font-weight='900' text-anchor='middle' fill='white'%3ECV%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../public/css/legal.css">
+<style>
+  .libro{max-width:900px;margin-inline:auto}
+  .proveedor{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px 24px;background:var(--plomo);border-radius:8px;padding:14px 16px;font-size:.88rem;margin-bottom:1.4rem}
+  .proveedor b{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--suave)}
+  fieldset{border:0;margin:0 0 1.6rem}
+  legend{font-weight:700;color:#fff;background:var(--navy);border-radius:8px;padding:.55rem .9rem;font-size:.9rem;width:100%;margin-bottom:1rem}
+  .fila{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .campo{margin-bottom:14px}
+  .campo label,.lbl{display:block;font-weight:700;font-size:.82rem;color:var(--tinta);margin-bottom:.3rem}
+  .campo i{color:var(--rojo);font-style:normal}
+  input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{width:100%;font:400 .92rem/1.4 "Libre Baskerville",Georgia,serif;color:var(--tinta);background:#fff;border:1px solid var(--linea);border-radius:8px;padding:.7rem .8rem}
+  input:focus,select:focus,textarea:focus{outline:2px solid var(--azul);outline-offset:1px;border-color:var(--azul)}
+  textarea{resize:vertical;min-height:110px}
+  .opciones{display:flex;flex-wrap:wrap;gap:10px}
+  .opcion{flex:1 1 200px;display:flex;gap:.6rem;align-items:flex-start;border:1px solid var(--linea);border-radius:8px;padding:.75rem .85rem;cursor:pointer;font-size:.86rem;background:#fff}
+  .opcion:has(input:checked){border-color:var(--azul);background:#EFF6FF}
+  .opcion input{margin-top:.25rem;accent-color:var(--azul)}
+  .opcion small{display:block;color:var(--suave);font-size:.78rem;margin-top:.15rem}
+  .check{display:flex;gap:.6rem;align-items:flex-start;font-size:.86rem;cursor:pointer;margin:.6rem 0}
+  .check input{margin-top:.3rem;accent-color:var(--azul);flex:none}
+  .trampa{position:absolute;left:-9999px}
+  .err{color:var(--rojo);font-weight:700;font-size:.88rem;min-height:1.2em;margin:.6rem 0}
+  .btn.grande{width:100%;padding:1rem;font-size:1rem}
+  .btn[disabled]{opacity:.6;cursor:wait}
+  .btn.out{background:#fff;color:var(--azul)}
+  .legal-nota{font-size:.78rem;color:var(--suave);margin-top:1rem}
+  .legal-nota p+p{margin-top:.4rem}
+  /* Constancia */
+  .constancia h2{border:0;margin:0;padding:0}
+  .numero{display:inline-block;background:var(--rojo);color:#fff;font-weight:700;border-radius:8px;padding:.5rem .9rem;margin:.6rem 0 1rem;font-size:1.05rem}
+  .hoja{white-space:pre-wrap;font-size:.85rem;background:var(--plomo);border-radius:8px;padding:16px;line-height:1.6}
+  .acciones{display:flex;flex-wrap:wrap;gap:10px;margin-top:1rem}
+  @media print{.no-print{display:none!important}.hoja{background:#fff;padding:0}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="logo" href="../">COMBOY <b>VID</b></a>
+    <a class="btn" href="../">← Volver a la web</a>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="tag">Ley N.° 29571</span>
+    <h1>📕 Libro de Reclamaciones</h1>
+    <p>Conforme al Código de Protección y Defensa del Consumidor, COMBOY VID pone a su disposición este Libro de Reclamaciones virtual. Al enviar la hoja recibirá en su correo una copia con su número de reclamo.</p>
+  </div>
+</section>
+
+<main>
+  <div class="wrap libro">
+    <article class="card" id="formCard">
+      <div class="proveedor">
+        <div><b>Razón social</b>INVERSIONES GLOBAL COMPANY ROUSVID S.A.C.</div>
+        <div><b>RUC</b>20613238566</div>
+        <div><b>Domicilio</b>Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa</div>
+        <div><b>Fecha</b><span id="hoy"></span></div>
+      </div>
+
+      <form id="formLibro" novalidate>
+        <fieldset>
+          <legend>1. Identificación del consumidor reclamante</legend>
+          <div class="campo"><label for="nombres">Nombres y apellidos (o razón social) <i>*</i></label><input type="text" id="nombres" name="nombres" autocomplete="name" maxlength="120" required></div>
+          <div class="fila">
+            <div class="campo"><label for="tipo_doc">Tipo de documento <i>*</i></label>
+              <select id="tipo_doc" name="tipo_doc" required>
+                <option value="DNI">DNI</option>
+                <option value="CE">Carné de extranjería</option>
+                <option value="Pasaporte">Pasaporte</option>
+                <option value="RUC">RUC</option>
+              </select></div>
+            <div class="campo"><label for="documento">Número de documento <i>*</i></label><input type="text" id="documento" name="documento" inputmode="numeric" maxlength="15" required></div>
+          </div>
+          <div class="campo"><label for="domicilio">Domicilio <i>*</i></label><input type="text" id="domicilio" name="domicilio" autocomplete="street-address" maxlength="200" placeholder="Dirección, distrito, provincia" required></div>
+          <div class="fila">
+            <div class="campo"><label for="telefono">Teléfono / celular <i>*</i></label><input type="tel" id="telefono" name="telefono" autocomplete="tel" inputmode="tel" maxlength="20" required></div>
+            <div class="campo"><label for="correo">Correo electrónico <i>*</i></label><input type="email" id="correo" name="correo" autocomplete="email" maxlength="120" required></div>
+          </div>
+          <label class="check"><input type="checkbox" id="menor" name="menor" value="si"><span>Soy menor de edad</span></label>
+          <div class="campo" id="campoApoderado" hidden><label for="apoderado">Nombre del padre, madre o apoderado <i>*</i></label><input type="text" id="apoderado" name="apoderado" maxlength="120"></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. Identificación del bien contratado</legend>
+          <div class="opciones" role="radiogroup" aria-label="Producto o servicio">
+            <label class="opcion"><input type="radio" name="bien" value="Producto" checked><span><strong>Producto</strong><small>Remolcador, coche minero, tolva, repuesto…</small></span></label>
+            <label class="opcion"><input type="radio" name="bien" value="Servicio"><span><strong>Servicio</strong><small>Fabricación, mantenimiento, reparación, atención…</small></span></label>
+          </div>
+          <div class="fila" style="margin-top:14px">
+            <div class="campo"><label for="monto">Monto reclamado (S/)</label><input type="text" id="monto" name="monto" inputmode="decimal" maxlength="12" placeholder="Ej. 1500.00"></div>
+          </div>
+          <div class="campo"><label for="descripcion">Descripción del producto o servicio <i>*</i></label><textarea id="descripcion" name="descripcion" maxlength="1000" style="min-height:80px" placeholder="Ej. Coche minero U35, comprado el 10/10/2026, boleta/factura N.° …" required></textarea></div>
+        </fieldset>
+
+        <fieldset>
+          <legend>3. Detalle de la reclamación y pedido del consumidor</legend>
+          <div class="opciones" role="radiogroup" aria-label="Reclamo o queja">
+            <label class="opcion"><input type="radio" name="tipo" value="Reclamo" checked><span><strong>Reclamo</strong><small>Disconformidad relacionada con los productos o servicios.</small></span></label>
+            <label class="opcion"><input type="radio" name="tipo" value="Queja"><span><strong>Queja</strong><small>Disconformidad no relacionada con los productos o servicios, o malestar respecto a la atención al público.</small></span></label>
+          </div>
+          <div class="campo" style="margin-top:14px"><label for="detalle">Detalle <i>*</i></label><textarea id="detalle" name="detalle" maxlength="3000" required placeholder="Cuéntenos qué pasó: fechas, lugar y personas que lo atendieron."></textarea></div>
+          <div class="campo"><label for="pedido">Pedido <i>*</i></label><textarea id="pedido" name="pedido" maxlength="1500" style="min-height:80px" required placeholder="¿Qué solicita? Ej. cambio, reparación, devolución, disculpa…"></textarea></div>
+        </fieldset>
+
+        <div class="trampa" aria-hidden="true"><label>Empresa web<input name="empresa_web" tabindex="-1" autocomplete="off"></label></div>
+        <label class="check"><input type="checkbox" id="acepta" name="acepta" value="si"><span>Declaro que los datos consignados son verdaderos y acepto que COMBOY VID me envíe la copia de esta hoja y su respuesta a mi correo electrónico, conforme a la <a href="../politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a>. <i style="color:var(--rojo);font-style:normal">*</i></span></label>
+        <div class="err" id="err" role="alert"></div>
+        <button class="btn grande" type="submit" id="btnEnviar">Enviar hoja de reclamación</button>
+
+        <div class="legal-nota">
+          <p>* La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI.</p>
+          <p>* El proveedor deberá dar respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles improrrogables.</p>
+        </div>
+      </form>
+    </article>
+
+    <article class="card constancia" id="constancia" hidden>
+      <h2>✅ Hoja de reclamación registrada</h2>
+      <div class="numero">N.° <span id="cNumero"></span></div>
+      <p id="cMensaje"></p>
+      <div class="hoja" id="cHoja"></div>
+      <div class="acciones no-print">
+        <button class="btn" type="button" onclick="window.print()">🖨️ Imprimir o guardar en PDF</button>
+        <a class="btn out" href="../">Volver a la web</a>
+      </div>
+    </article>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. · RUC 20613238566<br>Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa</div>
+    <nav aria-label="Legal">
+      <a href="../politica-de-privacidad/">Política de Privacidad</a>
+      <a href="../terminos-y-condiciones/">Términos y Condiciones</a>
+      <a href="../politica-de-cookies/">Política de Cookies</a>
+      <a href="../libro-de-reclamaciones/">Libro de Reclamaciones</a>
+      <button type="button" class="link" data-cv-cookies>Configurar cookies</button>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const form = $("#formLibro");
+  $("#hoy").textContent = new Date().toLocaleDateString("es-PE", {day:"2-digit", month:"2-digit", year:"numeric", timeZone:"America/Lima"});
+
+  $("#menor").addEventListener("change", e => { $("#campoApoderado").hidden = !e.target.checked; });
+
+  function validar(){
+    const v = n => (form.elements[n].value || "").trim();
+    const f = [];
+    if (v("nombres").length < 5) f.push("nombres y apellidos");
+    const doc = v("documento").replace(/[^0-9A-Za-z]/g, ""), td = v("tipo_doc");
+    if (td === "DNI" && !/^\d{8}$/.test(doc)) f.push("DNI de 8 dígitos");
+    else if (td === "RUC" && !/^\d{11}$/.test(doc)) f.push("RUC de 11 dígitos");
+    else if (doc.length < 6) f.push("número de documento");
+    if (v("domicilio").length < 5) f.push("domicilio");
+    if (v("telefono").replace(/\D/g, "").length < 6) f.push("teléfono");
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("correo"))) f.push("correo electrónico válido");
+    if ($("#menor").checked && v("apoderado").length < 5) f.push("nombre del padre, madre o apoderado");
+    if (v("monto") && !/^\d{1,9}([.,]\d{1,2})?$/.test(v("monto"))) f.push("monto (solo números)");
+    if (v("descripcion").length < 3) f.push("descripción del producto o servicio");
+    if (v("detalle").length < 10) f.push("detalle");
+    if (v("pedido").length < 3) f.push("pedido");
+    if (!$("#acepta").checked) f.push("marcar la declaración");
+    return f;
+  }
+
+  function hojaTexto(d, r){
+    const val = n => (d.get(n) || "").toString().trim();
+    let t = `Fecha: ${r.fecha} (hora Perú)\nProveedor: INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. (COMBOY VID) · RUC 20613238566\n\n`;
+    t += `1. CONSUMIDOR\n${val("nombres")} · ${val("tipo_doc")} ${val("documento")}\n${val("domicilio")}\nTel. ${val("telefono")} · ${val("correo")}\n`;
+    if (d.get("menor")) t += `Padre, madre o apoderado: ${val("apoderado")}\n`;
+    t += `\n2. BIEN CONTRATADO\n${val("bien")}${val("monto") ? " · Monto reclamado: S/ " + val("monto") : ""}\n${val("descripcion")}\n`;
+    t += `\n3. ${val("tipo").toUpperCase()}\nDetalle: ${val("detalle")}\nPedido: ${val("pedido")}\n`;
+    t += `\n4. RESPUESTA DEL PROVEEDOR\nPendiente. Plazo máximo: ${r.plazo} (15 días hábiles).`;
+    return t;
+  }
+
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const faltan = validar();
+    if (faltan.length){ $("#err").textContent = "Por favor complete: " + faltan.join(", ") + "."; return; }
+    $("#err").textContent = "";
+    const btn = $("#btnEnviar"); btn.disabled = true; btn.textContent = "Enviando…";
+    const datos = new FormData(form);
+    let r = null;
+    try { const res = await fetch("reclamo.php", {method:"POST", body:datos}); r = await res.json(); } catch(_){}
+    btn.disabled = false; btn.textContent = "Enviar hoja de reclamación";
+    if (!r || !r.ok){
+      $("#err").textContent = (r && r.error) || "No se pudo enviar. Revise su conexión o escríbanos a comboyvidaqp@gmail.com.";
+      return;
+    }
+    $("#cNumero").textContent = r.numero;
+    $("#cMensaje").textContent = r.correo_enviado
+      ? `Enviamos una copia a ${datos.get("correo")}. Le responderemos a ese correo a más tardar el ${r.plazo}. Guarde su número de reclamo.`
+      : `Guarde o imprima esta constancia. Le responderemos a ${datos.get("correo")} a más tardar el ${r.plazo}.`;
+    $("#cHoja").textContent = hojaTexto(datos, r);
+    $("#formCard").hidden = true;
+    $("#constancia").hidden = false;
+    window.scrollTo({top: 0, behavior: "smooth"});
+  });
+})();
+</script>
+<script src="../public/js/cookies.js" defer></script>
+</body>
+</html>
