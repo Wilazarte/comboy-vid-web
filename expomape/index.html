@@ -498,6 +498,7 @@ const CONFIG = {
         </div>
         <div class="err" id="formErr" role="alert"></div>
         <button type="submit" class="btn">Enviar solicitud por WhatsApp</button>
+        <p class="aviso-datos" style="font-size:.78rem;color:var(--suave);margin-top:.7rem">Al enviar, sus datos se usan solo para atender su solicitud y enviarle la cotización, según nuestra <a href="../politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a>.</p>
         <p class="nota">Sus datos se envían únicamente a VID COMBOY por WhatsApp (+51 983 148 798) para atender su solicitud.</p>
       </form>
 
@@ -577,6 +578,12 @@ const CONFIG = {
     <div class="legal">
       <span>© 2026 COMBOY VID · Equipos y repuestos para minería · Perú</span>
       <span>Oferta de feria válida para solicitudes registradas durante EXPOMAPE 2026.</span>
+    </div>
+    <div class="legal" style="margin-top:12px;border-top:0;padding-top:0;justify-content:flex-start;gap:8px 18px">
+      <a href="../politica-de-privacidad/">Política de Privacidad</a>
+      <a href="../terminos-y-condiciones/">Términos y Condiciones</a>
+      <a href="../politica-de-cookies/">Política de Cookies</a>
+      <button type="button" data-cv-cookies style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer">Configurar cookies</button>
     </div>
   </div>
 </footer>
@@ -791,5 +798,6 @@ if (new Date() < ACTIVACION && !/[?&]preview=1/.test(location.search)) {
   mostrarContenido();
 }
 </script>
+<script src="../public/js/cookies.js" defer></script>
 </body>
 </html>

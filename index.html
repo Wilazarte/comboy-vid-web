@@ -745,12 +745,16 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
           const id = allVideos[(currentIndex + i) % allVideos.length];
           const card = document.createElement('div');
           card.className = 'tiktok-card shadow-lg';
-          card.innerHTML = `<iframe src="https://www.tiktok.com/embed/v2/${id}?lang=es-PE" scrolling="no" allowfullscreen allow="autoplay; fullscreen; encrypted-media" title="Video TikTok @comboyvidsecocha"></iframe>`;
+          card.innerHTML = `<iframe data-cv-src="https://www.tiktok.com/embed/v2/${id}?lang=es-PE" scrolling="no" allowfullscreen allow="autoplay; fullscreen; encrypted-media" title="Video TikTok @comboyvidsecocha"></iframe>`;
           container.appendChild(card);
         }
+        // Banner de cookies: los videos de TikTok solo cargan si el visitante acepta
+        if (window.cvCookies) window.cvCookies.escanear(container);
       }
+      const permitido = () => !!(window.cvCookies && window.cvCookies.permitido());
 
       async function fetchAuto(){
+        if (!permitido()) { renderTikToks(); return; }   // sin consentimiento no se consulta tikwm.com
         try {
           const r = await fetch('https://www.tikwm.com/api/user/posts?unique_id=comboyvidsecocha&count=12');
           const j = await r.json();
@@ -769,8 +773,10 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
       container.addEventListener('mouseleave', () => { if (!container.contains(document.activeElement)) paused = false; });
       window.addEventListener('blur', () => setTimeout(() => { if (container.contains(document.activeElement)) paused = true; }, 0));
 
-      fetchAuto();
-      setInterval(() => { if (!paused && !document.hidden) move(1); }, 10000);
+      // cookies.js carga con defer: esperar a que la página termine de leerse
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fetchAuto); else fetchAuto();
+      document.addEventListener('cv:cookies', e => { if (e.detail === 'aceptadas') fetchAuto(); });
+      setInterval(() => { if (!paused && !document.hidden && permitido()) move(1); }, 10000);
     })();
     </script>
 
@@ -839,12 +845,12 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
 
     <!-- AREQUIPA -->
     <div id="map-arequipa" style="display:block;">
-      <iframe class="w-full h-[450px] border-0" src="https://maps.google.com/maps?q=Paucarpata%2C%20Arequipa%2C%20Peru&amp;z=15&amp;output=embed"></iframe>
+      <iframe class="w-full h-[450px] border-0" title="Mapa planta Arequipa" data-cv-src="https://maps.google.com/maps?q=Paucarpata%2C%20Arequipa%2C%20Peru&amp;z=15&amp;output=embed"></iframe>
     </div>
 
     <!-- SECOCHA - C. Los Angeles COMBOYVID -->
     <div id="map-secocha" style="display:none;">
-      <iframe class="w-full h-[450px] border-0" src="https://maps.google.com/maps?q=-15.9798849%2C-73.1735959&amp;z=18&amp;hl=es&amp;output=embed"></iframe>
+      <iframe class="w-full h-[450px] border-0" title="Mapa sucursal Secocha" data-cv-src="https://maps.google.com/maps?q=-15.9798849%2C-73.1735959&amp;z=18&amp;hl=es&amp;output=embed"></iframe>
     </div>
   </div>
       <!-- Contacto rápido -->
@@ -862,7 +868,7 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
         <textarea id="qf_m" required rows="4" class="field dark-field mt-3" placeholder="¿En qué te ayudamos? *"></textarea>
         <label class="flex gap-2 items-start text-xs text-gray-300 mt-3 cursor-pointer">
           <input type="checkbox" id="qf_p" required class="mt-0.5 accent-red-600">
-          <span>Acepto la <button type="button" class="underline" data-modal="m-privacidad">Política de Privacidad</button>. *</span>
+          <span>Acepto la <a href="politica-de-privacidad/" target="_blank" rel="noopener" class="underline">Política de Privacidad</a>. *</span>
         </label>
         <p id="qfError" class="hidden text-xs text-red-300 mt-2" role="alert"></p>
         <button class="btn btn-red w-full mt-5 py-4 text-xs">Enviar por WhatsApp</button>
@@ -938,7 +944,7 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
       <div class="mt-5 space-y-3 text-sm text-gray-700">
         <label class="flex gap-3 items-start cursor-pointer">
           <input type="checkbox" name="acepta_privacidad" required class="mt-1 w-4 h-4 accent-red-600">
-          <span>He leído y <strong>acepto la <button type="button" class="underline text-cvred" data-modal="m-privacidad">Política de Privacidad</button></strong> para la atención de mi cotización. *</span>
+          <span>He leído y <strong>acepto la <a href="politica-de-privacidad/" target="_blank" rel="noopener" class="underline text-cvred">Política de Privacidad</a></strong> para la atención de mi cotización. *</span>
         </label>
         <label class="flex gap-3 items-start cursor-pointer">
           <input type="checkbox" name="autoriza_marketing" id="lf_mkt" class="mt-1 w-4 h-4 accent-red-600">
@@ -1028,9 +1034,11 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
     <div class="full-wrap py-6 flex flex-col md:flex-row gap-3 justify-between text-xs text-gray-500">
       <p>© <span id="year"></span>2 Area Comercial - Todos los derechos reservados. Marca, logotipo, fotografías y diseños protegidos.</p>
       <div class="flex flex-wrap gap-4">
-        <button class="hover:text-white underline" data-modal="m-privacidad">Política de Privacidad</button>
+        <a href="politica-de-privacidad/" class="hover:text-white underline">Política de Privacidad</a>
+        <a href="terminos-y-condiciones/" class="hover:text-white underline">Términos y Condiciones</a>
+        <a href="politica-de-cookies/" class="hover:text-white underline">Política de Cookies</a>
         <button class="hover:text-white underline" data-modal="m-marketing">Autorización de Marketing</button>
-        <button class="hover:text-white underline" data-modal="m-terminos">Términos, Anti-Estafa y Copyright</button>
+        <button type="button" class="hover:text-white underline" data-cv-cookies>Configurar cookies</button>
       </div>
     </div>
   </div>
@@ -1067,7 +1075,7 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
     </select>
     <label class="flex gap-2 items-start text-xs text-gray-600 cursor-pointer">
       <input type="checkbox" id="co_priv" required class="mt-0.5 accent-red-600">
-      <span>Acepto la <button type="button" class="underline text-cvblue" data-modal="m-privacidad">Política de Privacidad</button> y los <button type="button" class="underline text-cvblue" data-modal="m-terminos">Términos</button>. *</span>
+      <span>Acepto la <a href="politica-de-privacidad/" target="_blank" rel="noopener" class="underline text-cvblue">Política de Privacidad</a> y los <a href="terminos-y-condiciones/" target="_blank" rel="noopener" class="underline text-cvblue">Términos y Condiciones</a>. *</span>
     </label>
     <p id="coError" class="hidden text-sm text-cvred" role="alert"></p>
   </form>
@@ -1108,49 +1116,9 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
 </div>
 
 <!-- ===================== MODALES LEGALES ===================== -->
-<!-- ✏️ IMPORTANTE: reemplaza [RAZÓN SOCIAL], [RUC], [DIRECCIÓN] y correos. Recomendado: revisión final por un abogado. -->
+<!-- Recomendado: revisión final de los textos legales por un abogado. -->
 
-<!-- a) PRIVACIDAD -->
-<div id="m-privacidad" class="modal" role="dialog" aria-modal="true" aria-labelledby="t-priv">
-  <div class="modal-box">
-    <div class="p-6 lg:p-10 legal">
-      <div class="flex justify-between items-start gap-4">
-        <h2 id="t-priv" class="text-2xl text-cvblack">Política de Privacidad para Cotizaciones</h2>
-        <button class="text-3xl leading-none" data-close aria-label="Cerrar">×</button>
-      </div>
-      <p class="text-xs text-gray-500 mt-1">Última actualización: septiembre de 2026</p>
-
-      <h3>1. Titular del banco de datos</h3>
-      <p>INVERSIONES GLOBAL COMPANY ROUSVID S.A.C., con RUC N° 20613238566 y domicilio en EL NAZARENO MZ A LOTE 25, Paucarpata, Arequipa, que opera bajo la marca <strong>Comboy Vid Soluciones Mineras</strong> (en adelante, "COMBOY VID"), es el titular y responsable del tratamiento de los datos personales recopilados en este sitio web, conforme a la <strong>Ley N° 29733, Ley de Protección de Datos Personales</strong>, y su Reglamento vigente.</p>
-
-      <h3>2. Datos que recopilamos</h3>
-      <p>Nombre completo, empresa, RUC o DNI, número de WhatsApp/teléfono, correo electrónico, sucursal de preferencia, productos de interés y el contenido del mensaje que usted nos envía voluntariamente.</p>
-
-      <h3>3. Finalidad del tratamiento</h3>
-      <ul>
-        <li>Atender y responder su solicitud de cotización.</li>
-        <li>Contactarlo por WhatsApp, teléfono o correo para aclarar especificaciones técnicas.</li>
-        <li>Emitir la cotización formal, comprobantes y, de concretarse la compra, gestionar la entrega, garantía y post-venta.</li>
-      </ul>
-      <p>El uso de sus datos para <strong>publicidad o promociones</strong> es una finalidad adicional que solo se realiza si usted marca la casilla correspondiente (ver Política de Autorización de Marketing).</p>
-
-      <h3>4. No compartimos sus datos</h3>
-      <p>COMBOY VID <strong>no vende, alquila ni cede</strong> sus datos personales a terceros. Solo podrán ser accedidos por proveedores que nos prestan servicios tecnológicos (alojamiento web, correo, mensajería) bajo obligación de confidencialidad, o por autoridades competentes cuando exista mandato legal.</p>
-
-      <h3>5. Conservación y seguridad</h3>
-      <p>Conservamos sus datos mientras sea necesario para la finalidad de la cotización y la relación comercial, y durante los plazos exigidos por la normativa tributaria y comercial. Aplicamos medidas técnicas y organizativas razonables para evitar su pérdida, alteración o acceso no autorizado.</p>
-
-      <h3>6. Derechos ARCO</h3>
-      <p>Usted puede ejercer en cualquier momento sus derechos de <strong>Acceso, Rectificación, Cancelación y Oposición</strong>, así como revocar su consentimiento, enviando una solicitud con copia de su documento de identidad a <strong>areacomercial@comboyvid.com</strong> <!-- ✏️ -->. Atenderemos su solicitud dentro de los plazos legales. Si considera que sus derechos no fueron atendidos, puede acudir a la <strong>Autoridad Nacional de Protección de Datos Personales</strong> del Ministerio de Justicia y Derechos Humanos.</p>
-
-      <h3>7. Consentimiento</h3>
-      <p>Al marcar la casilla "Acepto la Política de Privacidad" y enviar un formulario o mensaje, usted otorga su consentimiento libre, previo, expreso, inequívoco e informado para el tratamiento de sus datos con las finalidades indicadas en el punto 3.</p>
-
-      <h3>8. Almacenamiento local</h3>
-      <p>Este sitio guarda en su propio navegador (localStorage) su lista de productos y una copia de su última solicitud, únicamente para su comodidad. Puede eliminarla borrando los datos de navegación.</p>
-    </div>
-  </div>
-</div>
+<!-- Política de Privacidad y Términos: páginas propias en politica-de-privacidad/ y terminos-y-condiciones/ -->
 
 <!-- b) MARKETING -->
 <div id="m-marketing" class="modal" role="dialog" aria-modal="true" aria-labelledby="t-mkt">
@@ -1185,53 +1153,6 @@ window.onerror=function(){var h=document.documentElement;if(h.className.indexOf(
         <li>Escribir a <strong>areacomercial@comboyvid.com</strong>. <!-- ✏️ --></li>
       </ul>
       <p>La baja se procesará sin costo y sin que tenga que justificar su decisión. Revocar este consentimiento no afecta la licitud de los envíos realizados previamente.</p>
-    </div>
-  </div>
-</div>
-
-<!-- c) TÉRMINOS + ANTI-ESTAFA + COPYRIGHT -->
-<div id="m-terminos" class="modal" role="dialog" aria-modal="true" aria-labelledby="t-term">
-  <div class="modal-box">
-    <div class="p-6 lg:p-10 legal">
-      <div class="flex justify-between items-start gap-4">
-        <h2 id="t-term" class="text-2xl text-cvblack">Términos y Condiciones, Aviso Anti-Estafa y Copyright</h2>
-        <button class="text-3xl leading-none" data-close aria-label="Cerrar">×</button>
-      </div>
-      <p class="text-xs text-gray-500 mt-1">Última actualización: septiembre de 2026</p>
-
-      <div class="alert">
-        <p><strong>⚠️ AVISO ANTI-ESTAFA.</strong> COMBOY VID <strong>NUNCA</strong> solicita depósitos, adelantos ni pagos a <strong>cuentas bancarias personales</strong>, Yape/Plin de personas naturales ni a nombre de terceros. Todo pago se realiza únicamente a cuentas a nombre de <strong>[RAZÓN SOCIAL S.A.C.] – RUC [20XXXXXXXXX]</strong>, después de recibir una <strong>cotización formal</strong> desde un correo con dominio <strong>@comboyvid.com</strong>. Si alguien le pide un pago de otra forma, <strong>no pague</strong> y repórtelo a areacomercial@comboyvid.com. COMBOY VID no se responsabiliza por pagos realizados fuera de estos canales oficiales.</p>
-      </div>
-
-      <h3>1. Naturaleza del sitio</h3>
-      <p>Este sitio web es una <strong>vitrina informativa</strong>. La "tienda virtual" y el "carrito" son herramientas para armar una <strong>solicitud de cotización</strong>; no constituyen una oferta vinculante ni una compra. <strong>No se procesan pagos en esta web.</strong> La relación comercial se perfecciona únicamente con la aceptación de la cotización formal emitida por COMBOY VID y la emisión del comprobante de pago correspondiente.</p>
-
-      <h3>2. Precios referenciales</h3>
-      <p>Los precios mostrados son <strong>referenciales</strong>, expresados en soles y sin IGV salvo indicación contraria. Pueden variar sin previo aviso por costo de insumos (acero, componentes), tipo de cambio, configuración técnica, flete y disponibilidad. El precio válido es exclusivamente el de la cotización formal, dentro de su plazo de vigencia.</p>
-
-      <h3>3. Imágenes y especificaciones referenciales</h3>
-      <p>Las fotografías, renders, videos y fichas técnicas son <strong>referenciales</strong> y pueden no reflejar exactamente el color, accesorios o acabado del equipo entregado. Las especificaciones definitivas son las consignadas en la cotización y/o ficha técnica firmada.</p>
-
-      <h3>4. Plazos de entrega y stock</h3>
-      <p>Los plazos (incluido "entrega en 7 días") aplican a modelos estándar con stock o materiales disponibles y se cuentan desde la confirmación del pedido y del adelanto pactado. Equipos a medida, fuerza mayor, paralizaciones o bloqueos de vías pueden modificar el plazo, lo que será comunicado oportunamente.</p>
-
-      <h3>5. Garantía</h3>
-      <p>Los equipos cuentan con garantía de fábrica según las condiciones, plazo y cobertura indicados en la cotización. La garantía no cubre desgaste normal, sobrecarga fuera de la capacidad nominal, mal uso, falta de mantenimiento, ni modificaciones o reparaciones realizadas por terceros no autorizados.</p>
-
-      <h3>6. Uso adecuado</h3>
-      <p>Los equipos deben ser operados por personal capacitado y conforme al Reglamento de Seguridad y Salud Ocupacional en Minería vigente y a las normas internas de cada unidad minera. COMBOY VID no se responsabiliza por daños derivados de operación indebida.</p>
-
-      <h3>7. Propiedad intelectual y copyright</h3>
-      <p>La marca <strong>COMBOY VID</strong>, su logotipo, nombre comercial, diseños de equipos, planos, fotografías, videos, textos y el diseño de este sitio son propiedad exclusiva de COMBOY VID y están protegidos por el Decreto Legislativo N° 822 (Ley sobre el Derecho de Autor) y el Decreto Legislativo N° 1075 (Propiedad Industrial). <strong>Queda prohibida</strong> su copia, reproducción, uso en publicaciones de terceros, en perfiles falsos o para ofrecer equipos a nombre de COMBOY VID sin autorización escrita. El uso indebido será denunciado ante INDECOPI y las autoridades competentes, reservándonos las acciones civiles y penales correspondientes.</p>
-
-      <h3>8. Suplantación de identidad</h3>
-      <p>COMBOY VID solo se comunica mediante los números y cuentas publicados en este sitio. Cualquier perfil, página o número que use nuestro nombre o imágenes y no figure aquí <strong>no está autorizado</strong>. Recomendamos verificar siempre llamando a nuestras sucursales.</p>
-
-      <h3>9. Libro de Reclamaciones</h3>
-      <p>Conforme al Código de Protección y Defensa del Consumidor, ponemos a su disposición nuestro Libro de Reclamaciones virtual, accesible desde el pie de página.</p>
-
-      <h3>10. Ley aplicable y jurisdicción</h3>
-      <p>Estos términos se rigen por las leyes de la República del Perú. Toda controversia se someterá a los jueces y tribunales del <strong>Distrito Judicial de Arequipa</strong>, sin perjuicio de los derechos que la ley reconozca al consumidor.</p>
     </div>
   </div>
 </div>
@@ -2014,5 +1935,6 @@ document.querySelectorAll('a[data-wa]').forEach(function(a){
   }
 })();
 </script>
+<script src="public/js/cookies.js" defer></script>
 </body>
 </html>
