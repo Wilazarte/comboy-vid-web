@@ -23,7 +23,8 @@
   .campo{margin-bottom:14px}
   .campo label,.lbl{display:block;font-weight:700;font-size:.82rem;color:var(--tinta);margin-bottom:.3rem}
   .campo i{color:var(--rojo);font-style:normal}
-  input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{width:100%;font:400 .92rem/1.4 "Libre Baskerville",Georgia,serif;color:var(--tinta);background:#fff;border:1px solid var(--linea);border-radius:8px;padding:.7rem .8rem}
+  input[type=file]{width:100%;font:400 .85rem "Libre Baskerville",Georgia,serif;background:#fff;border:1px dashed var(--linea);border-radius:8px;padding:.7rem .8rem}
+  input[type=date],input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{width:100%;font:400 .92rem/1.4 "Libre Baskerville",Georgia,serif;color:var(--tinta);background:#fff;border:1px solid var(--linea);border-radius:8px;padding:.7rem .8rem}
   input:focus,select:focus,textarea:focus{outline:2px solid var(--azul);outline-offset:1px;border-color:var(--azul)}
   textarea{resize:vertical;min-height:110px}
   .opciones{display:flex;flex-wrap:wrap;gap:10px}
@@ -107,7 +108,21 @@
           <div class="fila" style="margin-top:14px">
             <div class="campo"><label for="monto">Monto reclamado (S/)</label><input type="text" id="monto" name="monto" inputmode="decimal" maxlength="12" placeholder="Ej. 1500.00"></div>
           </div>
-          <div class="campo"><label for="descripcion">Descripción del producto o servicio <i>*</i></label><textarea id="descripcion" name="descripcion" maxlength="1000" style="min-height:80px" placeholder="Ej. Coche minero U35, comprado el 10/10/2026, boleta/factura N.° …" required></textarea></div>
+          <div class="fila">
+            <div class="campo"><label for="comp_tipo">Comprobante de pago <i>*</i></label>
+              <select id="comp_tipo" name="comp_tipo" required>
+                <option value="Boleta de venta">Boleta de venta</option>
+                <option value="Factura">Factura</option>
+                <option value="Guía de remisión">Guía de remisión</option>
+                <option value="Nota de venta">Nota de venta</option>
+                <option value="Otro">Otro</option>
+                <option value="No tengo comprobante">No tengo comprobante</option>
+              </select></div>
+            <div class="campo" id="campoCompNum"><label for="comp_num">N.° de comprobante <i>*</i></label><input type="text" id="comp_num" name="comp_num" maxlength="30" placeholder="Ej. F001-000123"></div>
+            <div class="campo"><label for="comp_fecha">Fecha de compra</label><input type="date" id="comp_fecha" name="comp_fecha"></div>
+          </div>
+          <div class="campo"><label for="comp_archivo">Foto o PDF del comprobante <small style="font-weight:400;color:var(--suave)">(opcional · JPG, PNG, WEBP o PDF · máx. 5 MB)</small></label><input type="file" id="comp_archivo" name="comp_archivo" accept="image/jpeg,image/png,image/webp,application/pdf,.jpg,.jpeg,.png,.webp,.pdf"></div>
+          <div class="campo"><label for="descripcion">Descripción del producto o servicio <i>*</i></label><textarea id="descripcion" name="descripcion" maxlength="1000" style="min-height:80px" placeholder="Ej. Coche minero U35 de 3.5 m³ con tolva volteo lateral" required></textarea></div>
         </fieldset>
 
         <fieldset>
@@ -167,6 +182,8 @@
   $("#hoy").textContent = new Date().toLocaleDateString("es-PE", {day:"2-digit", month:"2-digit", year:"numeric", timeZone:"America/Lima"});
 
   $("#menor").addEventListener("change", e => { $("#campoApoderado").hidden = !e.target.checked; });
+  $("#comp_tipo").addEventListener("change", e => { $("#campoCompNum").hidden = e.target.value === "No tengo comprobante"; });
+  $("#comp_fecha").max = new Date().toLocaleDateString("en-CA", {timeZone:"America/Lima"});
 
   function validar(){
     const v = n => (form.elements[n].value || "").trim();
@@ -181,6 +198,10 @@
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v("correo"))) f.push("correo electrónico válido");
     if ($("#menor").checked && v("apoderado").length < 5) f.push("nombre del padre, madre o apoderado");
     if (v("monto") && !/^\d{1,9}([.,]\d{1,2})?$/.test(v("monto"))) f.push("monto (solo números)");
+    if (v("comp_tipo") !== "No tengo comprobante" && v("comp_num").length < 3) f.push("número del comprobante");
+    const arch = $("#comp_archivo").files[0];
+    if (arch && arch.size > 5 * 1024 * 1024) f.push("foto del comprobante de menos de 5 MB");
+    else if (arch && !/\.(jpe?g|png|webp|pdf)$/i.test(arch.name)) f.push("comprobante en JPG, PNG, WEBP o PDF");
     if (v("descripcion").length < 3) f.push("descripción del producto o servicio");
     if (v("detalle").length < 10) f.push("detalle");
     if (v("pedido").length < 3) f.push("pedido");
@@ -193,7 +214,9 @@
     let t = `LIBRO DE RECLAMACIONES - HOJA DE RECLAMACIÓN N.° ${r.numero}\nFecha: ${r.fecha} (hora Perú)\nProveedor: INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. (COMBOY VID) · RUC 20613238566\nDomicilio: Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa\n\n`;
     t += `1. CONSUMIDOR\n${val("nombres")} · ${val("tipo_doc")} ${val("documento")}\n${val("domicilio")}\nTel. ${val("telefono")} · ${val("correo")}\n`;
     if (d.get("menor")) t += `Padre, madre o apoderado: ${val("apoderado")}\n`;
-    t += `\n2. BIEN CONTRATADO\n${val("bien")}${val("monto") ? " · Monto reclamado: S/ " + val("monto") : ""}\n${val("descripcion")}\n`;
+    const compF = val("comp_fecha") ? " · Fecha de compra: " + val("comp_fecha").split("-").reverse().join("/") : "";
+    const compN = val("comp_tipo") !== "No tengo comprobante" ? " N.° " + val("comp_num") : "";
+    t += `\n2. BIEN CONTRATADO\n${val("bien")}${val("monto") ? " · Monto reclamado: S/ " + val("monto") : ""}\nComprobante: ${val("comp_tipo")}${compN}${compF}${r.comprobante_adjunto ? " (adjunto)" : ""}\n${val("descripcion")}\n`;
     t += `\n3. ${val("tipo").toUpperCase()}\nDetalle: ${val("detalle")}\nPedido: ${val("pedido")}\n`;
     t += `\n4. OBSERVACIONES Y ACCIONES ADOPTADAS POR EL PROVEEDOR\nPendiente. Plazo máximo de respuesta: ${r.plazo} (15 días hábiles).\nFecha de comunicación de la respuesta: (pendiente)\nMedio de respuesta: correo electrónico ${val("correo")}`;
     t += `\n\n* La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI.`;

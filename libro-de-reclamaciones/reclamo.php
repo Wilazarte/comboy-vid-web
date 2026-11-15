@@ -15,6 +15,7 @@
 $CORREO_DESTINO = 'comboyvidaqp@gmail.com';        // ✏️ correo que recibe los reclamos
 $CORREO_REMITE  = 'no-reply@comboyvid.com';         // del dominio, para no caer en spam
 $MAX_POR_HORA   = 5;                                // límite de envíos por IP
+$MAX_BYTES      = 5 * 1024 * 1024;                  // comprobante adjunto: máx. 5 MB
 $PROVEEDOR = [
     'razon'     => 'INVERSIONES GLOBAL COMPANY ROUSVID S.A.C.',
     'ruc'       => '20613238566',
@@ -40,6 +41,7 @@ function responder($ok, $datos = [], $code = 200) {
 set_exception_handler(function ($e) { error_log('COMBOY reclamo.php: ' . $e->getMessage()); responder(false, 'Error interno del servidor. Escríbanos a comboyvidaqp@gmail.com.', 500); });
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') responder(false, 'Método no permitido.', 405);
+if (empty($_POST) && empty($_FILES)) responder(false, 'El archivo del comprobante es demasiado grande para el servidor (máx. ' . ini_get('post_max_size') . '). Envíe una foto más liviana.', 413);
 
 function campo($n, $max = 200) {
     $v = isset($_POST[$n]) ? trim((string)$_POST[$n]) : '';
@@ -90,6 +92,9 @@ $d = [
     'bien'        => campo('bien', 20),
     'monto'       => campo('monto', 20),
     'descripcion' => campo('descripcion', 1000),
+    'comp_tipo'   => campo('comp_tipo', 40),
+    'comp_num'    => una_linea(campo('comp_num', 30)),
+    'comp_fecha'  => campo('comp_fecha', 10),
     'tipo'        => campo('tipo', 20),
     'detalle'     => campo('detalle', 3000),
     'pedido'      => campo('pedido', 1500),
@@ -108,11 +113,34 @@ if ($d['menor'] && largo($d['apoderado']) < 5) $err[] = 'nombre del padre, madre
 if (!in_array($d['bien'], ['Producto', 'Servicio'], true)) $err[] = 'producto o servicio';
 if ($d['monto'] !== '' && !preg_match('/^\d{1,9}([.,]\d{1,2})?$/', $d['monto'])) $err[] = 'monto (solo números)';
 if (largo($d['descripcion']) < 3) $err[] = 'descripción del producto o servicio';
+$TIPOS_COMP = ['Boleta de venta', 'Factura', 'Guía de remisión', 'Nota de venta', 'Otro', 'No tengo comprobante'];
+if (!in_array($d['comp_tipo'], $TIPOS_COMP, true)) $err[] = 'tipo de comprobante';
+elseif ($d['comp_tipo'] !== 'No tengo comprobante' && largo($d['comp_num']) < 3) $err[] = 'número del comprobante';
+if ($d['comp_tipo'] === 'No tengo comprobante') $d['comp_num'] = '';
+if ($d['comp_fecha'] !== '' && !preg_match('/^\d{4}-\d{2}-\d{2}$/', $d['comp_fecha'])) $err[] = 'fecha de compra';
 if (!in_array($d['tipo'], ['Reclamo', 'Queja'], true)) $err[] = 'reclamo o queja';
 if (largo($d['detalle']) < 10) $err[] = 'detalle';
 if (largo($d['pedido']) < 3) $err[] = 'pedido';
 if (!$d['acepta']) $err[] = 'la declaración y la Política de Privacidad';
 if ($err) responder(false, 'Por favor complete: ' . implode(', ', $err) . '.', 422);
+
+// ---------- Comprobante adjunto (opcional: foto o PDF) ----------
+$adj = null;
+if (isset($_FILES['comp_archivo']) && $_FILES['comp_archivo']['error'] !== UPLOAD_ERR_NO_FILE) {
+    $f = $_FILES['comp_archivo'];
+    if (in_array($f['error'], [UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE], true) || $f['size'] > $MAX_BYTES) responder(false, 'El comprobante pesa más de 5 MB. Envíe una foto más liviana.', 413);
+    if ($f['error'] !== UPLOAD_ERR_OK || !is_uploaded_file($f['tmp_name'])) responder(false, 'No se pudo subir el comprobante. Intente de nuevo.', 400);
+    $ext = strtolower(pathinfo($f['name'], PATHINFO_EXTENSION));
+    if ($ext === 'jpeg') $ext = 'jpg';
+    $tipos = ['pdf' => 'application/pdf', 'jpg' => 'image/jpeg', 'png' => 'image/png', 'webp' => 'image/webp'];
+    $cab8 = (string)@file_get_contents($f['tmp_name'], false, null, 0, 12);
+    $firmaOk = ($ext === 'pdf' && strncmp($cab8, '%PDF', 4) === 0)
+            || ($ext === 'jpg' && strncmp($cab8, "\xFF\xD8\xFF", 3) === 0)
+            || ($ext === 'png' && strncmp($cab8, "\x89PNG", 4) === 0)
+            || ($ext === 'webp' && strncmp($cab8, 'RIFF', 4) === 0 && substr($cab8, 8, 4) === 'WEBP');
+    if (!isset($tipos[$ext]) || !$firmaOk) responder(false, 'El comprobante debe ser una foto (JPG, PNG, WEBP) o un PDF.', 415);
+    $adj = ['tmp' => $f['tmp_name'], 'ext' => $ext, 'mime' => $tipos[$ext]];
+}
 
 // ---------- Número correlativo (por año) ----------
 $ahora = new DateTime('now', new DateTimeZone('America/Lima'));
@@ -143,15 +171,35 @@ while ($habiles < 15) {
 $hits[] = time();
 @file_put_contents($rl, implode("\n", $hits));
 
+// Guardar el comprobante en la carpeta privada: comprobantes/000001-2026-comprobante.jpg
+$archivoComp = '';
+if ($adj) {
+    if (!@is_dir("$base/comprobantes")) @mkdir("$base/comprobantes", 0750, true);
+    $archivoComp = "$numero-comprobante.{$adj['ext']}";
+    if (@move_uploaded_file($adj['tmp'], "$base/comprobantes/$archivoComp")) @chmod("$base/comprobantes/$archivoComp", 0640);
+    else { error_log("COMBOY reclamo.php: no se pudo guardar el comprobante de $numero"); $archivoComp = ''; }
+}
+$compTxt = $d['comp_tipo'] . ($d['comp_num'] !== '' ? ' N.° ' . $d['comp_num'] : '')
+         . ($d['comp_fecha'] !== '' ? ' · Fecha de compra: ' . DateTime::createFromFormat('Y-m-d', $d['comp_fecha'])->format('d/m/Y') : '');
+
 // ---------- Guardar ----------
 $fila = [$numero, $ahora->format('Y-m-d H:i'), $d['tipo'], $d['nombres'], $d['tipo_doc'], $d['documento'], $d['domicilio'], $d['telefono'], $d['correo'],
-         $d['menor'] ? $d['apoderado'] : '', $d['bien'], $d['monto'], $d['descripcion'], $d['detalle'], $d['pedido'], $plazo->format('Y-m-d'), 'Pendiente', '', ''];
-$cab = ['Numero', 'Fecha', 'Tipo', 'Nombres', 'TipoDoc', 'Documento', 'Domicilio', 'Telefono', 'Correo', 'Apoderado', 'Bien', 'Monto', 'Descripcion', 'Detalle', 'Pedido', 'Responder hasta', 'Estado', 'Respuesta', 'Fecha respuesta'];
+         $d['menor'] ? $d['apoderado'] : '', $d['bien'], $d['monto'], $d['descripcion'], $d['detalle'], $d['pedido'], $plazo->format('Y-m-d'), 'Pendiente', '', '', $compTxt, $archivoComp];
+$cab = ['Numero', 'Fecha', 'Tipo', 'Nombres', 'TipoDoc', 'Documento', 'Domicilio', 'Telefono', 'Correo', 'Apoderado', 'Bien', 'Monto', 'Descripcion', 'Detalle', 'Pedido', 'Responder hasta', 'Estado', 'Respuesta', 'Fecha respuesta', 'Comprobante', 'Archivo comprobante'];
 $csv = "$base/reclamaciones.csv";
 $nuevo = !file_exists($csv);
 if ($c = @fopen($csv, 'a')) {
     flock($c, LOCK_EX);
     if ($nuevo) { fwrite($c, "\xEF\xBB\xBF"); fputcsv($c, $cab, ';'); }
+    else {
+        // CSV creado antes de agregar el comprobante: actualizar la fila de títulos
+        $txt = (string)@file_get_contents($csv);
+        $fin = strpos($txt, "\n");
+        if ($fin !== false && strpos(substr($txt, 0, $fin), 'Comprobante') === false) {
+            $tmp = fopen('php://temp', 'r+'); fputcsv($tmp, $cab, ';'); rewind($tmp);
+            @file_put_contents($csv, "\xEF\xBB\xBF" . stream_get_contents($tmp) . substr($txt, $fin + 1)); fclose($tmp);
+        }
+    }
     fputcsv($c, array_map(function ($v) { return preg_match('/^[=+\-@]/', (string)$v) ? "'" . $v : $v; }, $fila), ';');
     flock($c, LOCK_UN); fclose($c);
 }
@@ -164,7 +212,8 @@ $hoja .= "Proveedor: {$PROVEEDOR['razon']} (COMBOY VID) - RUC {$PROVEEDOR['ruc']
 $hoja .= "1. IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE\n";
 $hoja .= "Nombre: {$d['nombres']}\n{$d['tipo_doc']}: {$d['documento']}\nDomicilio: {$d['domicilio']}\nTeléfono: {$d['telefono']}\nCorreo: {$d['correo']}\n";
 if ($d['menor']) $hoja .= "Menor de edad. Padre, madre o apoderado: {$d['apoderado']}\n";
-$hoja .= "\n2. IDENTIFICACIÓN DEL BIEN CONTRATADO\n{$d['bien']}\nMonto reclamado: " . ($d['monto'] !== '' ? 'S/ ' . $d['monto'] : '-') . "\nDescripción: {$d['descripcion']}\n";
+$hoja .= "\n2. IDENTIFICACIÓN DEL BIEN CONTRATADO\n{$d['bien']}\nMonto reclamado: " . ($d['monto'] !== '' ? 'S/ ' . $d['monto'] : '-') . "\nComprobante: $compTxt\n"
+       . "Comprobante adjunto: " . ($archivoComp !== '' ? 'Sí' : 'No') . "\nDescripción: {$d['descripcion']}\n";
 $hoja .= "\n3. DETALLE DE LA RECLAMACIÓN Y PEDIDO DEL CONSUMIDOR\nTipo: " . strtoupper($d['tipo']) . "\nDetalle: {$d['detalle']}\nPedido: {$d['pedido']}\n";
 $hoja .= "\n4. OBSERVACIONES Y ACCIONES ADOPTADAS POR EL PROVEEDOR\n(Pendiente. Plazo máximo de respuesta: " . $plazo->format('d/m/Y') . ", 15 días hábiles.)\n";
 $hoja .= "Fecha de comunicación de la respuesta: (pendiente)\n";
@@ -177,22 +226,33 @@ $hoja .= "El proveedor deberá dar respuesta al reclamo o queja en un plazo no m
 if (!@is_dir("$base/hojas")) @mkdir("$base/hojas", 0750, true);
 @file_put_contents("$base/hojas/hoja-$numero.txt", $hoja);
 
-function enviar($para, $asunto, $texto, $remite, $replyTo = '') {
+function enviar($para, $asunto, $texto, $remite, $replyTo = '', $adjunto = null) {
     $cab  = "From: COMBOY VID Libro de Reclamaciones <$remite>\r\n";
     if ($replyTo !== '') $cab .= "Reply-To: $replyTo\r\n";
-    $cab .= "MIME-Version: 1.0\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n";
-    return @mail($para, '=?UTF-8?B?' . base64_encode($asunto) . '?=', chunk_split(base64_encode($texto)), $cab, '-f' . $remite);
+    $cab .= "MIME-Version: 1.0\r\n";
+    if (!$adjunto) {
+        $cab .= "Content-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n";
+        $cuerpo = chunk_split(base64_encode($texto));
+    } else {
+        $lim = 'lr_' . bin2hex(random_bytes(8));
+        $cab .= "Content-Type: multipart/mixed; boundary=\"$lim\"\r\n";
+        $cuerpo  = "--$lim\r\nContent-Type: text/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n" . chunk_split(base64_encode($texto)) . "\r\n";
+        $cuerpo .= "--$lim\r\nContent-Type: {$adjunto['mime']}; name=\"{$adjunto['nombre']}\"\r\nContent-Transfer-Encoding: base64\r\n"
+                .  "Content-Disposition: attachment; filename=\"{$adjunto['nombre']}\"\r\n\r\n" . chunk_split(base64_encode($adjunto['datos'])) . "\r\n--$lim--";
+    }
+    return @mail($para, '=?UTF-8?B?' . base64_encode($asunto) . '?=', $cuerpo, $cab, '-f' . $remite);
 }
+$adjEmpresa = ($archivoComp !== '') ? ['mime' => $adj['mime'], 'nombre' => $archivoComp, 'datos' => (string)@file_get_contents("$base/comprobantes/$archivoComp")] : null;
 $correoLimpio = str_replace(["\r", "\n", '<', '>', '"', ','], '', $d['correo']);
 $aviso = "Nueva " . strtoupper($d['tipo']) . " registrada en el Libro de Reclamaciones virtual de comboyvid.com.\n"
        . "Debe responder al consumidor, por escrito a su correo, a más tardar el " . $plazo->format('d/m/Y') . " (15 días hábiles).\n"
        . "Responda con \"Responder\" a este correo (va directo al consumidor) indicando el N.° $numero, y anote la fecha y la respuesta\n"
        . "en reclamaciones.csv (carpeta privada reclamaciones-comboyvid del cPanel). Conserve la hoja y la respuesta mínimo 2 años.\n\n";
-$ok1 = enviar($CORREO_DESTINO, "Libro de Reclamaciones N.° $numero - {$d['tipo']} - {$d['nombres']}", $aviso . $hoja, $CORREO_REMITE, $correoLimpio);
+$ok1 = enviar($CORREO_DESTINO, "Libro de Reclamaciones N.° $numero - {$d['tipo']} - {$d['nombres']}", $aviso . $hoja, $CORREO_REMITE, $correoLimpio, $adjEmpresa);
 $ok2 = enviar($correoLimpio, "Constancia de su " . strtolower($d['tipo']) . " N.° $numero - COMBOY VID",
     "Estimado(a) {$d['nombres']}:\n\nHemos recibido su " . strtolower($d['tipo']) . ". Esta es la copia de su Hoja de Reclamación. "
     . "Le responderemos a este correo en un plazo máximo de 15 días hábiles.\n\n" . $hoja
     . "\nCOMBOY VID · {$PROVEEDOR['razon']} · RUC {$PROVEEDOR['ruc']}\n", $CORREO_REMITE, $CORREO_DESTINO);
 if (!$ok1 || !$ok2) error_log("COMBOY reclamo.php: mail() falló para $numero (empresa=" . (int)$ok1 . ', consumidor=' . (int)$ok2 . ')');
 
-responder(true, ['numero' => $numero, 'fecha' => $fechaTxt, 'plazo' => $plazo->format('d/m/Y'), 'correo_enviado' => (bool)$ok2]);
+responder(true, ['numero' => $numero, 'fecha' => $fechaTxt, 'plazo' => $plazo->format('d/m/Y'), 'correo_enviado' => (bool)$ok2, 'comprobante_adjunto' => $archivoComp !== '']);
