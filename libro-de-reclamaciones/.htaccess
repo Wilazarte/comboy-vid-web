@@ -1,0 +1,4 @@
+Options -Indexes
+<FilesMatch "\.(csv|txt)$">
+  Require all denied
+</FilesMatch>

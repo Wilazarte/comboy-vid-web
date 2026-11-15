@@ -350,7 +350,7 @@
             </div>
             <div class="trampa" aria-hidden="true"><label>Empresa web<input name="empresa_web" tabindex="-1" autocomplete="off"></label></div>
             <label class="check"><input type="checkbox" name="acepta" value="si" id="acepta">
-              <span>Autorizo a INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. (COMBOY VID) a usar mis datos personales y mi CV solo para procesos de selección, conforme a la Ley N.° 29733 de Protección de Datos Personales. <i style="color:var(--rojo);font-style:normal">*</i></span></label>
+              <span>Autorizo a INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. (COMBOY VID) a usar mis datos personales y mi CV solo para procesos de selección, conforme a la Ley N.° 29733 de Protección de Datos Personales y a la <a href="../politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a>. <i style="color:var(--rojo);font-style:normal">*</i></span></label>
             <button class="btn" type="submit" id="btnEnviar" style="width:100%">Enviar postulación</button>
             <div class="barra" id="barra" hidden><i></i></div>
           </form>
@@ -401,7 +401,7 @@
             <div class="campo"><label for="bCel">Celular con el que postulaste <i>*</i></label><input id="bCel" name="celular" type="tel" inputmode="tel" maxlength="20" required></div>
             <input type="hidden" name="accion" value="banco">
             <div class="trampa" aria-hidden="true"><label>Empresa web<input name="empresa_web" tabindex="-1" autocomplete="off"></label></div>
-            <label class="check"><input type="checkbox" name="acepta" value="si" id="bAcepta"><span>Autorizo a COMBOY VID a conservar mi CV y mis datos en su banco de empleos para futuros procesos de selección (Ley N.° 29733).</span></label>
+            <label class="check"><input type="checkbox" name="acepta" value="si" id="bAcepta"><span>Autorizo a COMBOY VID a conservar mi CV y mis datos en su banco de empleos para futuros procesos de selección (Ley N.° 29733, ver <a href="../politica-de-privacidad/" target="_blank" rel="noopener">Política de Privacidad</a>).</span></label>
             <button class="btn" type="submit" id="btnBancoEnviar" style="margin-top:0">Confirmar registro</button>
           </form>
           <div class="exito" id="bancoOk" hidden style="padding:20px 0 0"><div class="ico">✓</div><h3>¡Registro confirmado!</h3><p id="bancoOkTxt"></p></div>
@@ -417,7 +417,7 @@
   <div class="wrap">
     <div><a class="logo" href="../" style="font-size:1rem">COMBOY <b>VID</b></a></div>
     <div>INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. · RUC 20613238566<br>Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa</div>
-    <div><a href="../">www.comboyvid.com</a> · <a href="https://www.facebook.com/comboyvid" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener">TikTok</a> · <a href="https://www.youtube.com/@comboyvid" target="_blank" rel="noopener">YouTube</a></div>
+    <div><a href="../">www.comboyvid.com</a> · <a href="https://www.facebook.com/comboyvid" target="_blank" rel="noopener">Facebook</a> · <a href="https://www.tiktok.com/@comboyvidsecocha" target="_blank" rel="noopener">TikTok</a> · <a href="https://www.youtube.com/@comboyvid" target="_blank" rel="noopener">YouTube</a><br><a href="../politica-de-privacidad/">Política de Privacidad</a> · <a href="../terminos-y-condiciones/">Términos y Condiciones</a> · <a href="../politica-de-cookies/">Política de Cookies</a> · <a href="../libro-de-reclamaciones/">Libro de Reclamaciones</a> · <button type="button" data-cv-cookies style="background:none;border:0;padding:0;font:inherit;color:inherit;text-decoration:underline;cursor:pointer">Configurar cookies</button></div>
   </div>
 </footer>
 
@@ -877,5 +877,6 @@ $("#otra").addEventListener("click", e => {
   f.scrollIntoView({behavior:"smooth"});
 });
 </script>
+<script src="../public/js/cookies.js" defer></script>
 </body>
 </html>
