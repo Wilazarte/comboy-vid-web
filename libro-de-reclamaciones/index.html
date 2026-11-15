@@ -59,8 +59,8 @@
 <section class="hero">
   <div class="wrap">
     <span class="tag">Ley N.° 29571</span>
-    <h1>📕 Libro de Reclamaciones</h1>
-    <p>Conforme al Código de Protección y Defensa del Consumidor, COMBOY VID pone a su disposición este Libro de Reclamaciones virtual. Al enviar la hoja recibirá en su correo una copia con su número de reclamo.</p>
+    <h1><img src="../public/images/libro-reclamaciones.svg" alt="" width="44" height="44" style="vertical-align:-10px;border-radius:8px;margin-right:.4rem">Libro de Reclamaciones</h1>
+    <p>Conforme a lo establecido en el Código de Protección y Defensa del Consumidor, este establecimiento cuenta con un Libro de Reclamaciones a su disposición. Al enviar la Hoja de Reclamación recibirá en pantalla y en su correo una copia con su número correlativo.</p>
   </div>
 </section>
 
@@ -72,6 +72,7 @@
         <div><b>RUC</b>20613238566</div>
         <div><b>Domicilio</b>Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa</div>
         <div><b>Fecha</b><span id="hoy"></span></div>
+        <div><b>Hoja de Reclamación N.°</b>Se asigna al enviar</div>
       </div>
 
       <form id="formLibro" novalidate>
@@ -91,7 +92,7 @@
           <div class="campo"><label for="domicilio">Domicilio <i>*</i></label><input type="text" id="domicilio" name="domicilio" autocomplete="street-address" maxlength="200" placeholder="Dirección, distrito, provincia" required></div>
           <div class="fila">
             <div class="campo"><label for="telefono">Teléfono / celular <i>*</i></label><input type="tel" id="telefono" name="telefono" autocomplete="tel" inputmode="tel" maxlength="20" required></div>
-            <div class="campo"><label for="correo">Correo electrónico <i>*</i></label><input type="email" id="correo" name="correo" autocomplete="email" maxlength="120" required></div>
+            <div class="campo"><label for="correo">Correo electrónico <i>*</i> <small style="font-weight:400;color:var(--suave)">(aquí recibirá la copia y la respuesta)</small></label><input type="email" id="correo" name="correo" autocomplete="email" maxlength="120" required></div>
           </div>
           <label class="check"><input type="checkbox" id="menor" name="menor" value="si"><span>Soy menor de edad</span></label>
           <div class="campo" id="campoApoderado" hidden><label for="apoderado">Nombre del padre, madre o apoderado <i>*</i></label><input type="text" id="apoderado" name="apoderado" maxlength="120"></div>
@@ -127,6 +128,8 @@
         <div class="legal-nota">
           <p>* La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI.</p>
           <p>* El proveedor deberá dar respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles improrrogables.</p>
+          <p>* <b>Reclamo:</b> disconformidad relacionada con los productos o servicios. <b>Queja:</b> disconformidad no relacionada con los productos o servicios, o malestar o descontento respecto a la atención al público.</p>
+          <p>* Base legal: Ley N.° 29571 y Reglamento del Libro de Reclamaciones (D.S. N.° 011-2011-PCM y modificatorias, incluido el D.S. N.° 101-2022-PCM).</p>
         </div>
       </form>
     </article>
@@ -187,12 +190,13 @@
 
   function hojaTexto(d, r){
     const val = n => (d.get(n) || "").toString().trim();
-    let t = `Fecha: ${r.fecha} (hora Perú)\nProveedor: INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. (COMBOY VID) · RUC 20613238566\n\n`;
+    let t = `LIBRO DE RECLAMACIONES - HOJA DE RECLAMACIÓN N.° ${r.numero}\nFecha: ${r.fecha} (hora Perú)\nProveedor: INVERSIONES GLOBAL COMPANY ROUSVID S.A.C. (COMBOY VID) · RUC 20613238566\nDomicilio: Asoc. Viv. Taller El Nazareno Mz. A Lt. 25, Paucarpata, Arequipa\n\n`;
     t += `1. CONSUMIDOR\n${val("nombres")} · ${val("tipo_doc")} ${val("documento")}\n${val("domicilio")}\nTel. ${val("telefono")} · ${val("correo")}\n`;
     if (d.get("menor")) t += `Padre, madre o apoderado: ${val("apoderado")}\n`;
     t += `\n2. BIEN CONTRATADO\n${val("bien")}${val("monto") ? " · Monto reclamado: S/ " + val("monto") : ""}\n${val("descripcion")}\n`;
     t += `\n3. ${val("tipo").toUpperCase()}\nDetalle: ${val("detalle")}\nPedido: ${val("pedido")}\n`;
-    t += `\n4. RESPUESTA DEL PROVEEDOR\nPendiente. Plazo máximo: ${r.plazo} (15 días hábiles).`;
+    t += `\n4. OBSERVACIONES Y ACCIONES ADOPTADAS POR EL PROVEEDOR\nPendiente. Plazo máximo de respuesta: ${r.plazo} (15 días hábiles).\nFecha de comunicación de la respuesta: (pendiente)\nMedio de respuesta: correo electrónico ${val("correo")}`;
+    t += `\n\n* La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI.`;
     return t;
   }
 

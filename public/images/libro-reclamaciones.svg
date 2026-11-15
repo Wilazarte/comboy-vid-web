@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Libro de Reclamaciones">
+  <rect width="64" height="64" rx="10" fill="#fff"/>
+  <path d="M8 16c8-3 16-3 24 2v34c-8-5-16-5-24-2z" fill="#B91C1C"/>
+  <path d="M56 16c-8-3-16-3-24 2v34c8-5 16-5 24-2z" fill="#DC2626"/>
+  <path d="M13 24c5-1.5 10-1 14 1M13 30c5-1.5 10-1 14 1M13 36c5-1.5 10-1 14 1M37 25c4-2 9-2.5 14-1M37 31c4-2 9-2.5 14-1M37 37c4-2 9-2.5 14-1" stroke="#fff" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M32 18v34" stroke="#7F1D1D" stroke-width="2"/>
+</svg>

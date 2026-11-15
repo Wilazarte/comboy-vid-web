@@ -1,7 +1,8 @@
 <?php
 /**
  * COMBOY VID - Libro de Reclamaciones virtual
- * (Ley N.° 29571 y Reglamento del Libro de Reclamaciones, D.S. N.° 011-2011-PCM y modificatorias)
+ * (Ley N.° 29571 y Reglamento del Libro de Reclamaciones, D.S. N.° 011-2011-PCM,
+ *  modificado por D.S. 006-2014-PCM, 058-2017-PCM y 101-2022-PCM)
  * ----------------------------------------------------------------
  * 1) Valida la Hoja de Reclamación.
  * 2) Le asigna un número correlativo por año (000001-2026, 000002-2026...).
@@ -124,17 +125,28 @@ ftruncate($fh, 0); rewind($fh); fwrite($fh, (string)$n); fflush($fh);
 flock($fh, LOCK_UN); fclose($fh);
 $numero = str_pad((string)$n, 6, '0', STR_PAD_LEFT) . '-' . $anio;
 
-// Plazo de respuesta: 15 días hábiles (lunes a viernes; no descuenta feriados)
+// Plazo de respuesta: 15 días hábiles improrrogables (D.S. 101-2022-PCM).
+// Cuenta de lunes a viernes y descuenta los feriados nacionales del Perú.
+// ✏️ Cada año agregar los feriados del año siguiente (Jueves/Viernes Santo cambian) y los días no laborables que decrete el Gobierno.
+$FERIADOS = [
+    '2026-01-01','2026-04-02','2026-04-03','2026-05-01','2026-06-07','2026-06-29','2026-07-23','2026-07-28','2026-07-29',
+    '2026-08-06','2026-08-30','2026-10-08','2026-11-01','2026-12-08','2026-12-09','2026-12-25',
+    '2027-01-01','2027-03-25','2027-03-26','2027-05-01','2027-06-07','2027-06-29','2027-07-23','2027-07-28','2027-07-29',
+    '2027-08-06','2027-08-30','2027-10-08','2027-11-01','2027-12-08','2027-12-09','2027-12-25',
+];
 $plazo = clone $ahora; $habiles = 0;
-while ($habiles < 15) { $plazo->modify('+1 day'); if ((int)$plazo->format('N') <= 5) $habiles++; }
+while ($habiles < 15) {
+    $plazo->modify('+1 day');
+    if ((int)$plazo->format('N') <= 5 && !in_array($plazo->format('Y-m-d'), $FERIADOS, true)) $habiles++;
+}
 
 $hits[] = time();
 @file_put_contents($rl, implode("\n", $hits));
 
 // ---------- Guardar ----------
 $fila = [$numero, $ahora->format('Y-m-d H:i'), $d['tipo'], $d['nombres'], $d['tipo_doc'], $d['documento'], $d['domicilio'], $d['telefono'], $d['correo'],
-         $d['menor'] ? $d['apoderado'] : '', $d['bien'], $d['monto'], $d['descripcion'], $d['detalle'], $d['pedido'], $plazo->format('Y-m-d'), 'Pendiente', ''];
-$cab = ['Numero', 'Fecha', 'Tipo', 'Nombres', 'TipoDoc', 'Documento', 'Domicilio', 'Telefono', 'Correo', 'Apoderado', 'Bien', 'Monto', 'Descripcion', 'Detalle', 'Pedido', 'Responder hasta', 'Estado', 'Respuesta'];
+         $d['menor'] ? $d['apoderado'] : '', $d['bien'], $d['monto'], $d['descripcion'], $d['detalle'], $d['pedido'], $plazo->format('Y-m-d'), 'Pendiente', '', ''];
+$cab = ['Numero', 'Fecha', 'Tipo', 'Nombres', 'TipoDoc', 'Documento', 'Domicilio', 'Telefono', 'Correo', 'Apoderado', 'Bien', 'Monto', 'Descripcion', 'Detalle', 'Pedido', 'Responder hasta', 'Estado', 'Respuesta', 'Fecha respuesta'];
 $csv = "$base/reclamaciones.csv";
 $nuevo = !file_exists($csv);
 if ($c = @fopen($csv, 'a')) {
@@ -155,9 +167,15 @@ if ($d['menor']) $hoja .= "Menor de edad. Padre, madre o apoderado: {$d['apodera
 $hoja .= "\n2. IDENTIFICACIÓN DEL BIEN CONTRATADO\n{$d['bien']}\nMonto reclamado: " . ($d['monto'] !== '' ? 'S/ ' . $d['monto'] : '-') . "\nDescripción: {$d['descripcion']}\n";
 $hoja .= "\n3. DETALLE DE LA RECLAMACIÓN Y PEDIDO DEL CONSUMIDOR\nTipo: " . strtoupper($d['tipo']) . "\nDetalle: {$d['detalle']}\nPedido: {$d['pedido']}\n";
 $hoja .= "\n4. OBSERVACIONES Y ACCIONES ADOPTADAS POR EL PROVEEDOR\n(Pendiente. Plazo máximo de respuesta: " . $plazo->format('d/m/Y') . ", 15 días hábiles.)\n";
+$hoja .= "Fecha de comunicación de la respuesta: (pendiente)\n";
+$hoja .= "Medio de respuesta autorizado por el consumidor: correo electrónico {$d['correo']}\n";
 $hoja .= "\n* RECLAMO: disconformidad relacionada con los productos o servicios.\n* QUEJA: disconformidad no relacionada con los productos o servicios, o malestar o descontento respecto a la atención al público.\n";
 $hoja .= "La formulación del reclamo no impide acudir a otras vías de solución de controversias ni es requisito previo para interponer una denuncia ante el INDECOPI.\n";
 $hoja .= "El proveedor deberá dar respuesta al reclamo o queja en un plazo no mayor a quince (15) días hábiles improrrogables.\n";
+
+// Copia individual de cada hoja (evidencia; conservar mínimo 2 años)
+if (!@is_dir("$base/hojas")) @mkdir("$base/hojas", 0750, true);
+@file_put_contents("$base/hojas/hoja-$numero.txt", $hoja);
 
 function enviar($para, $asunto, $texto, $remite, $replyTo = '') {
     $cab  = "From: COMBOY VID Libro de Reclamaciones <$remite>\r\n";
@@ -168,7 +186,8 @@ function enviar($para, $asunto, $texto, $remite, $replyTo = '') {
 $correoLimpio = str_replace(["\r", "\n", '<', '>', '"', ','], '', $d['correo']);
 $aviso = "Nueva " . strtoupper($d['tipo']) . " registrada en el Libro de Reclamaciones virtual de comboyvid.com.\n"
        . "Debe responder al consumidor, por escrito a su correo, a más tardar el " . $plazo->format('d/m/Y') . " (15 días hábiles).\n"
-       . "Registre la respuesta en reclamaciones.csv (carpeta privada reclamaciones-comboyvid del cPanel).\n\n";
+       . "Responda con \"Responder\" a este correo (va directo al consumidor) indicando el N.° $numero, y anote la fecha y la respuesta\n"
+       . "en reclamaciones.csv (carpeta privada reclamaciones-comboyvid del cPanel). Conserve la hoja y la respuesta mínimo 2 años.\n\n";
 $ok1 = enviar($CORREO_DESTINO, "Libro de Reclamaciones N.° $numero - {$d['tipo']} - {$d['nombres']}", $aviso . $hoja, $CORREO_REMITE, $correoLimpio);
 $ok2 = enviar($correoLimpio, "Constancia de su " . strtolower($d['tipo']) . " N.° $numero - COMBOY VID",
     "Estimado(a) {$d['nombres']}:\n\nHemos recibido su " . strtolower($d['tipo']) . ". Esta es la copia de su Hoja de Reclamación. "
