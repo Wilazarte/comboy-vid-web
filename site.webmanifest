@@ -1,0 +1,12 @@
+{
+  "name": "Comboy Vid Soluciones Mineras",
+  "short_name": "Comboy Vid",
+  "icons": [
+    { "src": "/favicon-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon-512x512.png", "sizes": "512x512", "type": "image/png" }
+  ],
+  "theme_color": "#141F2C",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/"
+}
